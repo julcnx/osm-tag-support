@@ -1,0 +1,428 @@
+engine_id: osrm
+capability_id: routing
+engine_meta:
+  website: https://project-osrm.org
+  repository: https://github.com/Project-OSRM/osrm-backend
+  issues: https://github.com/Project-OSRM/osrm-backend/issues
+spec_status: full
+coverage_scope: Exhaustive for OSRM profiles car, bicycle, and foot.
+notes:
+  - Uses shared WayHandlers.surface logic across all profiles.
+profiles:
+  - profile_id: car
+    mode: car
+    tags:
+      - tag_key: surface
+        support_level: direct
+        effect_types: [speed_cap]
+        precedence_order: [surface, tracktype, smoothness]
+        value_rules:
+          - tag_value: asphalt
+            effect_kind: speed_cap_kmh
+            effect_value: no_limit
+            direction: both
+          - tag_value: concrete
+            effect_kind: speed_cap_kmh
+            effect_value: no_limit
+            direction: both
+          - tag_value: concrete:plates
+            effect_kind: speed_cap_kmh
+            effect_value: no_limit
+            direction: both
+          - tag_value: concrete:lanes
+            effect_kind: speed_cap_kmh
+            effect_value: no_limit
+            direction: both
+          - tag_value: paved
+            effect_kind: speed_cap_kmh
+            effect_value: no_limit
+            direction: both
+          - tag_value: cement
+            effect_kind: speed_cap_kmh
+            effect_value: "80"
+            direction: both
+          - tag_value: compacted
+            effect_kind: speed_cap_kmh
+            effect_value: "80"
+            direction: both
+          - tag_value: fine_gravel
+            effect_kind: speed_cap_kmh
+            effect_value: "80"
+            direction: both
+          - tag_value: paving_stones
+            effect_kind: speed_cap_kmh
+            effect_value: "60"
+            direction: both
+          - tag_value: metal
+            effect_kind: speed_cap_kmh
+            effect_value: "60"
+            direction: both
+          - tag_value: bricks
+            effect_kind: speed_cap_kmh
+            effect_value: "60"
+            direction: both
+          - tag_value: grass
+            effect_kind: speed_cap_kmh
+            effect_value: "40"
+            direction: both
+          - tag_value: wood
+            effect_kind: speed_cap_kmh
+            effect_value: "40"
+            direction: both
+          - tag_value: sett
+            effect_kind: speed_cap_kmh
+            effect_value: "40"
+            direction: both
+          - tag_value: grass_paver
+            effect_kind: speed_cap_kmh
+            effect_value: "40"
+            direction: both
+          - tag_value: gravel
+            effect_kind: speed_cap_kmh
+            effect_value: "40"
+            direction: both
+          - tag_value: unpaved
+            effect_kind: speed_cap_kmh
+            effect_value: "40"
+            direction: both
+          - tag_value: ground
+            effect_kind: speed_cap_kmh
+            effect_value: "40"
+            direction: both
+          - tag_value: dirt
+            effect_kind: speed_cap_kmh
+            effect_value: "40"
+            direction: both
+          - tag_value: pebblestone
+            effect_kind: speed_cap_kmh
+            effect_value: "40"
+            direction: both
+          - tag_value: tartan
+            effect_kind: speed_cap_kmh
+            effect_value: "40"
+            direction: both
+          - tag_value: cobblestone
+            effect_kind: speed_cap_kmh
+            effect_value: "30"
+            direction: both
+          - tag_value: clay
+            effect_kind: speed_cap_kmh
+            effect_value: "30"
+            direction: both
+          - tag_value: earth
+            effect_kind: speed_cap_kmh
+            effect_value: "20"
+            direction: both
+          - tag_value: stone
+            effect_kind: speed_cap_kmh
+            effect_value: "20"
+            direction: both
+          - tag_value: rocky
+            effect_kind: speed_cap_kmh
+            effect_value: "20"
+            direction: both
+          - tag_value: sand
+            effect_kind: speed_cap_kmh
+            effect_value: "20"
+            direction: both
+          - tag_value: mud
+            effect_kind: speed_cap_kmh
+            effect_value: "10"
+            direction: both
+          - tag_value: ice
+            effect_kind: speed_cap_kmh
+            effect_value: "20"
+            direction: both
+          - tag_value: snow
+            effect_kind: speed_cap_kmh
+            effect_value: "30"
+            direction: both
+        special_handling:
+          - Applies minimum of current speed and table value.
+          - Off-road surfaces (laterite, dirt, sand, mud) are heavily capped or absent from table, effectively discouraging their use.
+        unknown_value_behavior: ignore
+        missing_tag_behavior: none
+        hard_exclusions: []
+        value_coverage: full
+      - tag_key: tracktype
+        support_level: direct
+        effect_types: [speed_cap]
+        precedence_order: [surface, tracktype, smoothness]
+        value_rules:
+          - tag_value: grade1
+            effect_kind: speed_cap_kmh
+            effect_value: "60"
+            direction: both
+          - tag_value: grade5
+            effect_kind: speed_cap_kmh
+            effect_value: "20"
+            direction: both
+        unknown_value_behavior: ignore
+        missing_tag_behavior: none
+        hard_exclusions: []
+        value_coverage: full
+      - tag_key: smoothness
+        support_level: direct
+        effect_types: [speed_cap, access_block]
+        precedence_order: [surface, tracktype, smoothness]
+        value_rules:
+          - tag_value: intermediate
+            effect_kind: speed_cap_kmh
+            effect_value: "80"
+            direction: both
+          - tag_value: bad
+            effect_kind: speed_cap_kmh
+            effect_value: "40"
+            direction: both
+          - tag_value: very_bad
+            effect_kind: speed_cap_kmh
+            effect_value: "20"
+            direction: both
+          - tag_value: horrible
+            effect_kind: speed_cap_kmh
+            effect_value: "10"
+            direction: both
+          - tag_value: very_horrible
+            effect_kind: speed_cap_kmh
+            effect_value: "5"
+            direction: both
+          - tag_value: impassable
+            effect_kind: speed_cap_kmh
+            effect_value: "0"
+            direction: both
+        special_handling:
+          - impassable effectively blocks use through zero speed cap.
+        unknown_value_behavior: ignore
+        missing_tag_behavior: none
+        hard_exclusions: [impassable]
+        value_coverage: full
+    evidence:
+      - file: sources/osrm-backend/profiles/lib/way_handlers.lua
+        line: 376
+        summary: Reads surface, tracktype, smoothness and applies math.min speed caps.
+        confidence: high
+      - file: sources/osrm-backend/profiles/car.lua
+        line: 243
+        summary: surface_speeds table for car profile.
+        confidence: high
+      - file: sources/osrm-backend/profiles/car.lua
+        line: 285
+        summary: tracktype_speeds table for car profile.
+        confidence: high
+      - file: sources/osrm-backend/profiles/car.lua
+        line: 294
+        summary: smoothness_speeds table for car profile.
+        confidence: high
+    verified_on: 2026-06-07
+
+  - profile_id: bicycle
+    mode: bicycle
+    tags:
+      - tag_key: surface
+        support_level: direct
+        effect_types: [speed_cap]
+        precedence_order: [surface, tracktype, smoothness]
+        value_rules:
+          - tag_value: asphalt
+            effect_kind: speed_cap_kmh
+            effect_value: default_speed
+            direction: both
+          - tag_value: chipseal
+            effect_kind: speed_cap_kmh
+            effect_value: default_speed
+            direction: both
+          - tag_value: concrete
+            effect_kind: speed_cap_kmh
+            effect_value: default_speed
+            direction: both
+          - tag_value: concrete_lanes
+            effect_kind: speed_cap_kmh
+            effect_value: default_speed
+            direction: both
+          - tag_value: wood
+            effect_kind: speed_cap_kmh
+            effect_value: "10"
+            direction: both
+          - tag_value: metal
+            effect_kind: speed_cap_kmh
+            effect_value: "10"
+            direction: both
+          - tag_value: cobblestone:flattened
+            effect_kind: speed_cap_kmh
+            effect_value: "10"
+            direction: both
+          - tag_value: paving_stones
+            effect_kind: speed_cap_kmh
+            effect_value: "10"
+            direction: both
+          - tag_value: compacted
+            effect_kind: speed_cap_kmh
+            effect_value: "10"
+            direction: both
+          - tag_value: cobblestone
+            effect_kind: speed_cap_kmh
+            effect_value: "7"
+            direction: both
+          - tag_value: unpaved
+            effect_kind: speed_cap_kmh
+            effect_value: "6"
+            direction: both
+          - tag_value: fine_gravel
+            effect_kind: speed_cap_kmh
+            effect_value: "10"
+            direction: both
+          - tag_value: mud
+            effect_kind: speed_cap_kmh
+            effect_value: "3"
+            direction: both
+          - tag_value: gravel
+            effect_kind: speed_cap_kmh
+            effect_value: "6"
+            direction: both
+          - tag_value: pebblestone
+            effect_kind: speed_cap_kmh
+            effect_value: "6"
+            direction: both
+          - tag_value: grass_paver
+            effect_kind: speed_cap_kmh
+            effect_value: "6"
+            direction: both
+          - tag_value: ground
+            effect_kind: speed_cap_kmh
+            effect_value: "10"
+            direction: both
+          - tag_value: dirt
+            effect_kind: speed_cap_kmh
+            effect_value: "8"
+            direction: both
+          - tag_value: earth
+            effect_kind: speed_cap_kmh
+            effect_value: "6"
+            direction: both
+          - tag_value: grass
+            effect_kind: speed_cap_kmh
+            effect_value: "6"
+            direction: both
+          - tag_value: sand
+            effect_kind: speed_cap_kmh
+            effect_value: "3"
+            direction: both
+          - tag_value: woodchips
+            effect_kind: speed_cap_kmh
+            effect_value: "3"
+            direction: both
+          - tag_value: sett
+            effect_kind: speed_cap_kmh
+            effect_value: "9"
+            direction: both
+        unknown_value_behavior: ignore
+        missing_tag_behavior: profile_default
+        hard_exclusions: []
+        value_coverage: full
+      - tag_key: tracktype
+        support_level: direct
+        effect_types: [speed_cap]
+        precedence_order: [surface, tracktype, smoothness]
+        value_rules: []
+        special_handling:
+          - Handler runs but table is empty in current default bicycle profile.
+        unknown_value_behavior: ignore
+        missing_tag_behavior: none
+        hard_exclusions: []
+        value_coverage: full
+      - tag_key: smoothness
+        support_level: direct
+        effect_types: [speed_cap]
+        precedence_order: [surface, tracktype, smoothness]
+        value_rules: []
+        special_handling:
+          - Handler runs but table is empty in current default bicycle profile.
+        unknown_value_behavior: ignore
+        missing_tag_behavior: none
+        hard_exclusions: []
+        value_coverage: full
+    evidence:
+      - file: sources/osrm-backend/profiles/lib/way_handlers.lua
+        line: 376
+        summary: Shared surface handler applies all three tags when profile tables exist.
+        confidence: high
+      - file: sources/osrm-backend/profiles/bicycle.lua
+        line: 183
+        summary: bicycle surface_speeds table.
+        confidence: high
+      - file: sources/osrm-backend/profiles/bicycle.lua
+        line: 219
+        summary: bicycle tracktype_speeds is empty; smoothness_speeds is empty.
+        confidence: high
+    verified_on: 2026-06-07
+
+  - profile_id: foot
+    mode: foot
+    tags:
+      - tag_key: surface
+        support_level: direct
+        effect_types: [speed_cap]
+        precedence_order: [surface, tracktype, smoothness]
+        value_rules:
+          - tag_value: fine_gravel
+            effect_kind: speed_cap_kmh
+            effect_value: walking_speed*0.75
+            direction: both
+          - tag_value: gravel
+            effect_kind: speed_cap_kmh
+            effect_value: walking_speed*0.75
+            direction: both
+          - tag_value: pebblestone
+            effect_kind: speed_cap_kmh
+            effect_value: walking_speed*0.75
+            direction: both
+          - tag_value: mud
+            effect_kind: speed_cap_kmh
+            effect_value: walking_speed*0.5
+            direction: both
+          - tag_value: sand
+            effect_kind: speed_cap_kmh
+            effect_value: walking_speed*0.5
+            direction: both
+        unknown_value_behavior: ignore
+        missing_tag_behavior: profile_default
+        hard_exclusions: []
+        value_coverage: full
+      - tag_key: tracktype
+        support_level: direct
+        effect_types: [speed_cap]
+        precedence_order: [surface, tracktype, smoothness]
+        value_rules: []
+        special_handling:
+          - Handler runs but table is empty in current default foot profile.
+        unknown_value_behavior: ignore
+        missing_tag_behavior: none
+        hard_exclusions: []
+        value_coverage: full
+      - tag_key: smoothness
+        support_level: direct
+        effect_types: [speed_cap]
+        precedence_order: [surface, tracktype, smoothness]
+        value_rules: []
+        special_handling:
+          - Handler runs but table is empty in current default foot profile.
+        unknown_value_behavior: ignore
+        missing_tag_behavior: none
+        hard_exclusions: []
+        value_coverage: full
+    evidence:
+      - file: sources/osrm-backend/profiles/lib/way_handlers.lua
+        line: 376
+        summary: Shared surface handler applies all three tags when profile tables exist.
+        confidence: high
+      - file: sources/osrm-backend/profiles/foot.lua
+        line: 126
+        summary: foot surface_speeds table.
+        confidence: high
+      - file: sources/osrm-backend/profiles/foot.lua
+        line: 134
+        summary: foot tracktype_speeds and smoothness_speeds are empty.
+        confidence: high
+    verified_on: 2026-06-07
+
+verified_on: 2026-06-07

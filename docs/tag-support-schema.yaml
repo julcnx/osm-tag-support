@@ -1,0 +1,256 @@
+schema_version: 2
+title: OSM Tag Support Documentation Schema
+description: >
+  Normalized schema for documenting how routing engines handle OSM tags.
+  Supports profile-file engines, code-driven engines, and SQL-defined engines.
+
+document_shapes:
+  - single_profile_record
+  - router_with_profiles
+
+compatibility:
+  - v1 single-profile files remain valid.
+  - v2 adds router_with_profiles for documenting many profiles in one file.
+
+enums:
+  spec_status:
+    - example
+    - draft_partial
+    - full
+  support_level:
+    - direct
+    - derived
+    - profile_dependent
+    - user_defined_only
+  effect_type:
+    - speed_cap
+    - speed_factor
+    - priority_factor
+    - access_block
+    - route_preference
+    - inferred_fallback
+  unknown_value_behavior:
+    - ignore
+    - fallback_default
+    - worst_case
+    - push_mode
+    - error
+    - user_defined
+  missing_tag_behavior:
+    - none
+    - inferred_from_other_tags
+    - inferred_from_road_class
+    - profile_default
+    - user_defined
+  confidence:
+    - high
+    - medium
+    - low
+  value_coverage:
+    - full
+    - partial
+    - none
+
+components:
+  tag_entry:
+    required:
+      - tag_key
+      - support_level
+      - effect_types
+      - unknown_value_behavior
+      - missing_tag_behavior
+    fields:
+      tag_key:
+        type: string
+        examples: [surface, smoothness, tracktype]
+      support_level:
+        type: enum
+        values_ref: enums.support_level
+      effect_types:
+        type: list
+        item:
+          type: enum
+          values_ref: enums.effect_type
+      precedence_order:
+        type: list
+        description: Ordered list of tags, strongest first.
+      value_rules:
+        type: list
+        item:
+          required:
+            - tag_value
+            - effect_kind
+            - effect_value
+          fields:
+            tag_value:
+              type: string
+            effect_kind:
+              type: string
+              examples: [speed_cap_kmh, multiply_factor, block, classify]
+            effect_value:
+              type: string
+              description: Kept as string to allow numbers and symbolic values.
+            conditions:
+              type: string
+            direction:
+              type: string
+              examples: [forward, backward, both]
+      special_handling:
+        type: list
+        item:
+          type: string
+      unknown_value_behavior:
+        type: enum
+        values_ref: enums.unknown_value_behavior
+      missing_tag_behavior:
+        type: enum
+        values_ref: enums.missing_tag_behavior
+      hard_exclusions:
+        type: list
+        item:
+          type: string
+      value_coverage:
+        type: enum
+        values_ref: enums.value_coverage
+
+  evidence_entry:
+    required:
+      - file
+      - line
+      - summary
+      - confidence
+    fields:
+      file:
+        type: string
+      line:
+        type: integer
+      summary:
+        type: string
+      confidence:
+        type: enum
+        values_ref: enums.confidence
+
+single_profile_record:
+  required:
+    - engine_id
+    - capability_id
+    - profile_id
+    - tags
+    - evidence
+    - verified_on
+  fields:
+    spec_status:
+      type: enum
+      values_ref: enums.spec_status
+    coverage_scope:
+      type: string
+      description: Declares what is exhaustive, e.g. documented profiles only.
+    engine_id:
+      type: string
+      examples: [osrm, osmand, brouter, valhalla, graphhopper, pgrouting]
+    capability_id:
+      type: string
+      examples: [routing]
+    engine_meta:
+      type: object
+      description: Links to the engine project for reference and issue reporting.
+      fields:
+        website:
+          type: string
+        repository:
+          type: string
+        issues:
+          type: string
+    profile_id:
+      type: string
+      description: Engine profile, costing mode, or SQL template identifier.
+    mode:
+      type: string
+      description: Optional transport mode or costing subtype.
+      examples: [car, bicycle, foot, road, mountain]
+    tags:
+      type: list
+      item_ref: components.tag_entry
+    notes:
+      type: list
+      item:
+        type: string
+    evidence:
+      type: list
+      item_ref: components.evidence_entry
+    verified_on:
+      type: string
+      description: ISO date, YYYY-MM-DD.
+
+router_with_profiles:
+  required:
+    - engine_id
+    - capability_id
+    - profiles
+    - verified_on
+  fields:
+    spec_status:
+      type: enum
+      values_ref: enums.spec_status
+    coverage_scope:
+      type: string
+      description: Declares what is exhaustive, e.g. documented profiles only.
+    engine_id:
+      type: string
+      examples: [osrm, osmand, brouter, valhalla, graphhopper, pgrouting]
+    capability_id:
+      type: string
+      examples: [routing]
+    engine_meta:
+      type: object
+      description: Links to the engine project for reference and issue reporting.
+      fields:
+        website:
+          type: string
+          description: Official project website URL.
+        repository:
+          type: string
+          description: Source code repository URL.
+        issues:
+          type: string
+          description: Issue tracker URL.
+    notes:
+      type: list
+      item:
+        type: string
+    tags_default:
+      type: list
+      description: Optional defaults inherited by each profile unless overridden.
+      item_ref: components.tag_entry
+    profiles:
+      type: list
+      item:
+        required:
+          - profile_id
+          - tags
+          - evidence
+        fields:
+          profile_id:
+            type: string
+          mode:
+            type: string
+          tags:
+            type: list
+            item_ref: components.tag_entry
+          notes:
+            type: list
+            item:
+              type: string
+          evidence:
+            type: list
+            item_ref: components.evidence_entry
+          verified_on:
+            type: string
+            description: Optional profile-level override date.
+    evidence:
+      type: list
+      description: Optional engine-level evidence.
+      item_ref: components.evidence_entry
+    verified_on:
+      type: string
+      description: ISO date, YYYY-MM-DD.

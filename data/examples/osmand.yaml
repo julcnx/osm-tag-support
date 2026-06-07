@@ -1,0 +1,219 @@
+engine_id: osmand
+capability_id: routing
+engine_meta:
+  website: https://osmand.net
+  repository: https://github.com/osmandapp/OsmAnd-resources
+  issues: https://github.com/osmandapp/OsmAnd/issues
+spec_status: draft_partial
+coverage_scope: Partial for off-road relevant profiles bicycle and pedestrian.
+notes:
+  - Rule values are declarative but distributed across profile sections and parameter branches.
+profiles:
+  - profile_id: bicycle
+    mode: bicycle
+    tags:
+      - tag_key: surface
+        support_level: profile_dependent
+        effect_types: [priority_factor, route_preference]
+        precedence_order:
+          [profile_branch, highway, surface, smoothness, tracktype]
+        value_rules:
+          - tag_value: asphalt
+            effect_kind: multiply_factor
+            effect_value: "1.35"
+          - tag_value: chipseal
+            effect_kind: multiply_factor
+            effect_value: "1.35"
+          - tag_value: paved
+            effect_kind: multiply_factor
+            effect_value: "1.35"
+          - tag_value: concrete
+            effect_kind: multiply_factor
+            effect_value: "1.35"
+          - tag_value: paving_stones
+            effect_kind: multiply_factor
+            effect_value: "1.30"
+          - tag_value: compacted
+            effect_kind: multiply_factor
+            effect_value: "1.1"
+          - tag_value: fine_gravel
+            effect_kind: multiply_factor
+            effect_value: "1.1"
+          - tag_value: wood
+            effect_kind: multiply_factor
+            effect_value: "1.0"
+          - tag_value: sett
+            effect_kind: multiply_factor
+            effect_value: "0.7"
+          - tag_value: cobblestone
+            effect_kind: multiply_factor
+            effect_value: "0.65"
+          - tag_value: unhewn_cobblestone
+            effect_kind: multiply_factor
+            effect_value: "0.5"
+          - tag_value: gravel
+            effect_kind: multiply_factor
+            effect_value: "0.9"
+          - tag_value: unpaved
+            effect_kind: multiply_factor
+            effect_value: "0.8"
+          - tag_value: earth
+            effect_kind: multiply_factor
+            effect_value: "0.75"
+          - tag_value: ground
+            effect_kind: multiply_factor
+            effect_value: "0.75"
+          - tag_value: grass
+            effect_kind: multiply_factor
+            effect_value: "0.65"
+          - tag_value: dirt
+            effect_kind: multiply_factor
+            effect_value: "0.50"
+          - tag_value: mud
+            effect_kind: multiply_factor
+            effect_value: "0.5"
+          - tag_value: sand
+            effect_kind: multiply_factor
+            effect_value: "0.45"
+        special_handling:
+          - Values represent the main bicycle routing branch; avoid_unpaved and prefer_unpaved branches alter these significantly.
+          - Some profiles use merged integrity variable derived from surface/smoothness/tracktype.
+        unknown_value_behavior: fallback_default
+        missing_tag_behavior: profile_default
+        hard_exclusions: []
+        value_coverage: partial
+      - tag_key: smoothness
+        support_level: profile_dependent
+        effect_types: [priority_factor, access_block]
+        precedence_order:
+          [profile_branch, highway, surface, smoothness, tracktype]
+        value_rules:
+          - tag_value: bad
+            effect_kind: multiply_factor
+            effect_value: "0.8"
+          - tag_value: very_bad
+            effect_kind: multiply_factor
+            effect_value: "0.5"
+          - tag_value: impassable
+            effect_kind: multiply_factor
+            effect_value: "0.05"
+        special_handling:
+          - Can be merged into osmand_highway_integrity_brouting in some logic paths.
+        unknown_value_behavior: fallback_default
+        missing_tag_behavior: profile_default
+        hard_exclusions: [impassable]
+      - tag_key: tracktype
+        support_level: profile_dependent
+        effect_types: [priority_factor, route_preference]
+        precedence_order:
+          [profile_branch, highway, surface, smoothness, tracktype]
+        value_rules:
+          - tag_value: grade1
+            effect_kind: multiply_factor
+            effect_value: "1.3"
+          - tag_value: grade4
+            effect_kind: multiply_factor
+            effect_value: "0.7"
+          - tag_value: grade5
+            effect_kind: multiply_factor
+            effect_value: "0.5"
+        special_handling:
+          - Strongly profile- and parameter-dependent.
+        unknown_value_behavior: fallback_default
+        missing_tag_behavior: profile_default
+        hard_exclusions: []
+    evidence:
+      - file: sources/OsmAnd-resources/routing/routing.xml
+        line: 358
+        summary: Documentation states merged integrity from smoothness, surface, and tracktype.
+        confidence: high
+      - file: sources/OsmAnd-resources/routing/routing.xml
+        line: 936
+        summary: Tracktype and smoothness penalty values.
+        confidence: high
+      - file: sources/OsmAnd-resources/routing/routing.xml
+        line: 948
+        summary: prefer_unpaved branch with many tracktype/surface multipliers.
+        confidence: high
+      - file: sources/OsmAnd-resources/routing/routing.xml
+        line: 1832
+        summary: Bicycle profile block with smoothness/tracktype/surface multipliers.
+        confidence: high
+    verified_on: 2026-06-07
+
+  - profile_id: pedestrian
+    mode: foot
+    tags:
+      - tag_key: surface
+        support_level: profile_dependent
+        effect_types: [priority_factor]
+        precedence_order: [profile_branch, surface]
+        value_rules:
+          - tag_value: unpaved
+            effect_kind: multiply_factor
+            effect_value: "0.1"
+          - tag_value: dirt
+            effect_kind: multiply_factor
+            effect_value: "0.1"
+          - tag_value: earth
+            effect_kind: multiply_factor
+            effect_value: "0.1"
+          - tag_value: gravel
+            effect_kind: multiply_factor
+            effect_value: "0.1"
+          - tag_value: grass
+            effect_kind: multiply_factor
+            effect_value: "0.1"
+          - tag_value: ground
+            effect_kind: multiply_factor
+            effect_value: "0.1"
+          - tag_value: mud
+            effect_kind: multiply_factor
+            effect_value: "0.1"
+          - tag_value: pebblestone
+            effect_kind: multiply_factor
+            effect_value: "0.1"
+          - tag_value: sand
+            effect_kind: multiply_factor
+            effect_value: "0.1"
+          - tag_value: compacted
+            effect_kind: multiply_factor
+            effect_value: "0.4"
+          - tag_value: fine_gravel
+            effect_kind: multiply_factor
+            effect_value: "0.4"
+        special_handling:
+          - Penalties apply only when avoid_unpaved parameter is enabled.
+        unknown_value_behavior: fallback_default
+        missing_tag_behavior: profile_default
+        hard_exclusions: []
+      - tag_key: tracktype
+        support_level: profile_dependent
+        effect_types: [priority_factor]
+        precedence_order: [profile_branch, tracktype]
+        value_rules:
+          - tag_value: grade2
+            effect_kind: multiply_factor
+            effect_value: "0.4"
+          - tag_value: grade3
+            effect_kind: multiply_factor
+            effect_value: "0.1"
+          - tag_value: grade4
+            effect_kind: multiply_factor
+            effect_value: "0.1"
+          - tag_value: grade5
+            effect_kind: multiply_factor
+            effect_value: "0.1"
+        special_handling:
+          - Penalties apply only when avoid_unpaved parameter is enabled.
+        unknown_value_behavior: fallback_default
+        missing_tag_behavior: profile_default
+        hard_exclusions: []
+    evidence:
+      - file: sources/OsmAnd-resources/routing/routing.xml
+        line: 2251
+        summary: Surface and tracktype priority factors within avoid_unpaved parameter block.
+        confidence: high
+    verified_on: 2026-06-07
+
+verified_on: 2026-06-07

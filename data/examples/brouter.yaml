@@ -1,0 +1,641 @@
+engine_id: brouter
+capability_id: routing
+engine_meta:
+  website: https://brouter.de
+  repository: https://github.com/abrensch/brouter
+  issues: https://github.com/abrensch/brouter/issues
+spec_status: draft_partial
+coverage_scope: Partial for off-road relevant profiles trekking, gravel, mtb, and hiking-mountain.
+notes:
+  - Profile behavior differs strongly between trekking, gravel, mtb, and car profiles.
+profiles:
+  - profile_id: trekking
+    mode: bicycle
+    tags:
+      - tag_key: surface
+        support_level: profile_dependent
+        effect_types: [priority_factor, route_preference]
+        precedence_order:
+          [explicit_smoothness, inferred_from_surface, inferred_from_tracktype]
+        value_rules:
+          - tag_value: paved
+            effect_kind: paved_classifier
+            effect_value: "ispaved=true"
+          - tag_value: asphalt
+            effect_kind: paved_classifier
+            effect_value: "ispaved=true"
+          - tag_value: concrete
+            effect_kind: paved_classifier
+            effect_value: "ispaved=true"
+          - tag_value: paving_stones
+            effect_kind: paved_classifier
+            effect_value: "ispaved=true"
+          - tag_value: sett
+            effect_kind: paved_classifier
+            effect_value: "ispaved=true"
+          - tag_value: fine_gravel
+            effect_kind: paved_classifier
+            effect_value: "ambiguous (not ispaved, not isunpaved)"
+          - tag_value: cobblestone
+            effect_kind: paved_classifier
+            effect_value: "ambiguous (not ispaved, not isunpaved)"
+          - tag_value: unpaved
+            effect_kind: paved_classifier
+            effect_value: "isunpaved=true"
+          - tag_value: ground
+            effect_kind: paved_classifier
+            effect_value: "isunpaved=true"
+          - tag_value: grass
+            effect_kind: paved_classifier
+            effect_value: "isunpaved=true"
+          - tag_value: dirt
+            effect_kind: paved_classifier
+            effect_value: "isunpaved=true"
+          - tag_value: earth
+            effect_kind: paved_classifier
+            effect_value: "isunpaved=true"
+          - tag_value: mud
+            effect_kind: paved_classifier
+            effect_value: "isunpaved=true"
+          - tag_value: clay
+            effect_kind: paved_classifier
+            effect_value: "isunpaved=true"
+          - tag_value: sand
+            effect_kind: paved_classifier
+            effect_value: "isunpaved=true"
+          - tag_value: gravel
+            effect_kind: paved_classifier
+            effect_value: "isunpaved=true"
+          - tag_value: pebblestone
+            effect_kind: paved_classifier
+            effect_value: "isunpaved=true"
+          - tag_value: grass_paver
+            effect_kind: paved_classifier
+            effect_value: "isunpaved=true"
+          - tag_value: wood
+            effect_kind: paved_classifier
+            effect_value: "isunpaved=true"
+          - tag_value: metal
+            effect_kind: paved_classifier
+            effect_value: "isunpaved=true"
+        special_handling:
+          - ispaved drives 1.1x cost on residential/service; isunpaved drives 1.5-1.6x.
+          - Surface also used to estimate smoothness when smoothness tag is absent.
+        unknown_value_behavior: fallback_default
+        missing_tag_behavior: inferred_from_other_tags
+        hard_exclusions: []
+      - tag_key: smoothness
+        support_level: profile_dependent
+        effect_types: [speed_factor, priority_factor, access_block]
+        precedence_order: [smoothness, surface, tracktype, highway]
+        value_rules:
+          - tag_value: bad
+            effect_kind: multiply_factor
+            effect_value: "1.5 to 2.5"
+          - tag_value: horrible
+            effect_kind: multiply_factor
+            effect_value: "8.0 to 9.8"
+          - tag_value: impassable
+            effect_kind: multiply_factor
+            effect_value: "100 to 200"
+        special_handling:
+          - Wet-condition switches alter penalties.
+        unknown_value_behavior: fallback_default
+        missing_tag_behavior: inferred_from_other_tags
+        hard_exclusions: [impassable]
+      - tag_key: tracktype
+        support_level: profile_dependent
+        effect_types: [priority_factor, route_preference]
+        precedence_order: [tracktype, probablyGood, highway]
+        value_rules:
+          - tag_value: grade1
+            effect_kind: multiply_factor
+            effect_value: "1.0 to 1.3"
+          - tag_value: grade3
+            effect_kind: multiply_factor
+            effect_value: "1.5 to 3.0"
+          - tag_value: grade5
+            effect_kind: multiply_factor
+            effect_value: "3.0 to 5.0"
+        special_handling:
+          - Tracktype often drives penalties on track/path/footway classes.
+        unknown_value_behavior: fallback_default
+        missing_tag_behavior: inferred_from_other_tags
+        hard_exclusions: []
+    evidence:
+      - file: sources/brouter/misc/profiles2/trekking.brf
+        line: 100
+        summary: ispaved and isunpaved derived from surface and smoothness.
+        confidence: high
+      - file: sources/brouter/misc/profiles2/trekking.brf
+        line: 329
+        summary: tracktype-based penalties for track-like ways.
+        confidence: high
+    verified_on: 2026-06-07
+
+  - profile_id: gravel
+    mode: bicycle
+    tags:
+      - tag_key: surface
+        support_level: profile_dependent
+        effect_types: [speed_factor, priority_factor, route_preference]
+        precedence_order: [smoothness, surface, tracktype, highway]
+        value_rules:
+          - tag_value: asphalt
+            effect_kind: smoothness_estimate
+            effect_value: "1.1 dry / 1.1 wet"
+          - tag_value: fine_gravel
+            effect_kind: smoothness_estimate
+            effect_value: "1.2 dry / 1.2 wet"
+          - tag_value: compacted
+            effect_kind: smoothness_estimate
+            effect_value: "1.2 dry / 1.2 wet"
+          - tag_value: concrete
+            effect_kind: smoothness_estimate
+            effect_value: "1.3 dry / 1.3 wet"
+          - tag_value: paving_stones
+            effect_kind: smoothness_estimate
+            effect_value: "1.3 dry / 1.3 wet"
+          - tag_value: paved
+            effect_kind: smoothness_estimate
+            effect_value: "1.4 dry / 1.4 wet"
+          - tag_value: gravel
+            effect_kind: smoothness_estimate
+            effect_value: "1.5 dry / 1.5 wet"
+          - tag_value: wood
+            effect_kind: smoothness_estimate
+            effect_value: "1.6 dry / 2.0 wet"
+          - tag_value: metal
+            effect_kind: smoothness_estimate
+            effect_value: "1.6 dry / 2.0 wet"
+          - tag_value: cobblestone
+            effect_kind: smoothness_estimate
+            effect_value: "1.7 dry / 2.5 wet"
+          - tag_value: sett
+            effect_kind: smoothness_estimate
+            effect_value: "1.7 dry / 2.5 wet"
+          - tag_value: grass_paver
+            effect_kind: smoothness_estimate
+            effect_value: "1.8 dry / 2.2 wet"
+          - tag_value: pebblestone
+            effect_kind: smoothness_estimate
+            effect_value: "1.9 dry / 2.8 wet"
+          - tag_value: unpaved
+            effect_kind: smoothness_estimate
+            effect_value: "1.6 dry / 3.0 wet"
+          - tag_value: ground
+            effect_kind: smoothness_estimate
+            effect_value: "2.6 dry / 4.0 wet"
+          - tag_value: grass
+            effect_kind: smoothness_estimate
+            effect_value: "2.6 dry / 4.0 wet"
+          - tag_value: dirt
+            effect_kind: smoothness_estimate
+            effect_value: "2.6 dry / 4.0 wet"
+          - tag_value: earth
+            effect_kind: smoothness_estimate
+            effect_value: "2.6 dry / 4.0 wet"
+          - tag_value: mud
+            effect_kind: smoothness_estimate
+            effect_value: "2.6 dry / 4.0 wet"
+          - tag_value: clay
+            effect_kind: smoothness_estimate
+            effect_value: "2.6 dry / 4.0 wet"
+          - tag_value: sand
+            effect_kind: smoothness_estimate
+            effect_value: "2.6 dry / 4.0 wet"
+        special_handling:
+          - Applied only when smoothness tag is absent.
+          - has_decent_surface (asphalt, concrete, paved, paving_stones, fine_gravel, compacted) also gates steep-track penalties.
+          - Values represent cost multipliers: higher = worse.
+        unknown_value_behavior: fallback_default
+        missing_tag_behavior: inferred_from_other_tags
+        hard_exclusions: []
+      - tag_key: smoothness
+        support_level: profile_dependent
+        effect_types: [speed_factor, priority_factor, access_block]
+        precedence_order: [smoothness, surface, tracktype, highway]
+        value_rules:
+          - tag_value: bad
+            effect_kind: multiply_factor
+            effect_value: "1.5 to 2.5"
+          - tag_value: very_horrible
+            effect_kind: multiply_factor
+            effect_value: "9.4 to 100"
+          - tag_value: impassable
+            effect_kind: multiply_factor
+            effect_value: "100 to 200"
+        special_handling:
+          - Wet-condition switches alter penalties.
+        unknown_value_behavior: fallback_default
+        missing_tag_behavior: inferred_from_other_tags
+        hard_exclusions: [impassable]
+      - tag_key: tracktype
+        support_level: profile_dependent
+        effect_types: [priority_factor, route_preference]
+        precedence_order: [smoothness, surface, tracktype, highway]
+        value_rules:
+          - tag_value: grade1
+            effect_kind: multiply_factor
+            effect_value: "1.0 to 1.1"
+          - tag_value: grade5
+            effect_kind: multiply_factor
+            effect_value: "1.8 to 5.0"
+        special_handling:
+          - Used directly in tracktypepenalty and to estimate smoothness when missing.
+        unknown_value_behavior: fallback_default
+        missing_tag_behavior: inferred_from_other_tags
+        hard_exclusions: []
+    evidence:
+      - file: sources/brouter/misc/profiles2/gravel.brf
+        line: 85
+        summary: smoothness penalty table and wet-condition branches.
+        confidence: high
+      - file: sources/brouter/misc/profiles2/gravel.brf
+        line: 114
+        summary: smoothness estimation from tracktype.
+        confidence: high
+      - file: sources/brouter/misc/profiles2/gravel.brf
+        line: 162
+        summary: explicit tracktypepenalty values by grade.
+        confidence: high
+    verified_on: 2026-06-07
+
+  - profile_id: mtb
+    mode: bicycle
+    tags:
+      - tag_key: surface
+        support_level: profile_dependent
+        effect_types: [priority_factor]
+        precedence_order: [surface, smoothness, tracktype]
+        value_rules:
+          - tag_value: asphalt
+            effect_kind: penalty_factor
+            effect_value: "0.0"
+          - tag_value: paved
+            effect_kind: penalty_factor
+            effect_value: "0.0"
+          - tag_value: concrete
+            effect_kind: penalty_factor
+            effect_value: "0.2"
+          - tag_value: paving_stones
+            effect_kind: penalty_factor
+            effect_value: "0.2"
+          - tag_value: sett
+            effect_kind: penalty_factor
+            effect_value: "0.4"
+          - tag_value: compacted
+            effect_kind: penalty_factor
+            effect_value: "0.4"
+          - tag_value: cobblestone
+            effect_kind: penalty_factor
+            effect_value: "0.6"
+          - tag_value: ground
+            effect_kind: penalty_factor
+            effect_value: "0.6"
+          - tag_value: earth
+            effect_kind: penalty_factor
+            effect_value: "0.6"
+          - tag_value: unpaved
+            effect_kind: penalty_factor
+            effect_value: "0.6"
+          - tag_value: dirt
+            effect_kind: penalty_factor
+            effect_value: "0.6"
+          - tag_value: fine_gravel
+            effect_kind: penalty_factor
+            effect_value: "0.6"
+          - tag_value: grass
+            effect_kind: penalty_factor
+            effect_value: "1.0"
+          - tag_value: sand
+            effect_kind: penalty_factor
+            effect_value: "1.0"
+          - tag_value: gravel
+            effect_kind: penalty_factor
+            effect_value: "1.5"
+          - tag_value: pebblestone
+            effect_kind: penalty_factor
+            effect_value: "1.5"
+        special_handling:
+          - Additive cost penalty; higher values increase route cost.
+        unknown_value_behavior: fallback_default
+        missing_tag_behavior: inferred_from_other_tags
+        hard_exclusions: []
+      - tag_key: smoothness
+        support_level: profile_dependent
+        effect_types: [priority_factor, access_block]
+        precedence_order: [smoothness, surface, tracktype]
+        value_rules:
+          - tag_value: excellent
+            effect_kind: penalty_factor
+            effect_value: "0.0"
+          - tag_value: very_good
+            effect_kind: penalty_factor
+            effect_value: "0.0"
+          - tag_value: good
+            effect_kind: penalty_factor
+            effect_value: "0.0"
+          - tag_value: intermediate
+            effect_kind: penalty_factor
+            effect_value: "0.2"
+          - tag_value: bad
+            effect_kind: penalty_factor
+            effect_value: "0.5"
+          - tag_value: very_bad
+            effect_kind: penalty_factor
+            effect_value: "1.2"
+          - tag_value: horrible
+            effect_kind: penalty_factor
+            effect_value: "2.5"
+          - tag_value: very_horrible
+            effect_kind: penalty_factor
+            effect_value: "5.0"
+          - tag_value: impassable
+            effect_kind: penalty_factor
+            effect_value: "10.0"
+        special_handling:
+          - Applied only when consider_smoothness=1 (default).
+        unknown_value_behavior: fallback_default
+        missing_tag_behavior: inferred_from_other_tags
+        hard_exclusions: [impassable]
+      - tag_key: tracktype
+        support_level: profile_dependent
+        effect_types: [priority_factor]
+        precedence_order: [tracktype, surface, highway]
+        value_rules:
+          - tag_value: grade1
+            effect_kind: penalty_factor
+            effect_value: "0.0"
+          - tag_value: grade2
+            effect_kind: penalty_factor
+            effect_value: "0.4"
+          - tag_value: grade3
+            effect_kind: penalty_factor
+            effect_value: "0.7"
+          - tag_value: grade4
+            effect_kind: penalty_factor
+            effect_value: "0.9"
+          - tag_value: grade5
+            effect_kind: penalty_factor
+            effect_value: "1.0"
+        unknown_value_behavior: fallback_default
+        missing_tag_behavior: inferred_from_other_tags
+        hard_exclusions: []
+      - tag_key: mtb:scale
+        support_level: direct
+        effect_types: [priority_factor, access_block]
+        precedence_order: [mtb:scale]
+        value_rules:
+          - tag_value: "0"
+            effect_kind: penalty_factor
+            effect_value: "0.0"
+          - tag_value: "0+"
+            effect_kind: penalty_factor
+            effect_value: "0.3"
+          - tag_value: "1-"
+            effect_kind: penalty_factor
+            effect_value: "0.7"
+          - tag_value: "1"
+            effect_kind: penalty_factor
+            effect_value: "1.2"
+          - tag_value: "1+"
+            effect_kind: penalty_factor
+            effect_value: "1.8"
+          - tag_value: "2-"
+            effect_kind: penalty_factor
+            effect_value: "2.5"
+          - tag_value: "2"
+            effect_kind: penalty_factor
+            effect_value: "5.0"
+          - tag_value: "2+"
+            effect_kind: penalty_factor
+            effect_value: "10.0"
+          - tag_value: "3"
+            effect_kind: penalty_factor
+            effect_value: "15.0"
+          - tag_value: "4"
+            effect_kind: penalty_factor
+            effect_value: "9000"
+          - tag_value: "5"
+            effect_kind: penalty_factor
+            effect_value: "9000"
+          - tag_value: "6"
+            effect_kind: penalty_factor
+            effect_value: "9000"
+        special_handling:
+          - Values 4-6 effectively block the route (penalty 9000).
+          - Profile comment notes this tuning targets trekking bikes, not true MTB.
+        unknown_value_behavior: fallback_default
+        missing_tag_behavior: none
+        hard_exclusions: ["4", "5", "6"]
+    evidence:
+      - file: sources/brouter/misc/profiles2/mtb.brf
+        line: 285
+        summary: Smoothness penalty table controlled by consider_smoothness flag.
+        confidence: high
+      - file: sources/brouter/misc/profiles2/mtb.brf
+        line: 363
+        summary: Tracktype penalty table grade1-5.
+        confidence: high
+      - file: sources/brouter/misc/profiles2/mtb.brf
+        line: 368
+        summary: Surface penalty table.
+        confidence: high
+      - file: sources/brouter/misc/profiles2/mtb.brf
+        line: 299
+        summary: mtb:scale penalty table; values 4+ use near-infinite block penalty.
+        confidence: high
+    verified_on: 2026-06-07
+
+  - profile_id: hiking-mountain
+    mode: foot
+    tags:
+      - tag_key: surface
+        support_level: profile_dependent
+        effect_types: [priority_factor]
+        precedence_order: [surface, tracktype]
+        value_rules:
+          - tag_value: paved
+            effect_kind: penalty_factor
+            effect_value: "0.0"
+          - tag_value: asphalt
+            effect_kind: penalty_factor
+            effect_value: "0.0"
+          - tag_value: concrete
+            effect_kind: penalty_factor
+            effect_value: "0.0"
+          - tag_value: paving_stones
+            effect_kind: penalty_factor
+            effect_value: "0.0"
+          - tag_value: cobblestone
+            effect_kind: penalty_factor
+            effect_value: "0.0"
+          - tag_value: fine_gravel
+            effect_kind: penalty_factor
+            effect_value: "0.0"
+          - tag_value: ground
+            effect_kind: penalty_factor
+            effect_value: "0.0"
+          - tag_value: earth
+            effect_kind: penalty_factor
+            effect_value: "0.0"
+          - tag_value: unpaved
+            effect_kind: penalty_factor
+            effect_value: "0.0"
+          - tag_value: grass
+            effect_kind: penalty_factor
+            effect_value: "0.0"
+          - tag_value: compacted
+            effect_kind: penalty_factor
+            effect_value: "0.0"
+          - tag_value: dirt
+            effect_kind: penalty_factor
+            effect_value: "0.1"
+          - tag_value: sand
+            effect_kind: penalty_factor
+            effect_value: "0.1"
+          - tag_value: gravel
+            effect_kind: penalty_factor
+            effect_value: "0.2"
+          - tag_value: pebblestone
+            effect_kind: penalty_factor
+            effect_value: "0.2"
+        special_handling:
+          - Applied to tracks only. Wet condition amplifies tracktype-based penalties.
+        unknown_value_behavior: fallback_default
+        missing_tag_behavior: inferred_from_other_tags
+        hard_exclusions: []
+      - tag_key: smoothness
+        support_level: derived
+        effect_types: [priority_factor]
+        precedence_order: [tracktype, wetness_condition]
+        value_rules:
+          - tag_value: grade1_wet
+            effect_kind: penalty_factor
+            effect_value: "0.1"
+          - tag_value: grade3_wet
+            effect_kind: penalty_factor
+            effect_value: "0.3"
+          - tag_value: grade5_wet
+            effect_kind: penalty_factor
+            effect_value: "1.0"
+        special_handling:
+          - Smoothness tag not used directly; wet tracktype penalty acts as proxy.
+          - Only active when iswet=1.
+        unknown_value_behavior: ignore
+        missing_tag_behavior: none
+        hard_exclusions: []
+      - tag_key: tracktype
+        support_level: direct
+        effect_types: [priority_factor]
+        precedence_order: [tracktype, surface]
+        value_rules:
+          - tag_value: grade1
+            effect_kind: penalty_factor
+            effect_value: "0.1"
+          - tag_value: grade2
+            effect_kind: penalty_factor
+            effect_value: "0.05"
+          - tag_value: grade3
+            effect_kind: penalty_factor
+            effect_value: "0.0"
+          - tag_value: grade4
+            effect_kind: penalty_factor
+            effect_value: "0.0"
+          - tag_value: grade5
+            effect_kind: penalty_factor
+            effect_value: "0.0"
+        special_handling:
+          - Applied to tracks only. Grade1 is slightly penalized as paved tracks are less desirable for hiking.
+        unknown_value_behavior: fallback_default
+        missing_tag_behavior: none
+        hard_exclusions: []
+      - tag_key: sac_scale
+        support_level: direct
+        effect_types: [priority_factor, access_block]
+        precedence_order: [sac_scale, mtb:scale_fallback]
+        value_rules:
+          - tag_value: hiking
+            effect_kind: penalty_factor
+            effect_value: "0.0 (SAC=1)"
+          - tag_value: mountain_hiking
+            effect_kind: penalty_factor
+            effect_value: "K2-based (SAC=2)"
+          - tag_value: demanding_mountain_hiking
+            effect_kind: penalty_factor
+            effect_value: "K2-based (SAC=3)"
+          - tag_value: alpine_hiking
+            effect_kind: penalty_factor
+            effect_value: "9000 at default limit (SAC=4)"
+          - tag_value: demanding_alpine_hiking
+            effect_kind: penalty_factor
+            effect_value: "9000 (SAC=5)"
+          - tag_value: difficult_alpine_hiking
+            effect_kind: penalty_factor
+            effect_value: "9000 (SAC=6)"
+        special_handling:
+          - SAC_scale_limit default 3; any SAC above limit gets access penalty 9000.
+          - Below limit, penalty uses K1=0.05 / K2=0.6 multipliers relative to SAC_scale_preferred (default 1).
+          - Falls back to mtb:scale if sac_scale absent.
+        unknown_value_behavior: fallback_default
+        missing_tag_behavior: inferred_from_other_tags
+        hard_exclusions: []
+      - tag_key: mtb:scale
+        support_level: derived
+        effect_types: [priority_factor, access_block]
+        precedence_order: [sac_scale, mtb:scale_fallback]
+        value_rules:
+          - tag_value: "0"
+            effect_kind: penalty_factor
+            effect_value: "SAC=1 equivalent"
+          - tag_value: "1"
+            effect_kind: penalty_factor
+            effect_value: "SAC=1 equivalent"
+          - tag_value: "2-"
+            effect_kind: penalty_factor
+            effect_value: "SAC=2 equivalent"
+          - tag_value: "2"
+            effect_kind: penalty_factor
+            effect_value: "SAC=2 equivalent"
+          - tag_value: "2+"
+            effect_kind: penalty_factor
+            effect_value: "SAC=2 equivalent"
+          - tag_value: "3"
+            effect_kind: penalty_factor
+            effect_value: "SAC=3 equivalent"
+          - tag_value: "4"
+            effect_kind: penalty_factor
+            effect_value: "SAC=4 equivalent"
+          - tag_value: "5"
+            effect_kind: penalty_factor
+            effect_value: "SAC=5 equivalent"
+          - tag_value: "6"
+            effect_kind: penalty_factor
+            effect_value: "SAC=5 equivalent"
+        special_handling:
+          - Used only as fallback when sac_scale is absent.
+          - Mapped to SAC levels; same K1/K2 penalty and access limit logic applies.
+        unknown_value_behavior: fallback_default
+        missing_tag_behavior: none
+        hard_exclusions: []
+    evidence:
+      - file: sources/brouter/misc/profiles2/hiking-mountain.brf
+        line: 188
+        summary: SAC variable computed from sac_scale with mtb:scale fallback mapping.
+        confidence: high
+      - file: sources/brouter/misc/profiles2/hiking-mountain.brf
+        line: 213
+        summary: SAC penalty computation using K1/K2 coefficients and configurable limit.
+        confidence: high
+      - file: sources/brouter/misc/profiles2/hiking-mountain.brf
+        line: 232
+        summary: Tracktype penalty for track ways.
+        confidence: high
+      - file: sources/brouter/misc/profiles2/hiking-mountain.brf
+        line: 238
+        summary: Surface penalty for track ways.
+        confidence: high
+    verified_on: 2026-06-07
+
+verified_on: 2026-06-07

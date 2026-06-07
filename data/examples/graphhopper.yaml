@@ -1,0 +1,467 @@
+engine_id: graphhopper
+capability_id: routing
+engine_meta:
+  website: https://www.graphhopper.com
+  repository: https://github.com/graphhopper/graphhopper
+  issues: https://github.com/graphhopper/graphhopper/issues
+spec_status: draft_partial
+coverage_scope: Partial for profiles car, bike, mtb, and hike.
+notes:
+  - Main logic is in Java tag parsers, not a single profile file.
+profiles:
+  - profile_id: car
+    mode: car
+    tags:
+      - tag_key: surface
+        support_level: direct
+        effect_types: [speed_cap]
+        precedence_order: [highway_speed, surface_cap, maxspeed]
+        value_rules:
+          - tag_value: cobblestone
+            effect_kind: speed_cap_kmh
+            effect_value: "30"
+          - tag_value: unhewn_cobblestone
+            effect_kind: speed_cap_kmh
+            effect_value: "30"
+          - tag_value: sett
+            effect_kind: speed_cap_kmh
+            effect_value: "30"
+          - tag_value: grass_paver
+            effect_kind: speed_cap_kmh
+            effect_value: "30"
+          - tag_value: gravel
+            effect_kind: speed_cap_kmh
+            effect_value: "30"
+          - tag_value: fine_gravel
+            effect_kind: speed_cap_kmh
+            effect_value: "30"
+          - tag_value: pebblestone
+            effect_kind: speed_cap_kmh
+            effect_value: "30"
+          - tag_value: sand
+            effect_kind: speed_cap_kmh
+            effect_value: "30"
+          - tag_value: paving_stones
+            effect_kind: speed_cap_kmh
+            effect_value: "30"
+          - tag_value: dirt
+            effect_kind: speed_cap_kmh
+            effect_value: "30"
+          - tag_value: earth
+            effect_kind: speed_cap_kmh
+            effect_value: "30"
+          - tag_value: ground
+            effect_kind: speed_cap_kmh
+            effect_value: "30"
+          - tag_value: wood
+            effect_kind: speed_cap_kmh
+            effect_value: "30"
+          - tag_value: grass
+            effect_kind: speed_cap_kmh
+            effect_value: "30"
+          - tag_value: unpaved
+            effect_kind: speed_cap_kmh
+            effect_value: "30"
+          - tag_value: compacted
+            effect_kind: speed_cap_kmh
+            effect_value: "30"
+        special_handling:
+          - Cap only applies when current speed exceeds 30 km/h; no effect on slow roads.
+          - Paved surfaces (asphalt, concrete, paved) are not in the bad surface set and receive no cap.
+        unknown_value_behavior: fallback_default
+        missing_tag_behavior: profile_default
+        hard_exclusions: []
+        value_coverage: full
+      - tag_key: tracktype
+        support_level: direct
+        effect_types: [speed_cap]
+        precedence_order: [tracktype_on_highway_track, highway_speed, maxspeed]
+        value_rules:
+          - tag_value: grade1
+            effect_kind: speed_cap_kmh
+            effect_value: "20"
+          - tag_value: grade3
+            effect_kind: speed_cap_kmh
+            effect_value: "10"
+        unknown_value_behavior: fallback_default
+        missing_tag_behavior: profile_default
+        hard_exclusions: []
+      - tag_key: smoothness
+        support_level: direct
+        effect_types: [speed_factor]
+        precedence_order: [parser_encoded_value, profile_use]
+        value_rules: []
+        special_handling:
+          - Parsed as encoded value but no explicit smoothness penalty table in CarAverageSpeedParser.
+        unknown_value_behavior: fallback_default
+        missing_tag_behavior: none
+        hard_exclusions: []
+    evidence:
+      - file: sources/graphhopper/core/src/main/java/com/graphhopper/routing/util/parsers/CarAverageSpeedParser.java
+        line: 110
+        summary: Tracktype speed mapping for tracks.
+        confidence: high
+      - file: sources/graphhopper/core/src/main/java/com/graphhopper/routing/util/parsers/CarAverageSpeedParser.java
+        line: 152
+        summary: Bad surface speed capping logic.
+        confidence: high
+    verified_on: 2026-06-07
+
+  - profile_id: bike
+    mode: bicycle
+    tags:
+      - tag_key: surface
+        support_level: direct
+        effect_types: [speed_cap, speed_factor, route_preference]
+        precedence_order: [surface_and_tracktype_min, smoothness_factor]
+        value_rules:
+          - tag_value: paved
+            effect_kind: speed_cap_kmh
+            effect_value: "18"
+          - tag_value: asphalt
+            effect_kind: speed_cap_kmh
+            effect_value: "18"
+          - tag_value: concrete
+            effect_kind: speed_cap_kmh
+            effect_value: "18"
+          - tag_value: concrete:lanes
+            effect_kind: speed_cap_kmh
+            effect_value: "16"
+          - tag_value: concrete:plates
+            effect_kind: speed_cap_kmh
+            effect_value: "16"
+          - tag_value: paving_stones
+            effect_kind: speed_cap_kmh
+            effect_value: "16"
+          - tag_value: paving_stones:30
+            effect_kind: speed_cap_kmh
+            effect_value: "16"
+          - tag_value: sett
+            effect_kind: speed_cap_kmh
+            effect_value: "12"
+          - tag_value: cobblestone
+            effect_kind: speed_cap_kmh
+            effect_value: "8"
+          - tag_value: cobblestone:flattened
+            effect_kind: speed_cap_kmh
+            effect_value: "10"
+          - tag_value: compacted
+            effect_kind: speed_cap_kmh
+            effect_value: "14"
+          - tag_value: fine_gravel
+            effect_kind: speed_cap_kmh
+            effect_value: "14"
+          - tag_value: pebblestone
+            effect_kind: speed_cap_kmh
+            effect_value: "14"
+          - tag_value: unpaved
+            effect_kind: speed_cap_kmh
+            effect_value: "12"
+          - tag_value: gravel
+            effect_kind: speed_cap_kmh
+            effect_value: "12"
+          - tag_value: dirt
+            effect_kind: speed_cap_kmh
+            effect_value: "10"
+          - tag_value: earth
+            effect_kind: speed_cap_kmh
+            effect_value: "10"
+          - tag_value: ground
+            effect_kind: speed_cap_kmh
+            effect_value: "10"
+          - tag_value: mud
+            effect_kind: speed_cap_kmh
+            effect_value: "10"
+          - tag_value: metal
+            effect_kind: speed_cap_kmh
+            effect_value: "10"
+          - tag_value: grass
+            effect_kind: speed_cap_kmh
+            effect_value: "8"
+          - tag_value: grass_paver
+            effect_kind: speed_cap_kmh
+            effect_value: "8"
+          - tag_value: ice
+            effect_kind: speed_cap_kmh
+            effect_value: "2"
+          - tag_value: salt
+            effect_kind: speed_cap_kmh
+            effect_value: "4"
+          - tag_value: sand
+            effect_kind: speed_cap_kmh
+            effect_value: "4"
+          - tag_value: wood
+            effect_kind: speed_cap_kmh
+            effect_value: "4"
+        special_handling:
+          - If both surface and tracktype speeds exist, takes the smaller value.
+          - Unknown surface tag triggers push_mode (PUSHING_SECTION_SPEED = 4 km/h).
+        unknown_value_behavior: push_mode
+        missing_tag_behavior: profile_default
+        hard_exclusions: []
+        value_coverage: full
+      - tag_key: smoothness
+        support_level: direct
+        effect_types: [speed_factor]
+        precedence_order: [surface_and_tracktype_min, smoothness_factor]
+        value_rules:
+          - tag_value: excellent
+            effect_kind: smoothness_factor
+            effect_value: "profile-specific > 0"
+          - tag_value: bad
+            effect_kind: smoothness_factor
+            effect_value: "profile-specific"
+          - tag_value: impassable
+            effect_kind: smoothness_factor
+            effect_value: "very low"
+        special_handling:
+          - Smoothness is encoded separately then multiplied into speed.
+        unknown_value_behavior: fallback_default
+        missing_tag_behavior: profile_default
+        hard_exclusions: []
+      - tag_key: tracktype
+        support_level: direct
+        effect_types: [speed_cap, route_preference]
+        precedence_order: [surface_and_tracktype_min, smoothness_factor]
+        value_rules:
+          - tag_value: grade1
+            effect_kind: tracktype_speed
+            effect_value: "higher"
+          - tag_value: grade4
+            effect_kind: tracktype_speed
+            effect_value: "lower"
+        unknown_value_behavior: fallback_default
+        missing_tag_behavior: profile_default
+        hard_exclusions: []
+    evidence:
+      - file: sources/graphhopper/core/src/main/java/com/graphhopper/routing/util/parsers/BikeCommonAverageSpeedParser.java
+        line: 127
+        summary: Reads surface and tracktype, merges by min speed and applies smoothness factor.
+        confidence: high
+      - file: sources/graphhopper/core/src/main/java/com/graphhopper/routing/util/parsers/BikeCommonAverageSpeedParser.java
+        line: 137
+        summary: Unknown tagged surface can force pushing speed.
+        confidence: high
+      - file: sources/graphhopper/core/src/main/java/com/graphhopper/routing/util/parsers/OSMSurfaceParser.java
+        line: 38
+        summary: Dedicated parser for surface encoded value.
+        confidence: high
+    verified_on: 2026-06-07
+
+  - profile_id: mtb
+    mode: bicycle
+    tags:
+      - tag_key: surface
+        support_level: direct
+        effect_types: [speed_cap]
+        precedence_order: [surface_and_tracktype_min, smoothness_factor]
+        value_rules:
+          - tag_value: paved
+            effect_kind: speed_cap_kmh
+            effect_value: "18"
+          - tag_value: asphalt
+            effect_kind: speed_cap_kmh
+            effect_value: "18"
+          - tag_value: concrete
+            effect_kind: speed_cap_kmh
+            effect_value: "18"
+          - tag_value: concrete:lanes
+            effect_kind: speed_cap_kmh
+            effect_value: "16"
+          - tag_value: concrete:plates
+            effect_kind: speed_cap_kmh
+            effect_value: "16"
+          - tag_value: paving_stones
+            effect_kind: speed_cap_kmh
+            effect_value: "16"
+          - tag_value: paving_stones:30
+            effect_kind: speed_cap_kmh
+            effect_value: "16"
+          - tag_value: sett
+            effect_kind: speed_cap_kmh
+            effect_value: "12"
+          - tag_value: cobblestone
+            effect_kind: speed_cap_kmh
+            effect_value: "8"
+          - tag_value: cobblestone:flattened
+            effect_kind: speed_cap_kmh
+            effect_value: "10"
+          - tag_value: unpaved
+            effect_kind: speed_cap_kmh
+            effect_value: "12"
+          - tag_value: compacted
+            effect_kind: speed_cap_kmh
+            effect_value: "16"
+          - tag_value: fine_gravel
+            effect_kind: speed_cap_kmh
+            effect_value: "16"
+          - tag_value: gravel
+            effect_kind: speed_cap_kmh
+            effect_value: "16"
+          - tag_value: pebblestone
+            effect_kind: speed_cap_kmh
+            effect_value: "16"
+          - tag_value: dirt
+            effect_kind: speed_cap_kmh
+            effect_value: "14"
+          - tag_value: earth
+            effect_kind: speed_cap_kmh
+            effect_value: "14"
+          - tag_value: ground
+            effect_kind: speed_cap_kmh
+            effect_value: "14"
+          - tag_value: mud
+            effect_kind: speed_cap_kmh
+            effect_value: "10"
+          - tag_value: metal
+            effect_kind: speed_cap_kmh
+            effect_value: "10"
+          - tag_value: grass
+            effect_kind: speed_cap_kmh
+            effect_value: "12"
+          - tag_value: grass_paver
+            effect_kind: speed_cap_kmh
+            effect_value: "12"
+          - tag_value: ice
+            effect_kind: speed_cap_kmh
+            effect_value: "2"
+          - tag_value: salt
+            effect_kind: speed_cap_kmh
+            effect_value: "4"
+          - tag_value: sand
+            effect_kind: speed_cap_kmh
+            effect_value: "4"
+          - tag_value: wood
+            effect_kind: speed_cap_kmh
+            effect_value: "4"
+        special_handling:
+          - MTB overrides base bike for soft surfaces: dirt/earth/ground=14 (vs 10), gravel/fine_gravel/pebblestone/compacted=16 (vs 12-14), grass/grass_paver=12 (vs 8).
+          - All other values inherited from BikeCommonAverageSpeedParser.
+          - If both surface and tracktype speeds exist, takes the smaller value.
+          - Unknown surface tag triggers push_mode (PUSHING_SECTION_SPEED = 4 km/h).
+        unknown_value_behavior: push_mode
+        missing_tag_behavior: profile_default
+        hard_exclusions: []
+        value_coverage: full
+      - tag_key: smoothness
+        support_level: direct
+        effect_types: [speed_factor]
+        precedence_order: [surface_and_tracktype_min, smoothness_factor]
+        value_rules:
+          - tag_value: excellent
+            effect_kind: multiply_factor
+            effect_value: "1.1"
+          - tag_value: good
+            effect_kind: multiply_factor
+            effect_value: "1.0"
+          - tag_value: intermediate
+            effect_kind: multiply_factor
+            effect_value: "0.9"
+          - tag_value: bad
+            effect_kind: multiply_factor
+            effect_value: "0.7"
+          - tag_value: very_bad
+            effect_kind: multiply_factor
+            effect_value: "0.4"
+          - tag_value: horrible
+            effect_kind: multiply_factor
+            effect_value: "0.3"
+          - tag_value: very_horrible
+            effect_kind: multiply_factor
+            effect_value: "0.1"
+          - tag_value: impassable
+            effect_kind: multiply_factor
+            effect_value: "0.0"
+        special_handling:
+          - Smoothness factor multiplied against min(surface_speed, tracktype_speed).
+          - Shared table inherited from BikeCommonAverageSpeedParser.
+        unknown_value_behavior: fallback_default
+        missing_tag_behavior: profile_default
+        hard_exclusions: [impassable]
+        value_coverage: full
+      - tag_key: tracktype
+        support_level: direct
+        effect_types: [speed_cap]
+        precedence_order: [surface_and_tracktype_min, smoothness_factor]
+        value_rules:
+          - tag_value: grade1
+            effect_kind: speed_cap_kmh
+            effect_value: "18"
+          - tag_value: grade2
+            effect_kind: speed_cap_kmh
+            effect_value: "16"
+          - tag_value: grade3
+            effect_kind: speed_cap_kmh
+            effect_value: "12"
+          - tag_value: grade4
+            effect_kind: speed_cap_kmh
+            effect_value: "8"
+          - tag_value: grade5
+            effect_kind: speed_cap_kmh
+            effect_value: "4"
+        special_handling:
+          - MTB overrides base bike for grades 2 (16 vs 14) and 4 (8 vs 10).
+        unknown_value_behavior: fallback_default
+        missing_tag_behavior: profile_default
+        hard_exclusions: []
+        value_coverage: full
+    evidence:
+      - file: sources/graphhopper/core/src/main/java/com/graphhopper/routing/util/parsers/MountainBikeAverageSpeedParser.java
+        line: 17
+        summary: MTB tracktype speed overrides (grade2=16, grade4=8).
+        confidence: high
+      - file: sources/graphhopper/core/src/main/java/com/graphhopper/routing/util/parsers/MountainBikeAverageSpeedParser.java
+        line: 23
+        summary: MTB surface speed overrides for soft surfaces (dirt/earth/ground=14, gravel/compacted=16, grass=12).
+        confidence: high
+      - file: sources/graphhopper/core/src/main/java/com/graphhopper/routing/util/parsers/BikeCommonAverageSpeedParser.java
+        line: 95
+        summary: Smoothness factor table shared across all bike profiles.
+        confidence: high
+    verified_on: 2026-06-07
+
+  - profile_id: hike
+    mode: foot
+    tags:
+      - tag_key: sac_scale
+        support_level: direct
+        effect_types: [speed_cap]
+        precedence_order: [sac_scale]
+        value_rules:
+          - tag_value: hiking
+            effect_kind: speed_cap_kmh
+            effect_value: "5"
+          - tag_value: mountain_hiking
+            effect_kind: speed_cap_kmh
+            effect_value: "2"
+          - tag_value: demanding_mountain_hiking
+            effect_kind: speed_cap_kmh
+            effect_value: "2"
+          - tag_value: alpine_hiking
+            effect_kind: speed_cap_kmh
+            effect_value: "2"
+          - tag_value: demanding_alpine_hiking
+            effect_kind: speed_cap_kmh
+            effect_value: "2"
+          - tag_value: difficult_alpine_hiking
+            effect_kind: speed_cap_kmh
+            effect_value: "2"
+        special_handling:
+          - Only sac_scale=hiking keeps default speed (5 km/h); all other values drop to SLOW_SPEED (2 km/h).
+          - sac_scale also encoded as metadata rating 1-6 by OSMHikeRatingParser for custom model filtering.
+        unknown_value_behavior: fallback_default
+        missing_tag_behavior: profile_default
+        hard_exclusions: []
+        value_coverage: full
+    evidence:
+      - file: sources/graphhopper/core/src/main/java/com/graphhopper/routing/util/parsers/FootAverageSpeedParser.java
+        line: 39
+        summary: sac_scale speed cap, hiking=MEAN_SPEED(5 km/h), all others=SLOW_SPEED(2 km/h).
+        confidence: high
+      - file: sources/graphhopper/core/src/main/java/com/graphhopper/routing/util/parsers/OSMHikeRatingParser.java
+        line: 40
+        summary: sac_scale encoded as metadata rating 1-6 for custom model use.
+        confidence: high
+    verified_on: 2026-06-07
+
+verified_on: 2026-06-07

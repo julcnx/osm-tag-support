@@ -1,0 +1,179 @@
+engine_id: valhalla
+capability_id: routing
+engine_meta:
+  website: https://valhalla.github.io/valhalla
+  repository: https://github.com/valhalla/valhalla
+  issues: https://github.com/valhalla/valhalla/issues
+spec_status: draft_partial
+coverage_scope: Partial for documented bicycle costing; not exhaustive across all Valhalla costing modes and options.
+notes:
+  - Costing model applies mode-specific penalties through the derived surface enum.
+profiles:
+  - profile_id: bicycle
+    mode: bicycle
+    tags:
+      - tag_key: surface
+        support_level: derived
+        effect_types:
+          [speed_factor, priority_factor, access_block, inferred_fallback]
+        precedence_order:
+          [surface, tracktype, smoothness, road_class_use_fallback]
+        value_rules:
+          - tag_value: unpaved
+            effect_kind: classify
+            effect_value: Surface::kGravel
+          - tag_value: paved
+            effect_kind: classify
+            effect_value: Surface::kPavedSmooth
+          - tag_value: asphalt
+            effect_kind: classify
+            effect_value: Surface::kPavedSmooth
+          - tag_value: concrete
+            effect_kind: classify
+            effect_value: Surface::kPavedSmooth
+          - tag_value: concrete:lanes
+            effect_kind: classify
+            effect_value: Surface::kPavedSmooth
+          - tag_value: concrete:plates
+            effect_kind: classify
+            effect_value: Surface::kPavedSmooth
+          - tag_value: cement
+            effect_kind: classify
+            effect_value: Surface::kPavedSmooth
+          - tag_value: chipseal
+            effect_kind: classify
+            effect_value: Surface::kPavedSmooth
+          - tag_value: metal
+            effect_kind: classify
+            effect_value: Surface::kPavedSmooth
+          - tag_value: paving_stones
+            effect_kind: classify
+            effect_value: Surface::kPaved
+          - tag_value: sett
+            effect_kind: classify
+            effect_value: Surface::kPaved
+          - tag_value: grass_paver
+            effect_kind: classify
+            effect_value: Surface::kPaved
+          - tag_value: tartan
+            effect_kind: classify
+            effect_value: Surface::kPaved
+          - tag_value: cobblestone
+            effect_kind: classify
+            effect_value: Surface::kPavedRough
+          - tag_value: cobblestone:flattened
+            effect_kind: classify
+            effect_value: Surface::kPavedRough
+          - tag_value: unhewn_cobblestone
+            effect_kind: classify
+            effect_value: Surface::kPavedRough
+          - tag_value: brick
+            effect_kind: classify
+            effect_value: Surface::kPavedRough
+          - tag_value: compacted
+            effect_kind: classify
+            effect_value: Surface::kCompacted
+          - tag_value: wood
+            effect_kind: classify
+            effect_value: Surface::kCompacted
+          - tag_value: boardwalk
+            effect_kind: classify
+            effect_value: Surface::kCompacted
+          - tag_value: dirt
+            effect_kind: classify
+            effect_value: Surface::kDirt
+          - tag_value: earth
+            effect_kind: classify
+            effect_value: Surface::kDirt
+          - tag_value: ground
+            effect_kind: classify
+            effect_value: Surface::kDirt
+          - tag_value: mud
+            effect_kind: classify
+            effect_value: Surface::kDirt
+          - tag_value: gravel
+            effect_kind: classify
+            effect_value: Surface::kGravel
+          - tag_value: fine_gravel
+            effect_kind: classify
+            effect_value: Surface::kGravel
+          - tag_value: pebblestone
+            effect_kind: classify
+            effect_value: Surface::kGravel
+          - tag_value: sand
+            effect_kind: classify
+            effect_value: Surface::kGravel
+          - tag_value: grass
+            effect_kind: classify
+            effect_value: Surface::kPath
+          - tag_value: stepping_stones
+            effect_kind: classify
+            effect_value: Surface::kPath
+        special_handling:
+          - Matching is substring-based; "unpaved" is checked before "paved" to prevent false match.
+          - concrete:lanes and concrete:plates match via substring "concrete" to kPavedSmooth.
+          - Canonical surface enum drives costing and access checks in bicyclecost.cc.
+          - If none of the three tags (surface, tracktype, smoothness) exist, surface is inferred from road class/use.
+          - Unknown values set has_surface_=false, triggering road-class fallback.
+        unknown_value_behavior: fallback_default
+        missing_tag_behavior: inferred_from_road_class
+        hard_exclusions: []
+        value_coverage: full
+      - tag_key: smoothness
+        support_level: derived
+        effect_types: [speed_factor, access_block]
+        precedence_order: [surface, tracktype, smoothness]
+        value_rules:
+          - tag_value: excellent
+            effect_kind: classify
+            effect_value: Surface::kPavedSmooth
+          - tag_value: bad
+            effect_kind: classify
+            effect_value: Surface::kCompacted
+          - tag_value: impassable
+            effect_kind: classify
+            effect_value: Surface::kImpassable
+        special_handling:
+          - Used only when surface and tracktype are absent.
+        unknown_value_behavior: ignore
+        missing_tag_behavior: none
+        hard_exclusions: [impassable]
+      - tag_key: tracktype
+        support_level: derived
+        effect_types: [speed_factor, route_preference]
+        precedence_order: [surface, tracktype, smoothness]
+        value_rules:
+          - tag_value: grade1
+            effect_kind: classify
+            effect_value: Surface::kPavedRough
+          - tag_value: grade3
+            effect_kind: classify
+            effect_value: Surface::kDirt
+          - tag_value: grade5
+            effect_kind: classify
+            effect_value: Surface::kPath
+        special_handling:
+          - Ignored for classification when explicit surface is present.
+        unknown_value_behavior: ignore
+        missing_tag_behavior: none
+        hard_exclusions: []
+    evidence:
+      - file: sources/valhalla/src/mjolnir/pbfgraphparser.cc
+        line: 1530
+        summary: Explicit precedence, surface and tracktype win over smoothness.
+        confidence: high
+      - file: sources/valhalla/src/mjolnir/pbfgraphparser.cc
+        line: 1554
+        summary: tracktype mapped to surface enum when no surface tag.
+        confidence: high
+      - file: sources/valhalla/src/mjolnir/pbfgraphparser.cc
+        line: 3007
+        summary: Fallback surface inference from road class/use.
+        confidence: high
+      - file: sources/valhalla/src/sif/bicyclecost.cc
+        line: 701
+        summary: Surface-based cost penalties and speed factors in bicycle costing.
+        confidence: high
+    verified_on: 2026-06-07
+
+verified_on: 2026-06-07
