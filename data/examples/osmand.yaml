@@ -31,18 +31,6 @@ related_issues:
     url: https://github.com/osmandapp/OsmAnd/issues/21663
     tags: [surface, smoothness]
     note: Feature request to surface tag data in route analysis UI. Indicates surface/smoothness are exposed as encoded values.
-  - id: 15353
-    title: "Improve the map rendering for Enduro Motorbikes on off-road routes"
-    state: open
-    url: https://github.com/osmandapp/OsmAnd/issues/15353
-    tags: [dirtbike:scale]
-    note: Open request for improved dirtbike:scale rendering. Existing dirtbike support is rendering-only; no routing impact.
-  - id: 18756
-    title: "Enable Dirt Bike routes settings based on dirtbike:scale"
-    state: closed
-    url: https://github.com/osmandapp/OsmAnd/issues/18756
-    tags: [dirtbike:scale]
-    note: Closed issue that introduced dirtbike:scale rendering support. Reference for the existing implementation scope.
   - id: 22295
     title: "Bicycle routing ignores avoid unpaved"
     state: closed
