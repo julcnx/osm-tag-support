@@ -6,6 +6,49 @@ engine_meta:
   issues: https://github.com/osmandapp/OsmAnd/issues
 spec_status: draft_partial
 coverage_scope: Partial for off-road relevant profiles bicycle and pedestrian.
+related_issues:
+  - id: 25107
+    title: "Granular surface type filtering for routing/navigation"
+    state: open
+    url: https://github.com/osmandapp/OsmAnd/issues/25107
+    tags: [surface]
+    note: Feature request for per-value surface filtering in routing (beyond binary avoid_unpaved). Directly actionable.
+  - id: 17703
+    title: "More support of SAC and CAI scale hiking difficulty"
+    state: open
+    url: https://github.com/osmandapp/OsmAnd/issues/17703
+    tags: [sac_scale]
+    note: Request for sac_scale to influence routing decisions, not just rendering. Current routing.xml lacks sac_scale routing logic.
+  - id: 11669
+    title: "Walking route analysis uses cycleway:surface instead of footway:surface"
+    state: open
+    url: https://github.com/osmandapp/OsmAnd/issues/11669
+    tags: [surface]
+    note: Bug where wrong surface subtag key is read in pedestrian context. Affects surface support accuracy.
+  - id: 21663
+    title: "Add line graph to Analyze on map: Road type, Surface, Smoothness, Steepness"
+    state: open
+    url: https://github.com/osmandapp/OsmAnd/issues/21663
+    tags: [surface, smoothness]
+    note: Feature request to surface tag data in route analysis UI. Indicates surface/smoothness are exposed as encoded values.
+  - id: 15353
+    title: "Improve the map rendering for Enduro Motorbikes on off-road routes"
+    state: open
+    url: https://github.com/osmandapp/OsmAnd/issues/15353
+    tags: [dirtbike:scale]
+    note: Open request for improved dirtbike:scale rendering. Existing dirtbike support is rendering-only; no routing impact.
+  - id: 18756
+    title: "Enable Dirt Bike routes settings based on dirtbike:scale"
+    state: closed
+    url: https://github.com/osmandapp/OsmAnd/issues/18756
+    tags: [dirtbike:scale]
+    note: Closed issue that introduced dirtbike:scale rendering support. Reference for the existing implementation scope.
+  - id: 22295
+    title: "Bicycle routing ignores avoid unpaved"
+    state: closed
+    url: https://github.com/osmandapp/OsmAnd/issues/22295
+    tags: [surface]
+    note: Closed bug confirming avoid_unpaved parameter inconsistency in bicycle profile. Pattern recurs (see also #2546).
 notes:
   - Rule values are declarative but distributed across profile sections and parameter branches.
 profiles:

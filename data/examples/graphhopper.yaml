@@ -6,6 +6,43 @@ engine_meta:
   issues: https://github.com/graphhopper/graphhopper/issues
 spec_status: draft_partial
 coverage_scope: Partial for profiles car, bike, mtb, and hike.
+related_issues:
+  - id: 3099
+    title: "Always limit speed on bad surfaces"
+    state: open
+    url: https://github.com/graphhopper/graphhopper/pull/3099
+    tags: [surface, smoothness]
+    note: Open PR to cap speed on bad surfaces regardless of highway type. Would strengthen off-road surface penalization.
+  - id: 3196
+    title: "De-prioritize highway=track missing further details for bicycle profile"
+    state: open
+    url: https://github.com/graphhopper/graphhopper/pull/3196
+    tags: [surface, tracktype]
+    note: Open PR to penalize tracks with no surface or tracktype tag. Directly relevant for off-road routing quality.
+  - id: 3276
+    title: "Add support for sac_scale=strolling in hike_rating path details"
+    state: open
+    url: https://github.com/graphhopper/graphhopper/issues/3276
+    tags: [sac_scale]
+    note: sac_scale=strolling is a valid OSM value but missing from the hike_rating encoded value.
+  - id: 2122
+    title: "Add support for the mtb:scale tag"
+    state: closed
+    url: https://github.com/graphhopper/graphhopper/pull/2122
+    tags: [mtb:scale]
+    note: PR that introduced OSMMtbRatingParser. Reference implementation for mtb:scale encoded value.
+  - id: 3049
+    title: "Routing of ordinary bicycle over ways tagged mtb:scale really wanted?"
+    state: closed
+    url: https://github.com/graphhopper/graphhopper/issues/3049
+    tags: [mtb:scale]
+    note: Design discussion on whether mtb:scale should restrict access vs just adjust priority for regular bikes.
+  - id: 1701
+    title: "Tracktype parser"
+    state: closed
+    url: https://github.com/graphhopper/graphhopper/pull/1701
+    tags: [tracktype]
+    note: PR that introduced the dedicated tracktype encoded value. Reference for how tracktype was integrated.
 notes:
   - Main logic is in Java tag parsers, not a single profile file.
 profiles:

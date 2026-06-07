@@ -6,6 +6,49 @@ engine_meta:
   issues: https://github.com/abrensch/brouter/issues
 spec_status: draft_partial
 coverage_scope: Partial for off-road relevant profiles trekking, gravel, mtb, and hiking-mountain.
+related_issues:
+  - id: 204
+    title: "SAC scale cost"
+    state: open
+    url: https://github.com/abrensch/brouter/issues/204
+    tags: [sac_scale]
+    note: Feature request to add sac_scale penalty support to hiking profiles. Currently only hiking-mountain.brf handles it.
+  - id: 241
+    title: "Tag cycleway:smoothness"
+    state: open
+    url: https://github.com/abrensch/brouter/issues/241
+    tags: [smoothness]
+    note: cycleway:smoothness is not handled; only smoothness= is read. Relevant for cycling profiles.
+  - id: 259
+    title: "Consider surfaces wood and metal as ispaved"
+    state: open
+    url: https://github.com/abrensch/brouter/issues/259
+    tags: [surface]
+    note: surface=wood and surface=metal are classified as isunpaved in trekking/gravel profiles; issue requests reclassification.
+  - id: 198
+    title: "Default surface for highway=*"
+    state: open
+    url: https://github.com/abrensch/brouter/issues/198
+    tags: [surface]
+    note: Surface inference for untagged highways is inconsistent across profiles. Affects missing_tag_behavior.
+  - id: 416
+    title: "Update for lookups.dat"
+    state: open
+    url: https://github.com/abrensch/brouter/issues/416
+    tags: [surface, smoothness, tracktype]
+    note: lookups.dat (the tag value registry) is outdated and missing many surface/smoothness/tracktype values.
+  - id: 610
+    title: "Adding penalties averages ratios between roads, so multiplying should be used"
+    state: open
+    url: https://github.com/abrensch/brouter/issues/610
+    tags: [surface, smoothness, tracktype]
+    note: Additive penalty model causes underpenalization on combined surface+smoothness+tracktype. Affects all off-road profiles.
+  - id: 840
+    title: "Consider smoothness for bicycle profiles"
+    state: closed
+    url: https://github.com/abrensch/brouter/pull/840
+    tags: [smoothness]
+    note: PR that added smoothness penalty tables to gravel and other profiles. Reference for how smoothness was introduced.
 notes:
   - Profile behavior differs strongly between trekking, gravel, mtb, and car profiles.
 profiles:

@@ -214,6 +214,33 @@ router_with_profiles:
         issues:
           type: string
           description: Issue tracker URL.
+    related_issues:
+      type: list
+      description: Known issues and PRs relevant to the tracked tags.
+      item:
+        required:
+          - id
+          - title
+          - state
+          - url
+        fields:
+          id:
+            type: integer
+          title:
+            type: string
+          state:
+            type: enum
+            values: [open, closed]
+          url:
+            type: string
+          tags:
+            type: list
+            description: Which tracked tags this issue relates to.
+            item:
+              type: string
+          note:
+            type: string
+            description: Why this issue is relevant.
     notes:
       type: list
       item:

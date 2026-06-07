@@ -6,6 +6,37 @@ engine_meta:
   issues: https://github.com/Project-OSRM/osrm-backend/issues
 spec_status: full
 coverage_scope: Exhaustive for OSRM profiles car, bicycle, and foot.
+related_issues:
+  - id: 3060
+    title: "Calculate surface speeds with default speed and a surface factor"
+    state: open
+    url: https://github.com/Project-OSRM/osrm-backend/issues/3060
+    tags: [surface]
+    note: Long-standing request (2016) for a surface speed factor instead of hard caps. Directly relevant to improving off-road surface handling.
+  - id: 6552
+    title: "Incorrect weights for highway=path"
+    state: open
+    url: https://github.com/Project-OSRM/osrm-backend/issues/6552
+    tags: [surface, smoothness, tracktype]
+    note: Path weighting inconsistencies likely tied to missing smoothness/tracktype values in bicycle profile.
+  - id: 3680
+    title: "Set speeds for smoothness and tracktype in the bicycle profile"
+    state: closed
+    url: https://github.com/Project-OSRM/osrm-backend/issues/3680
+    tags: [smoothness, tracktype]
+    note: Closed without action; speed tables for smoothness/tracktype remain empty in bicycle.lua.
+  - id: 3618
+    title: "foot profile: fix missing tracktype/smoothness settings"
+    state: closed
+    url: https://github.com/Project-OSRM/osrm-backend/pull/3618
+    tags: [tracktype, smoothness]
+    note: PR that confirmed foot profile tracktype/smoothness tables are intentionally empty.
+  - id: 6619
+    title: "Path with mountain_hiking creates weird snapping on foot profile"
+    state: closed
+    url: https://github.com/Project-OSRM/osrm-backend/issues/6619
+    tags: [sac_scale]
+    note: sac_scale=mountain_hiking caused routing anomalies; no dedicated sac_scale support exists in OSRM.
 notes:
   - Uses shared WayHandlers.surface logic across all profiles.
 profiles:
