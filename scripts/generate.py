@@ -21,15 +21,27 @@ SITE.mkdir(exist_ok=True)
 
 # ── Canonical tag values (master list, OSM wiki order) ───────────────────────
 
+# Source: https://wiki.openstreetmap.org/wiki/Key:surface (fetched 2026-06-08)
+# Source: https://wiki.openstreetmap.org/wiki/Key:smoothness (fetched 2026-06-08)
+# Source: https://wiki.openstreetmap.org/wiki/Key:mtb:scale (fetched 2026-06-08)
+# Source: https://wiki.openstreetmap.org/wiki/Key:sac_scale (fetched 2026-06-08)
 TAGS = {
     "surface": [
-        "paved", "asphalt", "chipseal", "concrete", "concrete:plates",
-        "concrete:lanes", "paving_stones", "sett", "unhewn_cobblestone",
-        "cobblestone", "cobblestone:flattened", "metal", "wood",
-        "stepping_stones", "unpaved", "compacted", "fine_gravel", "gravel",
-        "shells", "rock", "pebblestone", "ground", "dirt", "grass",
-        "grass_paver", "mud", "sand", "woodchips", "snow", "ice", "salt",
-        "clay", "dirt/sand", "laterite",
+        # paved
+        "paved", "asphalt", "chipseal", "concrete", "concrete:lanes",
+        "concrete:plates", "paving_stones", "paving_stones:lanes",
+        "grass_paver", "sett", "unhewn_cobblestone", "cobblestone",
+        "cobblestone:flattened", "bricks", "metal", "metal_grid", "wood",
+        "stepping_stones", "tiles", "fibre_reinforced_polymer_grate",
+        # unpaved
+        "unpaved", "compacted", "fine_gravel", "gravel", "shells", "rock",
+        "pebblestone", "ground", "dirt", "earth", "grass", "mud", "sand",
+        "woodchips", "snow", "ice", "salt",
+        # sports / special
+        "clay", "tartan", "artificial_turf", "acrylic", "carpet", "plastic",
+        "rubber",
+        # not in wiki but explicitly tracked as a gap in this project
+        "laterite",
     ],
     "smoothness": [
         "excellent", "good", "intermediate", "bad", "very_bad",
@@ -37,11 +49,16 @@ TAGS = {
     ],
     "tracktype": ["grade1", "grade2", "grade3", "grade4", "grade5"],
     "mtb:scale": [
-        "0", "0+", "1", "1-", "1+", "2", "2-", "2+",
-        "3", "3+", "4", "4+", "5", "5+", "6",
+        "0", "0-", "0+",
+        "1", "1-", "1+",
+        "2", "2-", "2+",
+        "3", "3-", "3+",
+        "4", "4-", "4+",
+        "5", "5-", "5+",
+        "6",
     ],
     "sac_scale": [
-        "hiking", "mountain_hiking", "demanding_mountain_hiking",
+        "strolling", "hiking", "mountain_hiking", "demanding_mountain_hiking",
         "alpine_hiking", "demanding_alpine_hiking", "difficult_alpine_hiking",
     ],
 }
