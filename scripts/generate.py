@@ -396,20 +396,23 @@ function renderGrid(d) {
       html += '</tr>';
     }
 
-    // summary row: absent + unknown counts per app
-    html += '<tr class="tag-sum"><td class="vl sum-lbl">gaps / unknown</td>';
+    // precompute counts per app
+    const absentCounts  = apps.map(a => tagData.values.filter(vd => (tagData.matrix[vd.value]?.[a.id]?.support ?? 'unknown') === 'absent').length);
+    const unknownCounts = apps.map(a => tagData.values.filter(vd => (tagData.matrix[vd.value]?.[a.id]?.support ?? 'unknown') === 'unknown').length);
+
+    html += '<tr class="tag-sum"><td class="vl sum-lbl">absent (gap)</td>';
     for (let ai = 0; ai < apps.length; ai++) {
-      const a = apps[ai];
-      let absent = 0, unknown = 0;
-      for (const vd of tagData.values) {
-        const sup = tagData.matrix[vd.value]?.[a.id]?.support ?? 'unknown';
-        if (sup === 'absent') absent++;
-        else if (sup === 'unknown') unknown++;
-      }
       const ge = groupEnds.has(ai) && ai < apps.length - 1;
-      const ca = absent  ? `<span class="cnt-a">${absent}✗</span>`  : '';
-      const cu = unknown ? `<span class="cnt-u">${unknown}·</span>` : '';
-      html += `<td class="c-sum${ge ? ' ge' : ''}">${ca}${cu}</td>`;
+      const n = absentCounts[ai];
+      html += `<td class="c-sum${ge ? ' ge' : ''}">${n ? `<span class="cnt-a">${n}</span>` : ''}</td>`;
+    }
+    html += '</tr>';
+
+    html += '<tr class="tag-sum"><td class="vl sum-lbl">not documented</td>';
+    for (let ai = 0; ai < apps.length; ai++) {
+      const ge = groupEnds.has(ai) && ai < apps.length - 1;
+      const n = unknownCounts[ai];
+      html += `<td class="c-sum${ge ? ' ge' : ''}">${n ? `<span class="cnt-u">${n}</span>` : ''}</td>`;
     }
     html += '</tr>';
   }
