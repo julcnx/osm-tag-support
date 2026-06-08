@@ -97,16 +97,6 @@ WIKI_VALUES = {
         {"value": "grade4"},
         {"value": "grade5"},
     ],
-    "mtb:scale": [
-        # wiki: 0–6 with optional +/- sub-grades; 0- exists but is rarer
-        {"value": "0"},  {"value": "0-"}, {"value": "0+"},
-        {"value": "1"},  {"value": "1-"}, {"value": "1+"},
-        {"value": "2"},  {"value": "2-"}, {"value": "2+"},
-        {"value": "3"},  {"value": "3-"}, {"value": "3+"},
-        {"value": "4"},  {"value": "4-"}, {"value": "4+"},
-        {"value": "5"},  {"value": "5-"}, {"value": "5+"},
-        {"value": "6"},
-    ],
     "sac_scale": [
         # wiki order: easiest → hardest; strolling (T0) added 2024
         {"value": "strolling"},
@@ -117,13 +107,26 @@ WIKI_VALUES = {
         {"value": "demanding_alpine_hiking"},
         {"value": "difficult_alpine_hiking"},
     ],
+    "mtb:scale": [
+        # wiki: 0–6 with optional +/- sub-grades; 0- exists but is rarer
+        {"value": "0"},  {"value": "0-"}, {"value": "0+"},
+        {"value": "1"},  {"value": "1-"}, {"value": "1+"},
+        {"value": "2"},  {"value": "2-"}, {"value": "2+"},
+        {"value": "3"},  {"value": "3-"}, {"value": "3+"},
+        {"value": "4"},  {"value": "4-"}, {"value": "4+"},
+        {"value": "5"},  {"value": "5-"}, {"value": "5+"},
+        {"value": "6"},
+    ],
 }
 
 # Values to skip from app scans — BRouter-internal smoothness variants,
 # OSRM typos, overly specific sub-variants not in use elsewhere.
 SKIP_VALUES = {
     "smoothness": {"grade1_wet", "grade3_wet", "grade5_wet"},
-    "surface":    {"concrete_lanes", "paving_stones:30"},
+    # concrete_lanes / paving_stones:30: OSRM/GH internal parsing artifacts
+    # laterite: not on OSM wiki; apps that mention it do so as a *documented gap*,
+    #           not as a supported value — keep it out of the canonical list
+    "surface":    {"concrete_lanes", "paving_stones:30", "laterite"},
 }
 
 # Manual annotations for app-only values (added when auto-scan finds them)

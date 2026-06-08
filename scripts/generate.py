@@ -22,6 +22,9 @@ SITE.mkdir(exist_ok=True)
 
 # ── App column definitions (order = column order in grid) ─────────────────────
 
+# Tag key display order in the grid (sac_scale before mtb:scale)
+TAG_ORDER = ["surface", "smoothness", "tracktype", "sac_scale", "mtb:scale"]
+
 CAPABILITY_GROUPS = [
     ("Routing",   [
         "routing/osrm", "routing/brouter", "routing/graphhopper",
@@ -193,7 +196,9 @@ def build_data(tag_values_meta, tag_values, specs):
             })
 
     tags_out = {}
-    for tag_key, value_dicts in tag_values.items():
+    ordered_keys = [k for k in TAG_ORDER if k in tag_values]
+    for tag_key in ordered_keys:
+        value_dicts = tag_values[tag_key]
         matrix = {}
         for vd in value_dicts:
             val = vd["value"]
@@ -209,7 +214,7 @@ def build_data(tag_values_meta, tag_values, specs):
             matrix[val] = row
 
         tags_out[tag_key] = {
-            "values": value_dicts,   # includes category, sources, note
+            "values": value_dicts,  # includes category, sources, note
             "matrix": matrix,
         }
 
@@ -290,6 +295,12 @@ td.c.ge{border-right:2px solid #bbb}
 .btn-p{background:#1565c0;color:#fff}
 .btn-s{background:#f5f5f5;color:#333;border:1px solid #ccc;margin-top:4px}
 .vdate{font-size:9px;color:#bbb;margin-top:10px}
+/* source columns */
+.src-wiki{background:#e8f5e9;color:#2e7d32;font-weight:700;text-align:center;font-size:11px}
+.src-app{font-size:9px;color:#555;padding:2px 4px;line-height:1.5;vertical-align:top;min-width:120px;max-width:200px}
+.src-chip{display:inline-block;background:#ede7f6;color:#4527a0;border-radius:3px;
+          padding:1px 4px;margin:1px 2px 1px 0;white-space:nowrap}
+.src-chip.wiki-chip{background:#e8f5e9;color:#2e7d32}
 </style>
 </head>
 <body>
@@ -346,33 +357,32 @@ function renderGrid(d) {
 
   let html = '<table><thead>';
 
-  // group header row
+  // group header row (app groups + Sources group)
   html += '<tr><th class="vl" rowspan="2" style="background:#fff;z-index:3"></th>';
-  for (let gi = 0; gi < groups.length; gi++) {
-    const g = groups[gi];
-    const last = gi === groups.length - 1;
-    html += `<th class="gh" colspan="${g.app_ids.length}"${last?'':' style="border-right:2px solid #777"'}>${esc(g.name)}</th>`;
+  for (const g of groups) {
+    html += `<th class="gh" colspan="${g.app_ids.length}" style="border-right:2px solid #777">${esc(g.name)}</th>`;
   }
+  html += '<th class="gh" colspan="2" style="background:#37474f">Sources</th>';
   html += '</tr>';
 
-  // app name row
+  // app name row + source column headers
   html += '<tr>';
   for (let ai = 0; ai < apps.length; ai++) {
     const a = apps[ai];
     const ge = groupEnds.has(ai) && ai < apps.length - 1;
     html += `<th class="ah${ge?' ge':''}">${esc(a.name)}</th>`;
   }
+  html += '<th class="ah" style="background:#eceff1">wiki</th>';
+  html += '<th class="ah" style="background:#eceff1">apps</th>';
   html += '</tr></thead><tbody>';
 
   for (const [tagKey, tagData] of Object.entries(d.tags)) {
-    const totalCols = apps.length;
+    const totalCols = apps.length + 2;  // +2 for source columns
     html += `<tr class="tag-section"><td colspan="${totalCols + 1}">${esc(tagKey)}</td></tr>`;
 
     for (const vd of tagData.values) {
       const val = vd.value;
-      const srcLabel = vd.sources && !vd.sources.includes('wiki')
-        ? `<span class="src">app-only</span>` : '';
-      html += `<tr><td class="vl">${esc(val)}${srcLabel}</td>`;
+      html += `<tr><td class="vl">${esc(val)}</td>`;
 
       for (let ai = 0; ai < apps.length; ai++) {
         const a = apps[ai];
@@ -384,6 +394,14 @@ function renderGrid(d) {
              + `data-tag="${esc(tagKey)}" data-val="${esc(val)}" data-app="${esc(a.id)}" `
              + `title="${esc(a.name)}: ${esc(sup)}">${icon}</td>`;
       }
+
+      // source columns
+      const srcs = vd.sources || [];
+      const hasWiki = srcs.includes('wiki');
+      const appSrcs = srcs.filter(s => s !== 'wiki');
+      html += `<td class="c src-wiki" title="Documented on OSM wiki">${hasWiki ? '✓' : '—'}</td>`;
+      html += `<td class="src-app">${appSrcs.map(s => `<span class="src-chip">${esc(s)}</span>`).join('')}</td>`;
+
       html += '</tr>';
     }
   }

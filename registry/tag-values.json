@@ -664,18 +664,6 @@
       ]
     },
     {
-      "value": "laterite",
-      "category": "unpaved",
-      "note": "Documented gap: absent from most renderer unpaved lists; common in tropical/West Africa",
-      "sources": [
-        "organic-maps",
-        "osmand",
-        "openstreetmap-americana",
-        "openstreetmap-carto",
-        "shortbread"
-      ]
-    },
-    {
       "value": "rocky",
       "category": "unpaved",
       "note": "Variant of rock used in some routing engines",
@@ -913,6 +901,98 @@
       ]
     }
   ],
+  "sac_scale": [
+    {
+      "value": "strolling",
+      "sources": [
+        "wiki"
+      ]
+    },
+    {
+      "value": "hiking",
+      "sources": [
+        "wiki",
+        "organic-maps",
+        "osmand",
+        "id-tagging-schema",
+        "josm",
+        "mapcomplete",
+        "vespucci",
+        "brouter",
+        "graphhopper"
+      ]
+    },
+    {
+      "value": "mountain_hiking",
+      "sources": [
+        "wiki",
+        "organic-maps",
+        "osmand",
+        "id-tagging-schema",
+        "josm",
+        "mapcomplete",
+        "vespucci",
+        "brouter",
+        "graphhopper"
+      ]
+    },
+    {
+      "value": "demanding_mountain_hiking",
+      "sources": [
+        "wiki",
+        "organic-maps",
+        "osmand",
+        "id-tagging-schema",
+        "josm",
+        "mapcomplete",
+        "vespucci",
+        "brouter",
+        "graphhopper"
+      ]
+    },
+    {
+      "value": "alpine_hiking",
+      "sources": [
+        "wiki",
+        "organic-maps",
+        "osmand",
+        "id-tagging-schema",
+        "josm",
+        "mapcomplete",
+        "vespucci",
+        "brouter",
+        "graphhopper"
+      ]
+    },
+    {
+      "value": "demanding_alpine_hiking",
+      "sources": [
+        "wiki",
+        "organic-maps",
+        "osmand",
+        "id-tagging-schema",
+        "josm",
+        "mapcomplete",
+        "vespucci",
+        "brouter",
+        "graphhopper"
+      ]
+    },
+    {
+      "value": "difficult_alpine_hiking",
+      "sources": [
+        "wiki",
+        "organic-maps",
+        "osmand",
+        "id-tagging-schema",
+        "josm",
+        "mapcomplete",
+        "vespucci",
+        "brouter",
+        "graphhopper"
+      ]
+    }
+  ],
   "mtb:scale": [
     {
       "value": "0",
@@ -1078,98 +1158,6 @@
         "mapcomplete",
         "vespucci",
         "brouter"
-      ]
-    }
-  ],
-  "sac_scale": [
-    {
-      "value": "strolling",
-      "sources": [
-        "wiki"
-      ]
-    },
-    {
-      "value": "hiking",
-      "sources": [
-        "wiki",
-        "organic-maps",
-        "osmand",
-        "id-tagging-schema",
-        "josm",
-        "mapcomplete",
-        "vespucci",
-        "brouter",
-        "graphhopper"
-      ]
-    },
-    {
-      "value": "mountain_hiking",
-      "sources": [
-        "wiki",
-        "organic-maps",
-        "osmand",
-        "id-tagging-schema",
-        "josm",
-        "mapcomplete",
-        "vespucci",
-        "brouter",
-        "graphhopper"
-      ]
-    },
-    {
-      "value": "demanding_mountain_hiking",
-      "sources": [
-        "wiki",
-        "organic-maps",
-        "osmand",
-        "id-tagging-schema",
-        "josm",
-        "mapcomplete",
-        "vespucci",
-        "brouter",
-        "graphhopper"
-      ]
-    },
-    {
-      "value": "alpine_hiking",
-      "sources": [
-        "wiki",
-        "organic-maps",
-        "osmand",
-        "id-tagging-schema",
-        "josm",
-        "mapcomplete",
-        "vespucci",
-        "brouter",
-        "graphhopper"
-      ]
-    },
-    {
-      "value": "demanding_alpine_hiking",
-      "sources": [
-        "wiki",
-        "organic-maps",
-        "osmand",
-        "id-tagging-schema",
-        "josm",
-        "mapcomplete",
-        "vespucci",
-        "brouter",
-        "graphhopper"
-      ]
-    },
-    {
-      "value": "difficult_alpine_hiking",
-      "sources": [
-        "wiki",
-        "organic-maps",
-        "osmand",
-        "id-tagging-schema",
-        "josm",
-        "mapcomplete",
-        "vespucci",
-        "brouter",
-        "graphhopper"
       ]
     }
   ]
