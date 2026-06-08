@@ -251,13 +251,13 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-siz
 table{border-collapse:collapse;min-width:max-content}
 thead th{position:sticky;top:0;z-index:2}
 .gh{background:#2d2d44;color:#eee;text-align:center;font-size:10px;font-weight:700;letter-spacing:.5px;padding:4px 6px;text-transform:uppercase}
-.ah{background:#fff;border-bottom:2px solid #555;font-size:10px;font-weight:600;text-align:center;
-    writing-mode:vertical-lr;transform:rotate(180deg);height:76px;vertical-align:bottom;padding:3px 2px;white-space:nowrap}
+.ah{background:#fff;border-bottom:2px solid #555;font-size:12px;font-weight:600;text-align:center;
+    writing-mode:vertical-lr;transform:rotate(180deg);height:110px;vertical-align:bottom;padding:4px 3px;white-space:nowrap}
 .tag-section td{background:#e8eaf6;font-weight:700;font-size:12px;padding:5px 10px;letter-spacing:.2px}
 .vl{padding:3px 10px;white-space:nowrap;font-family:monospace;font-size:11px;
     position:sticky;left:0;background:#fafafa;border-right:1px solid #ddd;z-index:1;min-width:190px}
 .vl .src{font-size:9px;color:#aaa;margin-left:4px}
-td.c{width:32px;min-width:32px;text-align:center;cursor:pointer;border:1px solid #e8e8e8;font-size:12px}
+td.c{width:40px;min-width:40px;text-align:center;cursor:pointer;border:1px solid #e8e8e8;font-size:12px}
 td.c:hover{outline:2px solid #333;z-index:1;position:relative}
 td.c.ge{border-right:2px solid #bbb}
 .direct{background:#4caf50;color:#fff}
@@ -315,7 +315,7 @@ td.c.ge{border-right:2px solid #bbb}
 <div id="grid-wrap" style="display:none"></div>
 <div id="panel"><button id="pcls">✕</button></div>
 <script>
-const ICONS = {direct:'✓',derived:'~',profile_dependent:'◑',user_defined_only:'—',absent:'✗',unknown:'·'};
+const ICONS = {direct:'✓',derived:'~',profile_dependent:'P',user_defined_only:'—',absent:'✗',unknown:'·'};
 
 async function init() {
   let d;
