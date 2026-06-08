@@ -261,7 +261,7 @@ td.c{width:40px;min-width:40px;text-align:center;cursor:pointer;border:1px solid
 td.c:hover{outline:2px solid #333;z-index:1;position:relative}
 td.c.ge{border-right:2px solid #bbb}
 .direct{background:#4caf50;color:#fff}
-.derived{background:#ff9800;color:#fff}
+.derived{background:#4caf50;color:#fff}
 .profile_dependent{background:#fdd835}
 .user_defined_only{background:#bdbdbd}
 .absent{background:#ef5350;color:#fff}
@@ -304,8 +304,7 @@ td.c.ge{border-right:2px solid #bbb}
   <span id="gen-date" style="margin-left:auto"></span>
 </div>
 <div id="legend">
-  <div class="ls"><div class="lc direct"></div>direct</div>
-  <div class="ls"><div class="lc derived"></div>derived</div>
+  <div class="ls"><div class="lc direct"></div>supported</div>
   <div class="ls"><div class="lc profile_dependent"></div>profile-dependent</div>
   <div class="ls"><div class="lc user_defined_only"></div>user-defined only</div>
   <div class="ls"><div class="lc absent"></div>absent / gap</div>
@@ -315,7 +314,7 @@ td.c.ge{border-right:2px solid #bbb}
 <div id="grid-wrap" style="display:none"></div>
 <div id="panel"><button id="pcls">✕</button></div>
 <script>
-const ICONS = {direct:'✓',derived:'~',profile_dependent:'P',user_defined_only:'—',absent:'✗',unknown:'·'};
+const ICONS = {direct:'✓',derived:'✓',profile_dependent:'P',user_defined_only:'—',absent:'✗',unknown:'·'};
 
 async function init() {
   let d;
@@ -413,7 +412,7 @@ function renderGrid(d) {
 function openPanel(app, tagKey, val, cell, vd) {
   const sup = cell.support;
   const statusLabels = {
-    direct:'Direct support', derived:'Derived support',
+    direct:'Supported', derived:'Supported (derived)',
     profile_dependent:'Profile-dependent', user_defined_only:'User-defined only',
     absent:'Absent — documented gap', unknown:'Not documented'
   };
