@@ -226,32 +226,32 @@ profiles:
         value_coverage: none
 
     evidence:
-      - file: sources/OsmAnd-resources/rendering_styles/default.render.xml
+      - file: https://github.com/osmandapp/OsmAnd-resources/blob/465a14dbe27932b86355ee44904551ab59310d88/rendering_styles/default.render.xml#L99
         line: 99
         summary: showSurfaces renderingProperty declaration — "Road surface" toggle that enables the surface color overlay.
         confidence: high
         source_ref: 465a14dbe27932b86355ee44904551ab59310d88
-      - file: sources/OsmAnd-resources/rendering_styles/default.render.xml
+      - file: https://github.com/osmandapp/OsmAnd-resources/blob/465a14dbe27932b86355ee44904551ab59310d88/rendering_styles/default.render.xml#L2106
         line: 2106
         summary: routeInfo_surface renderingAttribute with 23 explicit surface=* cases; laterite is absent from this list.
         confidence: high
         source_ref: 465a14dbe27932b86355ee44904551ab59310d88
-      - file: sources/OsmAnd-resources/rendering_styles/default.render.xml
+      - file: https://github.com/osmandapp/OsmAnd-resources/blob/465a14dbe27932b86355ee44904551ab59310d88/rendering_styles/default.render.xml#L10682
         line: 10682
         summary: apply_if showSurfaces block for highway=track that enables the surface color overlay lane.
         confidence: high
         source_ref: 465a14dbe27932b86355ee44904551ab59310d88
-      - file: sources/OsmAnd-resources/rendering_styles/default.render.xml
+      - file: https://github.com/osmandapp/OsmAnd-resources/blob/465a14dbe27932b86355ee44904551ab59310d88/rendering_styles/default.render.xml#L10690
         line: 10690
         summary: tracktype grade1-5 pathEffect values (solid/10_3/5_3/3_3/2_3) applied to highway=track, always-on.
         confidence: high
         source_ref: 465a14dbe27932b86355ee44904551ab59310d88
-      - file: sources/OsmAnd-resources/rendering_styles/default.render.xml
+      - file: https://github.com/osmandapp/OsmAnd-resources/blob/465a14dbe27932b86355ee44904551ab59310d88/rendering_styles/default.render.xml#L1324
         line: 1324
         summary: sacScaleColor constants (T1=#000000, T2/T3=#e23cad, T4/T5/T6=#6000ff).
         confidence: high
         source_ref: 465a14dbe27932b86355ee44904551ab59310d88
-      - file: sources/OsmAnd-resources/rendering_styles/default.render.xml
+      - file: https://github.com/osmandapp/OsmAnd-resources/blob/465a14dbe27932b86355ee44904551ab59310d88/rendering_styles/default.render.xml#L10755
         line: 10755
         summary: sac_scale color and pathEffect rules applied under alpineHiking=true + alpineHikingScaleScheme=sacScale guards.
         confidence: high
@@ -432,27 +432,27 @@ profiles:
         value_coverage: none
 
     evidence:
-      - file: sources/OsmAnd-resources/rendering_styles/default.render.xml
+      - file: https://github.com/osmandapp/OsmAnd-resources/blob/465a14dbe27932b86355ee44904551ab59310d88/rendering_styles/default.render.xml#L2106
         line: 2106
         summary: routeInfo_surface renderingAttribute — 23 explicit surface values mapped to named color attributes; laterite absent.
         confidence: high
         source_ref: 465a14dbe27932b86355ee44904551ab59310d88
-      - file: sources/OsmAnd-resources/rendering_styles/default.render.xml
+      - file: https://github.com/osmandapp/OsmAnd-resources/blob/465a14dbe27932b86355ee44904551ab59310d88/rendering_styles/default.render.xml#L2138
         line: 2138
         summary: Fixed-hex smoothness grade color constants (#00d8ff to #ff1111) for excellent through impassable. very_good is absent.
         confidence: high
         source_ref: 465a14dbe27932b86355ee44904551ab59310d88
-      - file: sources/OsmAnd-resources/rendering_styles/default.render.xml
+      - file: https://github.com/osmandapp/OsmAnd-resources/blob/465a14dbe27932b86355ee44904551ab59310d88/rendering_styles/default.render.xml#L2147
         line: 2147
         summary: routeInfo_smoothness renderingAttribute — 8 values mapped to grade color constants. very_good missing.
         confidence: high
         source_ref: 465a14dbe27932b86355ee44904551ab59310d88
-      - file: sources/OsmAnd-resources/rendering_styles/default.render.xml
+      - file: https://github.com/osmandapp/OsmAnd-resources/blob/465a14dbe27932b86355ee44904551ab59310d88/rendering_styles/default.render.xml#L2175
         line: 2175
         summary: tracktypeGrade1Color through tracktypeGrade5Color renderingAttribute definitions.
         confidence: high
         source_ref: 465a14dbe27932b86355ee44904551ab59310d88
-      - file: sources/OsmAnd-resources/rendering_styles/default.render.xml
+      - file: https://github.com/osmandapp/OsmAnd-resources/blob/465a14dbe27932b86355ee44904551ab59310d88/rendering_styles/default.render.xml#L2201
         line: 2201
         summary: routeInfo_tracktype renderingAttribute — grade1-5 mapped to tracktypeGradeNColor theme-dependent attributes.
         confidence: high

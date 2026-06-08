@@ -289,7 +289,7 @@ evidence:
     line: 1
     summary: Field definition for sac_scale=* with all 6 hiking difficulty values.
     confidence: high
-  - file: https://github.com/openstreetmap/id-tagging-schema/blob/main/data/fields/mtb_scale.json
+  - file: https://github.com/openstreetmap/id-tagging-schema/blob/main/data/fields/mtb/scale.json
     line: 1
     summary: Field definition for mtb:scale=* with integer values 0-6.
     confidence: medium

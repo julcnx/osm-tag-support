@@ -109,7 +109,7 @@ profiles:
         hard_exclusions: []
         value_coverage: none
     evidence:
-      - file: https://github.com/pietervdvn/MapComplete/blob/develop/assets/layers/cyclostreets/cyclostreets.json
+      - file: https://github.com/pietervdvn/MapComplete/blob/develop/assets/layers/cyclestreets/cyclestreets.json
         line: 1
         summary: Layer definition for cyclostreets theme; includes a surface TagRendering with image-select answers.
         confidence: medium
@@ -175,7 +175,7 @@ profiles:
         hard_exclusions: []
         value_coverage: none
     evidence:
-      - file: https://github.com/pietervdvn/MapComplete/blob/develop/assets/layers/bicycle_infrastructure/bicycle_infrastructure.json
+      - file: https://github.com/pietervdvn/MapComplete/blob/develop/assets/layers/cycleways_and_roads/cycleways_and_roads.json
         line: 1
         summary: Layer definition for cycling infrastructure; includes surface question with image-select widget.
         confidence: medium
@@ -267,7 +267,7 @@ profiles:
         hard_exclusions: []
         value_coverage: none
     evidence:
-      - file: https://github.com/pietervdvn/MapComplete/blob/develop/assets/layers/hiking_routes/hiking_routes.json
+      - file: https://github.com/pietervdvn/MapComplete/blob/develop/assets/layers/trail/trail.json
         line: 1
         summary: Layer definition for hiking paths; includes sac_scale question with image-select answers and difficulty descriptions.
         confidence: medium

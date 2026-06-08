@@ -114,11 +114,11 @@ profiles:
         hard_exclusions: []
         value_coverage: partial
     evidence:
-      - file: https://github.com/streetcomplete/StreetComplete/blob/master/app/src/main/kotlin/de/westnordost/streetcomplete/quests/surface/AddRoadSurface.kt
+      - file: https://github.com/streetcomplete/StreetComplete/blob/master/app/src/androidMain/kotlin/de/westnordost/streetcomplete/quests/surface/AddRoadSurface.kt
         line: 1
         summary: Quest definition for road surface; defines eligibility filter, answer set, and how selected values are written as OSM tags.
         confidence: medium
-      - file: https://github.com/streetcomplete/StreetComplete/tree/master/app/src/main/res/drawable/ic_quest_surface_detail
+      - file: https://github.com/streetcomplete/StreetComplete/blob/master/app/src/androidMain/res/drawable/quest_street_surface_detail.xml
         line: 1
         summary: Illustrative answer icons for each surface value used in the quest UI.
         confidence: medium
@@ -194,7 +194,7 @@ profiles:
         hard_exclusions: []
         value_coverage: partial
     evidence:
-      - file: https://github.com/streetcomplete/StreetComplete/blob/master/app/src/main/kotlin/de/westnordost/streetcomplete/quests/surface/AddPathSurface.kt
+      - file: https://github.com/streetcomplete/StreetComplete/blob/master/app/src/androidMain/kotlin/de/westnordost/streetcomplete/quests/surface/AddPathSurface.kt
         line: 1
         summary: Quest definition for path surface; applies to footway, cycleway, path, bridleway with different eligibility and value set than AddRoadSurface.
         confidence: medium
@@ -251,7 +251,7 @@ profiles:
         hard_exclusions: []
         value_coverage: none
     evidence:
-      - file: https://github.com/streetcomplete/StreetComplete/blob/master/app/src/main/kotlin/de/westnordost/streetcomplete/quests/smoothness/AddSmoothness.kt
+      - file: https://github.com/streetcomplete/StreetComplete/blob/master/app/src/androidMain/kotlin/de/westnordost/streetcomplete/quests/smoothness/AddRoadSmoothness.kt
         line: 1
         summary: Quest definition for smoothness; includes eligibility filter (paved surface required), answer forms, and vehicle-metaphor framing.
         confidence: medium
@@ -293,7 +293,7 @@ profiles:
         hard_exclusions: []
         value_coverage: none
     evidence:
-      - file: https://github.com/streetcomplete/StreetComplete/tree/master/app/src/main/kotlin/de/westnordost/streetcomplete/quests
+      - file: https://github.com/streetcomplete/StreetComplete/tree/master/app/src/androidMain/kotlin/de/westnordost/streetcomplete/quests
         line: 1
         summary: Full list of quest implementations; absence of AddTracktype, AddSacScale, and AddMtbScale confirms no quest exists for these tags.
         confidence: high

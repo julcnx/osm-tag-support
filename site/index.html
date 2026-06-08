@@ -260,9 +260,15 @@ function openPanel(app, tagKey, val, cell, vd) {
     html += '<section><h3>Evidence</h3>';
     cell.evidence.forEach(e => {
       const isUrl = String(e.file).startsWith('http');
+      const shortLabel = (() => {
+        if (!isUrl) return esc(e.file) + (e.line ? ':'+e.line : '');
+        const m = e.file.match(/\/blob\/[^/]+\/(.+?)(?:#L\d+)?$/);
+        const path = m ? m[1] : e.file;
+        return esc(path + (e.line && e.line > 1 ? ':'+e.line : ''));
+      })();
       const fl = isUrl
-        ? `<a href="${esc(e.file)}" target="_blank">${esc(e.file)}</a>`
-        : `<code>${esc(e.file)}</code>${e.line ? ':'+e.line : ''}`;
+        ? `<a href="${esc(e.file)}" target="_blank"><code>${shortLabel}</code></a>`
+        : `<code>${shortLabel}</code>`;
       html += `<div class="ev">${fl}<span class="cf">${esc(e.confidence)}</span>
         <div class="es">${esc(e.summary||'')}</div></div>`;
     });
@@ -275,7 +281,7 @@ function openPanel(app, tagKey, val, cell, vd) {
     ? `${issuesUrl}/new?title=${encodeURIComponent('[tag-support] '+tagKey+'='+val+' in '+app.name)}`
       + `&body=${encodeURIComponent('**Tag:** \`'+tagKey+'='+val+'\`\n**App:** '+app.name+'\n\n**Issue:**\n<!-- describe the gap or inaccuracy -->')}`
     : '#';
-  const reportUrl = 'https://github.com/YOUR_ORG/osm-tag-support/issues/new'
+  const reportUrl = 'https://github.com/julcnx/osm-tag-support/issues/new'
     + `?template=report.md&title=${encodeURIComponent('[report] '+app.name+' · '+tagKey+'='+val)}`;
   html += `<section>
     <a class="btn btn-p" href="${esc(newUrl)}" target="_blank">Open issue in ${esc(app.name)} tracker ↗</a>

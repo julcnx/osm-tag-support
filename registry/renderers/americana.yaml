@@ -173,11 +173,11 @@ tags:
     value_coverage: none
 
 evidence:
-  - file: https://github.com/ZeLonewolf/openstreetmap-americana/blob/main/src/layer/road.js
+  - file: https://github.com/osm-americana/openstreetmap-americana/blob/main/src/layer/road.js
     line: 1
     summary: JavaScript module defining road line styles including surface-based paved/unpaved classification and tracktype-based dash patterns.
     confidence: medium
-  - file: https://github.com/ZeLonewolf/openstreetmap-americana/blob/main/style/style.json
+  - file: https://github.com/osm-americana/openstreetmap-americana/blob/main/src/americana.js
     line: 1
     summary: MapLibre GL style definition; road layer rules reference surface and tracktype attributes from the underlying vector tiles.
     confidence: medium

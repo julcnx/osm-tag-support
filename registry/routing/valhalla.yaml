@@ -248,22 +248,22 @@ profiles:
         missing_tag_behavior: none
         hard_exclusions: []
     evidence:
-      - file: sources/valhalla/src/mjolnir/pbfgraphparser.cc
+      - file: https://github.com/valhalla/valhalla/blob/14e2c93a88353789eb0c9f036e5f8a11a5f1b39e/src/mjolnir/pbfgraphparser.cc#L1530
         line: 1530
         summary: Explicit precedence, surface and tracktype win over smoothness.
         confidence: high
         source_ref: 14e2c93a88353789eb0c9f036e5f8a11a5f1b39e
-      - file: sources/valhalla/src/mjolnir/pbfgraphparser.cc
+      - file: https://github.com/valhalla/valhalla/blob/14e2c93a88353789eb0c9f036e5f8a11a5f1b39e/src/mjolnir/pbfgraphparser.cc#L1554
         line: 1554
         summary: tracktype mapped to surface enum when no surface tag.
         confidence: high
         source_ref: 14e2c93a88353789eb0c9f036e5f8a11a5f1b39e
-      - file: sources/valhalla/src/mjolnir/pbfgraphparser.cc
+      - file: https://github.com/valhalla/valhalla/blob/14e2c93a88353789eb0c9f036e5f8a11a5f1b39e/src/mjolnir/pbfgraphparser.cc#L3007
         line: 3007
         summary: Fallback surface inference from road class/use.
         confidence: high
         source_ref: 14e2c93a88353789eb0c9f036e5f8a11a5f1b39e
-      - file: sources/valhalla/src/sif/bicyclecost.cc
+      - file: https://github.com/valhalla/valhalla/blob/14e2c93a88353789eb0c9f036e5f8a11a5f1b39e/src/sif/bicyclecost.cc#L701
         line: 701
         summary: Surface-based cost penalties and speed factors in bicycle costing.
         confidence: high

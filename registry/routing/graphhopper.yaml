@@ -146,12 +146,12 @@ profiles:
         missing_tag_behavior: none
         hard_exclusions: []
     evidence:
-      - file: sources/graphhopper/core/src/main/java/com/graphhopper/routing/util/parsers/CarAverageSpeedParser.java
+      - file: https://github.com/graphhopper/graphhopper/blob/c8bfa90531748c53d4d2054dad1d3c04f69ce7b6/core/src/main/java/com/graphhopper/routing/util/parsers/CarAverageSpeedParser.java#L110
         line: 110
         summary: Tracktype speed mapping for tracks.
         confidence: high
         source_ref: c8bfa90531748c53d4d2054dad1d3c04f69ce7b6
-      - file: sources/graphhopper/core/src/main/java/com/graphhopper/routing/util/parsers/CarAverageSpeedParser.java
+      - file: https://github.com/graphhopper/graphhopper/blob/c8bfa90531748c53d4d2054dad1d3c04f69ce7b6/core/src/main/java/com/graphhopper/routing/util/parsers/CarAverageSpeedParser.java#L152
         line: 152
         summary: Bad surface speed capping logic.
         confidence: high
@@ -285,17 +285,17 @@ profiles:
         missing_tag_behavior: profile_default
         hard_exclusions: []
     evidence:
-      - file: sources/graphhopper/core/src/main/java/com/graphhopper/routing/util/parsers/BikeCommonAverageSpeedParser.java
+      - file: https://github.com/graphhopper/graphhopper/blob/c8bfa90531748c53d4d2054dad1d3c04f69ce7b6/core/src/main/java/com/graphhopper/routing/util/parsers/BikeCommonAverageSpeedParser.java#L127
         line: 127
         summary: Reads surface and tracktype, merges by min speed and applies smoothness factor.
         confidence: high
         source_ref: c8bfa90531748c53d4d2054dad1d3c04f69ce7b6
-      - file: sources/graphhopper/core/src/main/java/com/graphhopper/routing/util/parsers/BikeCommonAverageSpeedParser.java
+      - file: https://github.com/graphhopper/graphhopper/blob/c8bfa90531748c53d4d2054dad1d3c04f69ce7b6/core/src/main/java/com/graphhopper/routing/util/parsers/BikeCommonAverageSpeedParser.java#L137
         line: 137
         summary: Unknown tagged surface can force pushing speed.
         confidence: high
         source_ref: c8bfa90531748c53d4d2054dad1d3c04f69ce7b6
-      - file: sources/graphhopper/core/src/main/java/com/graphhopper/routing/util/parsers/OSMSurfaceParser.java
+      - file: https://github.com/graphhopper/graphhopper/blob/c8bfa90531748c53d4d2054dad1d3c04f69ce7b6/core/src/main/java/com/graphhopper/routing/util/parsers/OSMSurfaceParser.java#L38
         line: 38
         summary: Dedicated parser for surface encoded value.
         confidence: high
@@ -460,17 +460,17 @@ profiles:
         hard_exclusions: []
         value_coverage: full
     evidence:
-      - file: sources/graphhopper/core/src/main/java/com/graphhopper/routing/util/parsers/MountainBikeAverageSpeedParser.java
+      - file: https://github.com/graphhopper/graphhopper/blob/c8bfa90531748c53d4d2054dad1d3c04f69ce7b6/core/src/main/java/com/graphhopper/routing/util/parsers/MountainBikeAverageSpeedParser.java#L17
         line: 17
         summary: MTB tracktype speed overrides (grade2=16, grade4=8).
         confidence: high
         source_ref: c8bfa90531748c53d4d2054dad1d3c04f69ce7b6
-      - file: sources/graphhopper/core/src/main/java/com/graphhopper/routing/util/parsers/MountainBikeAverageSpeedParser.java
+      - file: https://github.com/graphhopper/graphhopper/blob/c8bfa90531748c53d4d2054dad1d3c04f69ce7b6/core/src/main/java/com/graphhopper/routing/util/parsers/MountainBikeAverageSpeedParser.java#L23
         line: 23
         summary: MTB surface speed overrides for soft surfaces (dirt/earth/ground=14, gravel/compacted=16, grass=12).
         confidence: high
         source_ref: c8bfa90531748c53d4d2054dad1d3c04f69ce7b6
-      - file: sources/graphhopper/core/src/main/java/com/graphhopper/routing/util/parsers/BikeCommonAverageSpeedParser.java
+      - file: https://github.com/graphhopper/graphhopper/blob/c8bfa90531748c53d4d2054dad1d3c04f69ce7b6/core/src/main/java/com/graphhopper/routing/util/parsers/BikeCommonAverageSpeedParser.java#L95
         line: 95
         summary: Smoothness factor table shared across all bike profiles.
         confidence: high
@@ -511,12 +511,12 @@ profiles:
         hard_exclusions: []
         value_coverage: full
     evidence:
-      - file: sources/graphhopper/core/src/main/java/com/graphhopper/routing/util/parsers/FootAverageSpeedParser.java
+      - file: https://github.com/graphhopper/graphhopper/blob/c8bfa90531748c53d4d2054dad1d3c04f69ce7b6/core/src/main/java/com/graphhopper/routing/util/parsers/FootAverageSpeedParser.java#L39
         line: 39
         summary: sac_scale speed cap, hiking=MEAN_SPEED(5 km/h), all others=SLOW_SPEED(2 km/h).
         confidence: high
         source_ref: c8bfa90531748c53d4d2054dad1d3c04f69ce7b6
-      - file: sources/graphhopper/core/src/main/java/com/graphhopper/routing/util/parsers/OSMHikeRatingParser.java
+      - file: https://github.com/graphhopper/graphhopper/blob/c8bfa90531748c53d4d2054dad1d3c04f69ce7b6/core/src/main/java/com/graphhopper/routing/util/parsers/OSMHikeRatingParser.java#L40
         line: 40
         summary: sac_scale encoded as metadata rating 1-6 for custom model use.
         confidence: high

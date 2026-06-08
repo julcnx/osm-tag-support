@@ -137,7 +137,7 @@ profiles:
         line: 1
         summary: OSM tag to internal type classifier; defines which surface/tracktype values affect routing speed and access classification at map compile time.
         confidence: medium
-      - file: https://github.com/organicmaps/organicmaps/blob/master/routing/bicycle_directions.cpp
+      - file: https://github.com/organicmaps/organicmaps/blob/master/libs/routing_common/bicycle_model.cpp
         line: 1
         summary: Bicycle routing logic; references road class types that encode surface quality.
         confidence: medium
@@ -231,7 +231,7 @@ profiles:
         line: 1
         summary: Tag classifier; encodes sac_scale values into routable vs non-routable hiking path types.
         confidence: medium
-      - file: https://github.com/organicmaps/organicmaps/blob/master/routing/pedestrian_directions.cpp
+      - file: https://github.com/organicmaps/organicmaps/blob/master/libs/routing/pedestrian_directions.cpp
         line: 1
         summary: Pedestrian/hiking routing; road class types that sac_scale feeds into.
         confidence: medium

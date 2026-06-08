@@ -223,7 +223,7 @@ tags:
     value_coverage: none
 
 evidence:
-  - file: https://github.com/gravitystorm/openstreetmap-carto/blob/master/roads.mss
+  - file: https://github.com/gravitystorm/openstreetmap-carto/blob/master/style/roads.mss
     line: 1
     summary: CartoCSS file defining road line styles; includes surface-based unpaved detection and tracktype-based dash patterns for highway=track.
     confidence: medium

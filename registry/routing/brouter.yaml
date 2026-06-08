@@ -180,12 +180,12 @@ profiles:
         missing_tag_behavior: inferred_from_other_tags
         hard_exclusions: []
     evidence:
-      - file: sources/brouter/misc/profiles2/trekking.brf
+      - file: https://github.com/abrensch/brouter/blob/a2e2f16f4bb3318a8b017fd76d08fbf67d895849/misc/profiles2/trekking.brf#L100
         line: 100
         summary: ispaved and isunpaved derived from surface and smoothness.
         confidence: high
         source_ref: a2e2f16f4bb3318a8b017fd76d08fbf67d895849
-      - file: sources/brouter/misc/profiles2/trekking.brf
+      - file: https://github.com/abrensch/brouter/blob/a2e2f16f4bb3318a8b017fd76d08fbf67d895849/misc/profiles2/trekking.brf#L329
         line: 329
         summary: tracktype-based penalties for track-like ways.
         confidence: high
@@ -306,17 +306,17 @@ profiles:
         missing_tag_behavior: inferred_from_other_tags
         hard_exclusions: []
     evidence:
-      - file: sources/brouter/misc/profiles2/gravel.brf
+      - file: https://github.com/abrensch/brouter/blob/a2e2f16f4bb3318a8b017fd76d08fbf67d895849/misc/profiles2/gravel.brf#L85
         line: 85
         summary: smoothness penalty table and wet-condition branches.
         confidence: high
         source_ref: a2e2f16f4bb3318a8b017fd76d08fbf67d895849
-      - file: sources/brouter/misc/profiles2/gravel.brf
+      - file: https://github.com/abrensch/brouter/blob/a2e2f16f4bb3318a8b017fd76d08fbf67d895849/misc/profiles2/gravel.brf#L114
         line: 114
         summary: smoothness estimation from tracktype.
         confidence: high
         source_ref: a2e2f16f4bb3318a8b017fd76d08fbf67d895849
-      - file: sources/brouter/misc/profiles2/gravel.brf
+      - file: https://github.com/abrensch/brouter/blob/a2e2f16f4bb3318a8b017fd76d08fbf67d895849/misc/profiles2/gravel.brf#L162
         line: 162
         summary: explicit tracktypepenalty values by grade.
         confidence: high
@@ -492,22 +492,22 @@ profiles:
         missing_tag_behavior: none
         hard_exclusions: ["4", "5", "6"]
     evidence:
-      - file: sources/brouter/misc/profiles2/mtb.brf
+      - file: https://github.com/abrensch/brouter/blob/a2e2f16f4bb3318a8b017fd76d08fbf67d895849/misc/profiles2/mtb.brf#L285
         line: 285
         summary: Smoothness penalty table controlled by consider_smoothness flag.
         confidence: high
         source_ref: a2e2f16f4bb3318a8b017fd76d08fbf67d895849
-      - file: sources/brouter/misc/profiles2/mtb.brf
+      - file: https://github.com/abrensch/brouter/blob/a2e2f16f4bb3318a8b017fd76d08fbf67d895849/misc/profiles2/mtb.brf#L363
         line: 363
         summary: Tracktype penalty table grade1-5.
         confidence: high
         source_ref: a2e2f16f4bb3318a8b017fd76d08fbf67d895849
-      - file: sources/brouter/misc/profiles2/mtb.brf
+      - file: https://github.com/abrensch/brouter/blob/a2e2f16f4bb3318a8b017fd76d08fbf67d895849/misc/profiles2/mtb.brf#L368
         line: 368
         summary: Surface penalty table.
         confidence: high
         source_ref: a2e2f16f4bb3318a8b017fd76d08fbf67d895849
-      - file: sources/brouter/misc/profiles2/mtb.brf
+      - file: https://github.com/abrensch/brouter/blob/a2e2f16f4bb3318a8b017fd76d08fbf67d895849/misc/profiles2/mtb.brf#L299
         line: 299
         summary: mtb:scale penalty table; values 4+ use near-infinite block penalty.
         confidence: high
@@ -686,22 +686,22 @@ profiles:
         missing_tag_behavior: none
         hard_exclusions: []
     evidence:
-      - file: sources/brouter/misc/profiles2/hiking-mountain.brf
+      - file: https://github.com/abrensch/brouter/blob/a2e2f16f4bb3318a8b017fd76d08fbf67d895849/misc/profiles2/hiking-mountain.brf#L188
         line: 188
         summary: SAC variable computed from sac_scale with mtb:scale fallback mapping.
         confidence: high
         source_ref: a2e2f16f4bb3318a8b017fd76d08fbf67d895849
-      - file: sources/brouter/misc/profiles2/hiking-mountain.brf
+      - file: https://github.com/abrensch/brouter/blob/a2e2f16f4bb3318a8b017fd76d08fbf67d895849/misc/profiles2/hiking-mountain.brf#L213
         line: 213
         summary: SAC penalty computation using K1/K2 coefficients and configurable limit.
         confidence: high
         source_ref: a2e2f16f4bb3318a8b017fd76d08fbf67d895849
-      - file: sources/brouter/misc/profiles2/hiking-mountain.brf
+      - file: https://github.com/abrensch/brouter/blob/a2e2f16f4bb3318a8b017fd76d08fbf67d895849/misc/profiles2/hiking-mountain.brf#L232
         line: 232
         summary: Tracktype penalty for track ways.
         confidence: high
         source_ref: a2e2f16f4bb3318a8b017fd76d08fbf67d895849
-      - file: sources/brouter/misc/profiles2/hiking-mountain.brf
+      - file: https://github.com/abrensch/brouter/blob/a2e2f16f4bb3318a8b017fd76d08fbf67d895849/misc/profiles2/hiking-mountain.brf#L238
         line: 238
         summary: Surface penalty for track ways.
         confidence: high

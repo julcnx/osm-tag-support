@@ -164,22 +164,22 @@ profiles:
         missing_tag_behavior: profile_default
         hard_exclusions: []
     evidence:
-      - file: sources/OsmAnd-resources/routing/routing.xml
+      - file: https://github.com/osmandapp/OsmAnd-resources/blob/465a14dbe27932b86355ee44904551ab59310d88/routing/routing.xml#L358
         line: 358
         summary: Documentation states merged integrity from smoothness, surface, and tracktype.
         confidence: high
         source_ref: 465a14dbe27932b86355ee44904551ab59310d88
-      - file: sources/OsmAnd-resources/routing/routing.xml
+      - file: https://github.com/osmandapp/OsmAnd-resources/blob/465a14dbe27932b86355ee44904551ab59310d88/routing/routing.xml#L936
         line: 936
         summary: Tracktype and smoothness penalty values.
         confidence: high
         source_ref: 465a14dbe27932b86355ee44904551ab59310d88
-      - file: sources/OsmAnd-resources/routing/routing.xml
+      - file: https://github.com/osmandapp/OsmAnd-resources/blob/465a14dbe27932b86355ee44904551ab59310d88/routing/routing.xml#L948
         line: 948
         summary: prefer_unpaved branch with many tracktype/surface multipliers.
         confidence: high
         source_ref: 465a14dbe27932b86355ee44904551ab59310d88
-      - file: sources/OsmAnd-resources/routing/routing.xml
+      - file: https://github.com/osmandapp/OsmAnd-resources/blob/465a14dbe27932b86355ee44904551ab59310d88/routing/routing.xml#L1832
         line: 1832
         summary: Bicycle profile block with smoothness/tracktype/surface multipliers.
         confidence: high
@@ -255,7 +255,7 @@ profiles:
         missing_tag_behavior: profile_default
         hard_exclusions: []
     evidence:
-      - file: sources/OsmAnd-resources/routing/routing.xml
+      - file: https://github.com/osmandapp/OsmAnd-resources/blob/465a14dbe27932b86355ee44904551ab59310d88/routing/routing.xml#L2251
         line: 2251
         summary: Surface and tracktype priority factors within avoid_unpaved parameter block.
         confidence: high

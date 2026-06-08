@@ -126,13 +126,12 @@ def cell_support(spec, tag_key, tag_value):
                 best = level
         else:
             coverage = entry.get("value_coverage", "partial")
-            if coverage == "full":
-                if better(level, best):
-                    best = level
-            elif coverage == "none":
+            if coverage == "none":
                 if better("user_defined_only", best):
                     best = "user_defined_only"
-            else:  # partial — value not listed
+            else:
+                # partial: some values listed, others unknown
+                # full: list is exhaustive — unlisted values handled by unknown_value_behavior
                 ub = entry.get("unknown_value_behavior", "")
                 if ub in ("fallback_default", "ignore"):
                     if better("fallback", best):
@@ -140,8 +139,12 @@ def cell_support(spec, tag_key, tag_value):
                 elif ub == "absent":
                     if better("absent", best):
                         best = "absent"
+                elif coverage == "full":
+                    # exhaustive list verified, behavior unspecified — treat as absent
+                    if better("absent", best):
+                        best = "absent"
                 else:
-                    # unknown_value_behavior not declared: we haven't verified this
+                    # partial and no behavior declared — genuinely unknown
                     if better("unknown", best):
                         best = "unknown"
 
@@ -515,9 +518,15 @@ function openPanel(app, tagKey, val, cell, vd) {
     html += '<section><h3>Evidence</h3>';
     cell.evidence.forEach(e => {
       const isUrl = String(e.file).startsWith('http');
+      const shortLabel = (() => {
+        if (!isUrl) return esc(e.file) + (e.line ? ':'+e.line : '');
+        const m = e.file.match(/\/blob\/[^/]+\/(.+?)(?:#L\d+)?$/);
+        const path = m ? m[1] : e.file;
+        return esc(path + (e.line && e.line > 1 ? ':'+e.line : ''));
+      })();
       const fl = isUrl
-        ? `<a href="${esc(e.file)}" target="_blank">${esc(e.file)}</a>`
-        : `<code>${esc(e.file)}</code>${e.line ? ':'+e.line : ''}`;
+        ? `<a href="${esc(e.file)}" target="_blank"><code>${shortLabel}</code></a>`
+        : `<code>${shortLabel}</code>`;
       html += `<div class="ev">${fl}<span class="cf">${esc(e.confidence)}</span>
         <div class="es">${esc(e.summary||'')}</div></div>`;
     });
@@ -530,7 +539,7 @@ function openPanel(app, tagKey, val, cell, vd) {
     ? `${issuesUrl}/new?title=${encodeURIComponent('[tag-support] '+tagKey+'='+val+' in '+app.name)}`
       + `&body=${encodeURIComponent('**Tag:** \`'+tagKey+'='+val+'\`\n**App:** '+app.name+'\n\n**Issue:**\n<!-- describe the gap or inaccuracy -->')}`
     : '#';
-  const reportUrl = 'https://github.com/YOUR_ORG/osm-tag-support/issues/new'
+  const reportUrl = 'https://github.com/julcnx/osm-tag-support/issues/new'
     + `?template=report.md&title=${encodeURIComponent('[report] '+app.name+' · '+tagKey+'='+val)}`;
   html += `<section>
     <a class="btn btn-p" href="${esc(newUrl)}" target="_blank">Open issue in ${esc(app.name)} tracker ↗</a>
