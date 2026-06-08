@@ -1,0 +1,462 @@
+engine_id: osmand
+capability_id: display
+engine_meta:
+  website: https://osmand.net
+  repository: https://github.com/osmandapp/OsmAnd-resources
+  issues: https://github.com/osmandapp/OsmAnd/issues
+spec_status: draft_partial
+coverage_scope: OsmAnd default rendering style (default.render.xml). Behavior for topo.render.xml and Touring-view are similar for the tracked tags; differences are noted.
+notes:
+  - OsmAnd rendering has two distinct contexts for tag-based visual effects: map tile rendering (visible on the map at all times or behind a toggle) and route analysis panel (shown in the post-navigation segment detail view). These are separately documented below.
+  - Surface and sac_scale affect both contexts. Smoothness is route-analysis only. tracktype affects map tile rendering and route analysis independently.
+  - laterite is absent from the surface rendering list. Ways tagged surface=laterite fall through to the generic unstyled appearance (same color as any untagged road of that highway class).
+  - All rendering properties (showSurfaces, alpineHiking, etc.) are per-profile user settings; the same physical way is rendered differently depending on the active app mode.
+related_issues:
+  - id: 20884
+    title: "Incorrect surface color when route is shown"
+    state: open
+    url: https://github.com/osmandapp/OsmAnd/issues/20884
+    tags: [surface]
+    note: Bug where route analysis surface colorization shows incorrect color in some cases; directly affects the route_analysis profile color coding documented in this spec.
+    checked_on: 2026-06-08
+    last_reply_date: 2024-12-29
+profiles:
+  - profile_id: map_surface
+    notes:
+      - Covers rendering effects on map tiles (what the mapper sees without opening a route). Surface overlay requires showSurfaces=true. tracktype dash patterns are always-on for highway=track. sac_scale coloring requires alpineHiking=true + alpineHikingScaleScheme=sacScale.
+    tags:
+      - tag_key: surface
+        support_level: direct
+        effect_types: [color]
+        value_rules:
+          - tag_value: asphalt
+            effect_kind: color_overlay
+            effect_value: surfaceAsphaltColor (light grey, paved indicator)
+            conditions: requires showSurfaces=true
+          - tag_value: paved
+            effect_kind: color_overlay
+            effect_value: surfacePavedColor
+            conditions: requires showSurfaces=true
+          - tag_value: chipseal
+            effect_kind: color_overlay
+            effect_value: surfacePavedColor (same as paved)
+            conditions: requires showSurfaces=true
+          - tag_value: concrete
+            effect_kind: color_overlay
+            effect_value: surfaceConcreteColor
+            conditions: requires showSurfaces=true
+          - tag_value: paving_stones
+            effect_kind: color_overlay
+            effect_value: surfacePavingStonesColor
+            conditions: requires showSurfaces=true
+          - tag_value: sett
+            effect_kind: color_overlay
+            effect_value: surfaceSettColor
+            conditions: requires showSurfaces=true
+          - tag_value: cobblestone
+            effect_kind: color_overlay
+            effect_value: surfaceCobblestoneColor
+            conditions: requires showSurfaces=true
+          - tag_value: grass_paver
+            effect_kind: color_overlay
+            effect_value: surfaceGrassPaverColor
+            conditions: requires showSurfaces=true
+          - tag_value: pebblestone
+            effect_kind: color_overlay
+            effect_value: surfacePebblestoneColor
+            conditions: requires showSurfaces=true
+          - tag_value: stone
+            effect_kind: color_overlay
+            effect_value: surfaceStoneColor
+            conditions: requires showSurfaces=true
+          - tag_value: metal
+            effect_kind: color_overlay
+            effect_value: surfaceMetalColor
+            conditions: requires showSurfaces=true
+          - tag_value: wood
+            effect_kind: color_overlay
+            effect_value: surfaceWoodColor
+            conditions: requires showSurfaces=true
+          - tag_value: unpaved
+            effect_kind: color_overlay
+            effect_value: surfaceUnpavedColor (brown, unpaved indicator)
+            conditions: requires showSurfaces=true
+          - tag_value: gravel
+            effect_kind: color_overlay
+            effect_value: surfaceGravelColor
+            conditions: requires showSurfaces=true
+          - tag_value: fine_gravel
+            effect_kind: color_overlay
+            effect_value: surfaceFineGravelColor
+            conditions: requires showSurfaces=true
+          - tag_value: compacted
+            effect_kind: color_overlay
+            effect_value: surfaceCompactedColor
+            conditions: requires showSurfaces=true
+          - tag_value: ground
+            effect_kind: color_overlay
+            effect_value: surfaceGroundColor
+            conditions: requires showSurfaces=true
+          - tag_value: dirt
+            effect_kind: color_overlay
+            effect_value: surfaceDirtColor
+            conditions: requires showSurfaces=true
+          - tag_value: mud
+            effect_kind: color_overlay
+            effect_value: surfaceMudColor
+            conditions: requires showSurfaces=true
+          - tag_value: grass
+            effect_kind: color_overlay
+            effect_value: surfaceGrassColor
+            conditions: requires showSurfaces=true
+          - tag_value: sand
+            effect_kind: color_overlay
+            effect_value: surfaceSandColor
+            conditions: requires showSurfaces=true
+          - tag_value: salt
+            effect_kind: color_overlay
+            effect_value: surfaceSaltColor
+            conditions: requires showSurfaces=true
+          - tag_value: snow
+            effect_kind: color_overlay
+            effect_value: surfaceSnowColor
+            conditions: requires showSurfaces=true
+          - tag_value: ice
+            effect_kind: color_overlay
+            effect_value: surfaceIceColor
+            conditions: requires showSurfaces=true
+          # NOT in the rendering list: no color overlay applied
+          - tag_value: laterite
+            effect_kind: color_overlay
+            effect_value: none (NOT in routeInfo_surface list; falls through to unstyled)
+            conditions: even with showSurfaces=true, laterite is invisible in the overlay
+        special_handling:
+          - When showSurfaces=true, an extra colored band is drawn over the road/track/path casing using the color defined per surface value.
+          - The color attribute names (surfaceAsphaltColor etc.) are theme-dependent rendering attributes, not fixed hex values. Colors differ between day and night modes.
+          - laterite is absent from the case list at line 2106-2133. Adding it requires a one-line addition to routeInfo_surface in default.render.xml.
+        unknown_value_behavior: ignore
+        missing_tag_behavior: none
+        hard_exclusions: []
+        value_coverage: partial
+
+      - tag_key: tracktype
+        support_level: direct
+        effect_types: [line_style]
+        value_rules:
+          - tag_value: grade1
+            effect_kind: line_dash
+            effect_value: solid (pathEffect="")
+          - tag_value: grade2
+            effect_kind: line_dash
+            effect_value: long dash (pathEffect="10_3", ~77% duty cycle)
+          - tag_value: grade3
+            effect_kind: line_dash
+            effect_value: medium dash (pathEffect="5_3", ~63% duty cycle)
+          - tag_value: grade4
+            effect_kind: line_dash
+            effect_value: short dash (pathEffect="3_3", ~50% duty cycle)
+          - tag_value: grade5
+            effect_kind: line_dash
+            effect_value: very short dash (pathEffect="2_3", ~40% duty cycle)
+        special_handling:
+          - tracktype dash patterns apply to highway=track ways always (not behind a toggle). The comment at line 10690 of default.render.xml explicitly documents the duty cycles.
+          - At zoom <= 13 all dash patterns are overridden to solid regardless of tracktype (pathEffect="" applied).
+        unknown_value_behavior: fallback_default
+        missing_tag_behavior: profile_default
+        hard_exclusions: []
+        value_coverage: full
+
+      - tag_key: sac_scale
+        support_level: direct
+        effect_types: [color, line_style]
+        value_rules:
+          - tag_value: hiking
+            effect_kind: color_overlay
+            effect_value: default path color (no change; hiking is the baseline)
+            conditions: requires alpineHiking=true + alpineHikingScaleScheme=sacScale
+          - tag_value: mountain_hiking
+            effect_kind: color_overlay
+            effect_value: sacScaleColorT2 (#e23cad, magenta), solid line (pathEffect="")
+            conditions: requires alpineHiking=true + alpineHikingScaleScheme=sacScale
+          - tag_value: demanding_mountain_hiking
+            effect_kind: color_overlay
+            effect_value: sacScaleColorT3 (#e23cad, magenta), dashed (pathEffect="10_3")
+            conditions: requires alpineHiking=true + alpineHikingScaleScheme=sacScale
+          - tag_value: alpine_hiking
+            effect_kind: color_overlay
+            effect_value: sacScaleColorT4 (#6000ff, purple), solid
+            conditions: requires alpineHiking=true + alpineHikingScaleScheme=sacScale
+          - tag_value: demanding_alpine_hiking
+            effect_kind: color_overlay
+            effect_value: sacScaleColorT5 (#6000ff, purple), dashed (pathEffect="10_3")
+            conditions: requires alpineHiking=true + alpineHikingScaleScheme=sacScale
+          - tag_value: difficult_alpine_hiking
+            effect_kind: color_overlay
+            effect_value: sacScaleColorT6 (#6000ff, purple), very dashed (pathEffect="3_3")
+            conditions: requires alpineHiking=true + alpineHikingScaleScheme=sacScale
+        special_handling:
+          - Both rendering properties must be active: alpineHiking=true (enables the alpine overlay) AND alpineHikingScaleScheme=sacScale (selects SAC coloring vs CAI or other schemes).
+          - The comment at line 1325 notes that the color convention deviates from the Swiss alpine hiking map convention the SAC scale originates from. T1 (hiking) is black; T2-T3 are magenta; T4-T6 are purple.
+          - When showSurfaceGrade=true is also active, the stroke width on paths widens to accommodate the colored overlay alongside the sac_scale band.
+        unknown_value_behavior: ignore
+        missing_tag_behavior: none
+        hard_exclusions: []
+        value_coverage: partial
+
+      - tag_key: smoothness
+        support_level: user_defined_only
+        effect_types: []
+        value_rules: []
+        special_handling:
+          - Smoothness has NO map tile rendering effect. The routeInfo_smoothness attribute (lines 2147-2156) is used exclusively in the route analysis panel after navigation, not as a visible overlay on the map.
+        unknown_value_behavior: ignore
+        missing_tag_behavior: none
+        hard_exclusions: []
+        value_coverage: none
+
+      - tag_key: mtb:scale
+        support_level: user_defined_only
+        effect_types: []
+        value_rules: []
+        special_handling:
+          - mtb:scale is not present in any rendering rule in default.render.xml or topo.render.xml. No visual effect on map tiles.
+        unknown_value_behavior: ignore
+        missing_tag_behavior: none
+        hard_exclusions: []
+        value_coverage: none
+
+    evidence:
+      - file: sources/OsmAnd-resources/rendering_styles/default.render.xml
+        line: 99
+        summary: showSurfaces renderingProperty declaration — "Road surface" toggle that enables the surface color overlay.
+        confidence: high
+        source_ref: 465a14dbe27932b86355ee44904551ab59310d88
+      - file: sources/OsmAnd-resources/rendering_styles/default.render.xml
+        line: 2106
+        summary: routeInfo_surface renderingAttribute with 23 explicit surface=* cases; laterite is absent from this list.
+        confidence: high
+        source_ref: 465a14dbe27932b86355ee44904551ab59310d88
+      - file: sources/OsmAnd-resources/rendering_styles/default.render.xml
+        line: 10682
+        summary: apply_if showSurfaces block for highway=track that enables the surface color overlay lane.
+        confidence: high
+        source_ref: 465a14dbe27932b86355ee44904551ab59310d88
+      - file: sources/OsmAnd-resources/rendering_styles/default.render.xml
+        line: 10690
+        summary: tracktype grade1-5 pathEffect values (solid/10_3/5_3/3_3/2_3) applied to highway=track, always-on.
+        confidence: high
+        source_ref: 465a14dbe27932b86355ee44904551ab59310d88
+      - file: sources/OsmAnd-resources/rendering_styles/default.render.xml
+        line: 1324
+        summary: sacScaleColor constants (T1=#000000, T2/T3=#e23cad, T4/T5/T6=#6000ff).
+        confidence: high
+        source_ref: 465a14dbe27932b86355ee44904551ab59310d88
+      - file: sources/OsmAnd-resources/rendering_styles/default.render.xml
+        line: 10755
+        summary: sac_scale color and pathEffect rules applied under alpineHiking=true + alpineHikingScaleScheme=sacScale guards.
+        confidence: high
+        source_ref: 465a14dbe27932b86355ee44904551ab59310d88
+    verified_on: 2026-06-08
+
+  - profile_id: route_analysis
+    notes:
+      - Covers tag-based color coding in the route segment detail panel. This panel is shown after a route is computed; the mapper taps a segment to see its attributes. The colors come from routeInfo_* renderingAttributes in default.render.xml.
+    tags:
+      - tag_key: surface
+        support_level: direct
+        effect_types: [color, display_label]
+        value_rules:
+          - tag_value: asphalt
+            effect_kind: segment_color
+            effect_value: surfaceAsphaltColor
+          - tag_value: paved
+            effect_kind: segment_color
+            effect_value: surfacePavedColor
+          - tag_value: chipseal
+            effect_kind: segment_color
+            effect_value: surfacePavedColor
+          - tag_value: concrete
+            effect_kind: segment_color
+            effect_value: surfaceConcreteColor
+          - tag_value: paving_stones
+            effect_kind: segment_color
+            effect_value: surfacePavingStonesColor
+          - tag_value: sett
+            effect_kind: segment_color
+            effect_value: surfaceSettColor
+          - tag_value: cobblestone
+            effect_kind: segment_color
+            effect_value: surfaceCobblestoneColor
+          - tag_value: grass_paver
+            effect_kind: segment_color
+            effect_value: surfaceGrassPaverColor
+          - tag_value: pebblestone
+            effect_kind: segment_color
+            effect_value: surfacePebblestoneColor
+          - tag_value: stone
+            effect_kind: segment_color
+            effect_value: surfaceStoneColor
+          - tag_value: metal
+            effect_kind: segment_color
+            effect_value: surfaceMetalColor
+          - tag_value: wood
+            effect_kind: segment_color
+            effect_value: surfaceWoodColor
+          - tag_value: unpaved
+            effect_kind: segment_color
+            effect_value: surfaceUnpavedColor
+          - tag_value: gravel
+            effect_kind: segment_color
+            effect_value: surfaceGravelColor
+          - tag_value: fine_gravel
+            effect_kind: segment_color
+            effect_value: surfaceFineGravelColor
+          - tag_value: compacted
+            effect_kind: segment_color
+            effect_value: surfaceCompactedColor
+          - tag_value: ground
+            effect_kind: segment_color
+            effect_value: surfaceGroundColor
+          - tag_value: dirt
+            effect_kind: segment_color
+            effect_value: surfaceDirtColor
+          - tag_value: mud
+            effect_kind: segment_color
+            effect_value: surfaceMudColor
+          - tag_value: grass
+            effect_kind: segment_color
+            effect_value: surfaceGrassColor
+          - tag_value: sand
+            effect_kind: segment_color
+            effect_value: surfaceSandColor
+          - tag_value: salt
+            effect_kind: segment_color
+            effect_value: surfaceSaltColor
+          - tag_value: snow
+            effect_kind: segment_color
+            effect_value: surfaceSnowColor
+          - tag_value: ice
+            effect_kind: segment_color
+            effect_value: surfaceIceColor
+          - tag_value: laterite
+            effect_kind: segment_color
+            effect_value: none (absent from routeInfo_surface; segment renders as surfaceUndefinedColor)
+        special_handling:
+          - laterite is absent from the routeInfo_surface list. Segments with surface=laterite show the "undefined" color in the route analysis panel.
+        unknown_value_behavior: fallback_default
+        missing_tag_behavior: none
+        hard_exclusions: []
+        value_coverage: partial
+
+      - tag_key: smoothness
+        support_level: direct
+        effect_types: [color, display_label]
+        value_rules:
+          - tag_value: excellent
+            effect_kind: segment_color
+            effect_value: "#00d8ff (cyan)"
+          - tag_value: good
+            effect_kind: segment_color
+            effect_value: "#7debff (light cyan)"
+          - tag_value: intermediate
+            effect_kind: segment_color
+            effect_value: "#b1f3ff (very light cyan)"
+          - tag_value: bad
+            effect_kind: segment_color
+            effect_value: "#febcbc (light red)"
+          - tag_value: very_bad
+            effect_kind: segment_color
+            effect_value: "#fea9a9 (medium red)"
+          - tag_value: horrible
+            effect_kind: segment_color
+            effect_value: "#ff7f7f (salmon)"
+          - tag_value: very_horrible
+            effect_kind: segment_color
+            effect_value: "#fe5050 (bright red)"
+          - tag_value: impassable
+            effect_kind: segment_color
+            effect_value: "#ff1111 (vivid red)"
+        special_handling:
+          - very_good is absent from the routeInfo_smoothness list (line 2147-2156). Segments with smoothness=very_good show the undefined color in route analysis.
+          - These are fixed hex constants defined at lines 2138-2145, not theme-dependent. They are the same in day and night mode.
+          - Smoothness coloring only appears in the route analysis panel and segment detail view; it has NO effect on the main map tiles.
+        unknown_value_behavior: fallback_default
+        missing_tag_behavior: none
+        hard_exclusions: []
+        value_coverage: partial
+
+      - tag_key: tracktype
+        support_level: direct
+        effect_types: [color, display_label]
+        value_rules:
+          - tag_value: grade1
+            effect_kind: segment_color
+            effect_value: tracktypeGrade1Color (theme-dependent)
+          - tag_value: grade2
+            effect_kind: segment_color
+            effect_value: tracktypeGrade2Color (theme-dependent)
+          - tag_value: grade3
+            effect_kind: segment_color
+            effect_value: tracktypeGrade3Color (theme-dependent)
+          - tag_value: grade4
+            effect_kind: segment_color
+            effect_value: tracktypeGrade4Color (theme-dependent)
+          - tag_value: grade5
+            effect_kind: segment_color
+            effect_value: tracktypeGrade5Color (theme-dependent)
+        unknown_value_behavior: fallback_default
+        missing_tag_behavior: none
+        hard_exclusions: []
+        value_coverage: full
+
+      - tag_key: sac_scale
+        support_level: user_defined_only
+        effect_types: []
+        value_rules: []
+        special_handling:
+          - sac_scale has no routeInfo_sac_scale attribute in default.render.xml. It does not appear in the route analysis panel color coding. Its only visual effect is the map tile overlay (documented in the map_surface profile above).
+        unknown_value_behavior: ignore
+        missing_tag_behavior: none
+        hard_exclusions: []
+        value_coverage: none
+
+      - tag_key: mtb:scale
+        support_level: user_defined_only
+        effect_types: []
+        value_rules: []
+        special_handling:
+          - Not present in any routeInfo_* attribute. No effect in route analysis.
+        unknown_value_behavior: ignore
+        missing_tag_behavior: none
+        hard_exclusions: []
+        value_coverage: none
+
+    evidence:
+      - file: sources/OsmAnd-resources/rendering_styles/default.render.xml
+        line: 2106
+        summary: routeInfo_surface renderingAttribute — 23 explicit surface values mapped to named color attributes; laterite absent.
+        confidence: high
+        source_ref: 465a14dbe27932b86355ee44904551ab59310d88
+      - file: sources/OsmAnd-resources/rendering_styles/default.render.xml
+        line: 2138
+        summary: Fixed-hex smoothness grade color constants (#00d8ff to #ff1111) for excellent through impassable. very_good is absent.
+        confidence: high
+        source_ref: 465a14dbe27932b86355ee44904551ab59310d88
+      - file: sources/OsmAnd-resources/rendering_styles/default.render.xml
+        line: 2147
+        summary: routeInfo_smoothness renderingAttribute — 8 values mapped to grade color constants. very_good missing.
+        confidence: high
+        source_ref: 465a14dbe27932b86355ee44904551ab59310d88
+      - file: sources/OsmAnd-resources/rendering_styles/default.render.xml
+        line: 2175
+        summary: tracktypeGrade1Color through tracktypeGrade5Color renderingAttribute definitions.
+        confidence: high
+        source_ref: 465a14dbe27932b86355ee44904551ab59310d88
+      - file: sources/OsmAnd-resources/rendering_styles/default.render.xml
+        line: 2201
+        summary: routeInfo_tracktype renderingAttribute — grade1-5 mapped to tracktypeGradeNColor theme-dependent attributes.
+        confidence: high
+        source_ref: 465a14dbe27932b86355ee44904551ab59310d88
+    verified_on: 2026-06-08
+
+verified_on: 2026-06-08

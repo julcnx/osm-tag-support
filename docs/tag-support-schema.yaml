@@ -23,12 +23,26 @@ enums:
     - profile_dependent
     - user_defined_only
   effect_type:
+    # routing engines
     - speed_cap
     - speed_factor
     - priority_factor
     - access_block
     - route_preference
     - inferred_fallback
+    # editors
+    - preset_field    # tag has a dedicated form field in a preset dialog
+    - autocomplete    # values offered via combo/dropdown
+    - validation      # values validated against an allowed list
+    - display_label   # tag value shown as a visible label in the editor UI
+    # renderers and tile schemas
+    - color           # tag value affects the color used to render the feature
+    - line_style      # tag value affects line dashing, width, or cap style
+    - pattern_fill    # tag value affects area or casing fill pattern
+    - symbol          # tag value determines which icon or symbol is shown
+    - label           # tag value appears as text on the map
+    - zoom_visibility # tag value affects the minimum zoom at which the feature is rendered
+    - tile_attribute  # tag is exported as a queryable attribute in vector tiles
   unknown_value_behavior:
     - ignore
     - fallback_default
@@ -42,6 +56,7 @@ enums:
     - inferred_from_road_class
     - profile_default
     - user_defined
+    - prompt_user     # editor actively prompts the mapper to fill in the tag (quest/survey model)
   confidence:
     - high
     - medium
@@ -129,6 +144,12 @@ components:
       confidence:
         type: enum
         values_ref: enums.confidence
+      source_ref:
+        type: string
+        description: >
+          Git commit hash (full SHA-1) of the source repo at the time this evidence was verified.
+          Used as the diff anchor for reruns: `git log <source_ref>..HEAD -- <file>`.
+          Omit for web-referenced evidence (GitHub URLs) where no local clone exists.
 
 single_profile_record:
   required:
@@ -150,7 +171,7 @@ single_profile_record:
       examples: [osrm, osmand, brouter, valhalla, graphhopper, pgrouting]
     capability_id:
       type: string
-      examples: [routing]
+      examples: [routing, preset_ui, validation, style, legend, tile_attribute]
     engine_meta:
       type: object
       description: Links to the engine project for reference and issue reporting.
@@ -171,6 +192,42 @@ single_profile_record:
     tags:
       type: list
       item_ref: components.tag_entry
+    related_issues:
+      type: list
+      description: Known issues and PRs relevant to the tracked tags.
+      item:
+        required:
+          - id
+          - title
+          - state
+          - url
+        fields:
+          id:
+            type: integer
+          title:
+            type: string
+          state:
+            type: enum
+            values: [open, closed]
+          url:
+            type: string
+          tags:
+            type: list
+            description: Which tracked tags this issue relates to.
+            item:
+              type: string
+          note:
+            type: string
+            description: Why this issue is relevant.
+          checked_on:
+            type: string
+            description: ISO date (YYYY-MM-DD) when the issue state was last verified.
+          last_reply_date:
+            type: string
+            description: ISO date (YYYY-MM-DD) of the most recent comment or review activity.
+          resolution:
+            type: string
+            description: How the issue was resolved (only present when state=closed).
     notes:
       type: list
       item:
@@ -200,7 +257,7 @@ router_with_profiles:
       examples: [osrm, osmand, brouter, valhalla, graphhopper, pgrouting]
     capability_id:
       type: string
-      examples: [routing]
+      examples: [routing, preset_ui, validation, style, legend, tile_attribute]
     engine_meta:
       type: object
       description: Links to the engine project for reference and issue reporting.
@@ -241,6 +298,20 @@ router_with_profiles:
           note:
             type: string
             description: Why this issue is relevant.
+          checked_on:
+            type: string
+            description: ISO date (YYYY-MM-DD) when the issue state was last verified. Use as the anchor for reruns.
+          last_reply_date:
+            type: string
+            description: >
+              ISO date (YYYY-MM-DD) of the most recent comment or review activity on this issue.
+              Distinguishes actively-discussed issues from stale ones with the same open/closed state.
+              Update alongside checked_on during reruns.
+          resolution:
+            type: string
+            description: >
+              How the issue was resolved. Only present when state=closed.
+              Summarize the fix or the reason for closing (e.g. "shipped in v50", "won't fix: out of scope").
     notes:
       type: list
       item:

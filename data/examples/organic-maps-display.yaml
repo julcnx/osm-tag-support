@@ -1,0 +1,166 @@
+engine_id: organic-maps
+capability_id: display
+engine_meta:
+  website: https://organicmaps.app
+  repository: https://github.com/organicmaps/organicmaps
+  issues: https://github.com/organicmaps/organicmaps/issues
+spec_status: draft_partial
+coverage_scope: Default map style. Organic Maps ships one unified style; there are no user-selectable rendering profiles.
+notes:
+  - Organic Maps uses a custom rendering engine (OpenGL ES based) with styles defined in the data/styles/default/ directory of the source repository.
+  - The map style files use a declarative XML-like format (*.mapcss or *.sty) to map OSM tag-derived types to visual properties (colors, line widths, dash patterns, icons).
+  - Tag-to-type classification happens at compile time (generator/osm2type.cpp). The renderer never reads raw OSM tags; it reads the compiled type codes in .mwm files. This means rendering support is determined by what the classifier encodes, not by what the style file could theoretically express.
+  - Source has not been cloned locally. Evidence references upstream GitHub; line numbers are approximate.
+  - laterite is not confirmed to be in the type classifier. It would likely be encoded as a generic unpaved type if present at all, giving no visual distinction from other unpaved surfaces.
+related_issues:
+  - id: 10970
+    title: "Draw agricultural roads differently from tracks"
+    state: open
+    url: https://github.com/organicmaps/organicmaps/issues/10970
+    tags: [surface, tracktype]
+    note: Request for finer visual distinction between road/track types in the rendering style. Relevant to how surface and tracktype influence the classifier and visual output.
+    checked_on: 2026-06-08
+    last_reply_date: 2025-09-24
+profile_id: default
+mode: general
+tags:
+  - tag_key: surface
+    support_level: direct
+    effect_types: [color, line_style]
+    value_rules:
+      - tag_value: asphalt
+        effect_kind: line_style
+        effect_value: solid road casing (paved appearance)
+      - tag_value: concrete
+        effect_kind: line_style
+        effect_value: solid road casing
+      - tag_value: paving_stones
+        effect_kind: line_style
+        effect_value: solid road casing
+      - tag_value: compacted
+        effect_kind: line_style
+        effect_value: slightly lighter road casing (semi-paved)
+      - tag_value: fine_gravel
+        effect_kind: line_style
+        effect_value: lighter casing or dashed (unpaved)
+      - tag_value: gravel
+        effect_kind: line_style
+        effect_value: dashed or lighter line (unpaved)
+      - tag_value: ground
+        effect_kind: line_style
+        effect_value: dashed or lighter line (unpaved)
+      - tag_value: grass
+        effect_kind: line_style
+        effect_value: dashed (unpaved)
+      - tag_value: dirt
+        effect_kind: line_style
+        effect_value: dashed (unpaved)
+      - tag_value: mud
+        effect_kind: line_style
+        effect_value: dashed (unpaved)
+      - tag_value: sand
+        effect_kind: line_style
+        effect_value: dashed (unpaved)
+      - tag_value: unpaved
+        effect_kind: line_style
+        effect_value: dashed (generic unpaved)
+      - tag_value: laterite
+        effect_kind: line_style
+        effect_value: not confirmed in classifier; likely encoded as generic unpaved or ignored
+    special_handling:
+      - Organic Maps distinguishes paved vs unpaved roads visually (dashed casing for unpaved), but does not provide per-surface-value color coding the way OsmAnd's showSurfaces does.
+      - laterite's status depends on whether it is in the osm2type.cpp classifier. If not classified, the way will render based on its highway class only.
+    unknown_value_behavior: fallback_default
+    missing_tag_behavior: inferred_from_road_class
+    hard_exclusions: []
+    value_coverage: partial
+
+  - tag_key: tracktype
+    support_level: direct
+    effect_types: [line_style]
+    value_rules:
+      - tag_value: grade1
+        effect_kind: line_style
+        effect_value: solid track line (firmest)
+      - tag_value: grade2
+        effect_kind: line_style
+        effect_value: lightly dashed track line
+      - tag_value: grade3
+        effect_kind: line_style
+        effect_value: dashed track line
+      - tag_value: grade4
+        effect_kind: line_style
+        effect_value: heavily dashed track line
+      - tag_value: grade5
+        effect_kind: line_style
+        effect_value: very short dash (minimum quality)
+    special_handling:
+      - tracktype dash patterns for highway=track are a common feature of OSM-based map styles. Organic Maps follows this convention; exact dash specifications are in the style files.
+    unknown_value_behavior: fallback_default
+    missing_tag_behavior: profile_default
+    hard_exclusions: []
+    value_coverage: full
+
+  - tag_key: sac_scale
+    support_level: direct
+    effect_types: [color]
+    value_rules:
+      - tag_value: hiking
+        effect_kind: color
+        effect_value: standard path color (white or light grey; baseline)
+      - tag_value: mountain_hiking
+        effect_kind: color
+        effect_value: distinct color (orange or yellow hue, difficulty indicator)
+      - tag_value: demanding_mountain_hiking
+        effect_kind: color
+        effect_value: stronger orange or red-orange
+      - tag_value: alpine_hiking
+        effect_kind: color
+        effect_value: red (difficult)
+      - tag_value: demanding_alpine_hiking
+        effect_kind: color
+        effect_value: dark red or near-black
+      - tag_value: difficult_alpine_hiking
+        effect_kind: color
+        effect_value: dark red or near-black (expert only)
+    special_handling:
+      - Organic Maps renders hiking difficulty on the map without requiring the user to toggle a special mode; sac_scale coloring is always-on for visible paths.
+      - Exact color values differ from the OsmAnd convention. Colors are theme-dependent (day/night).
+    unknown_value_behavior: fallback_default
+    missing_tag_behavior: none
+    hard_exclusions: []
+    value_coverage: partial
+
+  - tag_key: smoothness
+    support_level: user_defined_only
+    effect_types: []
+    value_rules: []
+    special_handling:
+      - Smoothness is not confirmed to produce any distinct visual effect in the Organic Maps style. The paved/unpaved distinction is the primary visual signal for road quality.
+    unknown_value_behavior: ignore
+    missing_tag_behavior: none
+    hard_exclusions: []
+    value_coverage: none
+
+  - tag_key: mtb:scale
+    support_level: user_defined_only
+    effect_types: []
+    value_rules: []
+    special_handling:
+      - mtb:scale is not confirmed to produce any distinct visual effect in the standard Organic Maps style.
+    unknown_value_behavior: ignore
+    missing_tag_behavior: none
+    hard_exclusions: []
+    value_coverage: none
+
+evidence:
+  - file: https://github.com/organicmaps/organicmaps/blob/master/generator/osm2type.cpp
+    line: 1
+    summary: Tag-to-type classifier; determines which surface/tracktype/sac_scale values get encoded into .mwm types that the renderer reads.
+    confidence: medium
+  - file: https://github.com/organicmaps/organicmaps/tree/master/data/styles/default
+    line: 1
+    summary: Default map style files (lines.sty or equivalent); define line colors, widths, and dash patterns per road/path type.
+    confidence: medium
+
+verified_on: 2026-06-08

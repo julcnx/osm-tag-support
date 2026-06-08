@@ -1,0 +1,302 @@
+engine_id: streetcomplete
+capability_id: preset_ui
+engine_meta:
+  website: https://streetcomplete.app
+  repository: https://github.com/streetcomplete/StreetComplete
+  issues: https://github.com/streetcomplete/StreetComplete/issues
+spec_status: draft_partial
+coverage_scope: Quest-based mobile editor. Only tags with a dedicated quest are documented; tags without a quest are inaccessible through the primary StreetComplete UI.
+notes:
+  - StreetComplete presents one tag at a time as a "quest" (a map pin the mapper taps to answer a specific question). Each quest covers exactly one tag or a closely related group.
+  - Quests are filtered by the OSM element type and existing tags; a road-surface quest only fires on ways that lack a surface tag and meet the highway class criteria.
+  - Answers are presented as illustrated buttons with short text labels; free-text entry is not the primary path. Mappers cannot see or edit raw tags during a quest.
+  - As of 2024, StreetComplete includes a basic tag editor ("Edit tags") accessible via the element detail panel, but this is not the primary editing flow.
+  - Tags not covered by any quest (tracktype, sac_scale, mtb:scale) are inaccessible through the normal quest workflow. They can only be set using the tag editor, which most StreetComplete users do not use.
+  - Quest availability is platform-wide; all mappers see the same quests (modulo local country-specific visibility rules). There is no user-configurable "profile" in the routing sense.
+related_issues:
+  - id: 4997
+    title: "Quest: Add tracktype for tracks"
+    state: open
+    url: https://github.com/streetcomplete/StreetComplete/issues/4997
+    tags: [tracktype]
+    note: Open request to add a quest for tracktype=grade* on highway=track. Not yet implemented.
+    checked_on: 2026-06-08
+    last_reply_date: 2023-05-04
+  - id: 1241
+    title: "Quest for sac_scale"
+    state: open
+    url: https://github.com/streetcomplete/StreetComplete/issues/1241
+    tags: [sac_scale]
+    note: Long-standing open request. Complexity of the SAC scale definition has been cited as a barrier to implementation.
+    checked_on: 2026-06-08
+    last_reply_date: 2018-10-27
+  - id: 3094
+    title: "Quest: smoothness"
+    state: closed
+    url: https://github.com/streetcomplete/StreetComplete/issues/3094
+    tags: [smoothness]
+    note: Closed in favor of the AddSmoothness quest that was shipped in v50.
+    checked_on: 2026-06-08
+    last_reply_date: 2021-07-29
+
+profiles:
+  - profile_id: AddRoadSurface
+    mode: general
+    tags:
+      - tag_key: surface
+        support_level: direct
+        effect_types: [preset_field, autocomplete]
+        value_rules:
+          - tag_value: asphalt
+            effect_kind: image_option
+            effect_value: illustrated button
+          - tag_value: concrete
+            effect_kind: image_option
+            effect_value: illustrated button
+          - tag_value: paving_stones
+            effect_kind: image_option
+            effect_value: illustrated button
+          - tag_value: sett
+            effect_kind: image_option
+            effect_value: illustrated button
+          - tag_value: cobblestone
+            effect_kind: image_option
+            effect_value: illustrated button
+          - tag_value: compacted
+            effect_kind: image_option
+            effect_value: illustrated button
+          - tag_value: fine_gravel
+            effect_kind: image_option
+            effect_value: illustrated button
+          - tag_value: gravel
+            effect_kind: image_option
+            effect_value: illustrated button
+          - tag_value: pebblestone
+            effect_kind: image_option
+            effect_value: illustrated button
+          - tag_value: grass_paver
+            effect_kind: image_option
+            effect_value: illustrated button
+          - tag_value: unpaved
+            effect_kind: image_option
+            effect_value: illustrated button (catch-all for unlisted unpaved)
+          - tag_value: ground
+            effect_kind: image_option
+            effect_value: illustrated button
+          - tag_value: dirt
+            effect_kind: image_option
+            effect_value: illustrated button
+          - tag_value: grass
+            effect_kind: image_option
+            effect_value: illustrated button
+          - tag_value: mud
+            effect_kind: image_option
+            effect_value: illustrated button
+          - tag_value: sand
+            effect_kind: image_option
+            effect_value: illustrated button
+          - tag_value: wood
+            effect_kind: image_option
+            effect_value: illustrated button
+          - tag_value: metal
+            effect_kind: image_option
+            effect_value: illustrated button
+          - tag_value: paved
+            effect_kind: image_option
+            effect_value: illustrated button (catch-all for unlisted paved)
+        special_handling:
+          - Quest fires on highway=* ways missing surface=*, filtered by element eligibility rules (e.g. minimum road class, minimum length).
+          - The answer buttons are shown in a scrollable grid with illustrative icons. A "I don't know" option is always present.
+          - Selecting "paved" or "unpaved" as catch-all values adds the generic tag; selecting a specific value like "asphalt" adds that directly.
+          - StreetComplete does not allow the mapper to type an arbitrary value; the answer set is fixed per quest.
+        unknown_value_behavior: ignore
+        missing_tag_behavior: prompt_user
+        hard_exclusions: []
+        value_coverage: partial
+    evidence:
+      - file: https://github.com/streetcomplete/StreetComplete/blob/master/app/src/main/kotlin/de/westnordost/streetcomplete/quests/surface/AddRoadSurface.kt
+        line: 1
+        summary: Quest definition for road surface; defines eligibility filter, answer set, and how selected values are written as OSM tags.
+        confidence: medium
+      - file: https://github.com/streetcomplete/StreetComplete/tree/master/app/src/main/res/drawable/ic_quest_surface_detail
+        line: 1
+        summary: Illustrative answer icons for each surface value used in the quest UI.
+        confidence: medium
+    verified_on: 2026-06-08
+
+  - profile_id: AddPathSurface
+    mode: general
+    tags:
+      - tag_key: surface
+        support_level: direct
+        effect_types: [preset_field, autocomplete]
+        value_rules:
+          - tag_value: asphalt
+            effect_kind: image_option
+            effect_value: illustrated button
+          - tag_value: concrete
+            effect_kind: image_option
+            effect_value: illustrated button
+          - tag_value: paving_stones
+            effect_kind: image_option
+            effect_value: illustrated button
+          - tag_value: sett
+            effect_kind: image_option
+            effect_value: illustrated button
+          - tag_value: cobblestone
+            effect_kind: image_option
+            effect_value: illustrated button
+          - tag_value: compacted
+            effect_kind: image_option
+            effect_value: illustrated button
+          - tag_value: fine_gravel
+            effect_kind: image_option
+            effect_value: illustrated button
+          - tag_value: gravel
+            effect_kind: image_option
+            effect_value: illustrated button
+          - tag_value: pebblestone
+            effect_kind: image_option
+            effect_value: illustrated button
+          - tag_value: ground
+            effect_kind: image_option
+            effect_value: illustrated button
+          - tag_value: dirt
+            effect_kind: image_option
+            effect_value: illustrated button
+          - tag_value: grass
+            effect_kind: image_option
+            effect_value: illustrated button
+          - tag_value: mud
+            effect_kind: image_option
+            effect_value: illustrated button
+          - tag_value: sand
+            effect_kind: image_option
+            effect_value: illustrated button
+          - tag_value: rock
+            effect_kind: image_option
+            effect_value: illustrated button
+          - tag_value: wood
+            effect_kind: image_option
+            effect_value: illustrated button
+          - tag_value: paved
+            effect_kind: image_option
+            effect_value: illustrated button (catch-all)
+          - tag_value: unpaved
+            effect_kind: image_option
+            effect_value: illustrated button (catch-all)
+        special_handling:
+          - Quest fires on highway=path, footway, cycleway, bridleway ways missing surface=*.
+          - Same interaction model as AddRoadSurface; answer set is slightly adjusted to include rock and omit less common urban surfaces.
+          - Separate from AddRoadSurface to allow different eligibility rules and value sets appropriate for off-road paths.
+        unknown_value_behavior: ignore
+        missing_tag_behavior: prompt_user
+        hard_exclusions: []
+        value_coverage: partial
+    evidence:
+      - file: https://github.com/streetcomplete/StreetComplete/blob/master/app/src/main/kotlin/de/westnordost/streetcomplete/quests/surface/AddPathSurface.kt
+        line: 1
+        summary: Quest definition for path surface; applies to footway, cycleway, path, bridleway with different eligibility and value set than AddRoadSurface.
+        confidence: medium
+    verified_on: 2026-06-08
+
+  - profile_id: AddSmoothness
+    mode: general
+    tags:
+      - tag_key: smoothness
+        support_level: direct
+        effect_types: [preset_field, autocomplete]
+        value_rules:
+          - tag_value: excellent
+            effect_kind: image_option
+            effect_value: illustrated button with vehicle icon showing minimum required vehicle type
+          - tag_value: good
+            effect_kind: image_option
+            effect_value: illustrated button with vehicle icon
+          - tag_value: intermediate
+            effect_kind: image_option
+            effect_value: illustrated button with vehicle icon
+          - tag_value: bad
+            effect_kind: image_option
+            effect_value: illustrated button with vehicle icon
+          - tag_value: very_bad
+            effect_kind: image_option
+            effect_value: illustrated button with vehicle icon
+          - tag_value: horrible
+            effect_kind: image_option
+            effect_value: illustrated button with vehicle icon
+          - tag_value: very_horrible
+            effect_kind: image_option
+            effect_value: illustrated button with vehicle icon
+          - tag_value: impassable
+            effect_kind: image_option
+            effect_value: illustrated button with vehicle icon
+        special_handling:
+          - Introduced in StreetComplete v50 (2023). Quest fires on paved ways missing smoothness=*.
+          - StreetComplete uses the "minimum vehicle that can traverse" framing from the OSM wiki, showing the smallest vehicle type (racing bike, touring bike, city bike, SUV, tractor, etc.) as the answer metaphor. The mapper picks the smallest vehicle that could still use the way.
+          - very_good is omitted from the default answer set; excellent and good cover the top end.
+          - The quest only fires on paved surfaces (asphalt, concrete, paving_stones, etc.) to keep the question meaningful. Unpaved ways with surface=dirt are not asked.
+        unknown_value_behavior: ignore
+        missing_tag_behavior: prompt_user
+        hard_exclusions: []
+        value_coverage: partial
+      - tag_key: surface
+        support_level: derived
+        effect_types: [inferred_fallback]
+        value_rules: []
+        special_handling:
+          - The AddSmoothness quest checks surface=* as a precondition. If surface is paved, the quest fires. Surface itself is not written by this quest.
+        unknown_value_behavior: ignore
+        missing_tag_behavior: none
+        hard_exclusions: []
+        value_coverage: none
+    evidence:
+      - file: https://github.com/streetcomplete/StreetComplete/blob/master/app/src/main/kotlin/de/westnordost/streetcomplete/quests/smoothness/AddSmoothness.kt
+        line: 1
+        summary: Quest definition for smoothness; includes eligibility filter (paved surface required), answer forms, and vehicle-metaphor framing.
+        confidence: medium
+    verified_on: 2026-06-08
+
+  - profile_id: no_quest
+    mode: general
+    notes:
+      - The following tags have no dedicated StreetComplete quest as of 2026-06. They can only be set via the tag editor panel, which is not the primary StreetComplete editing flow.
+    tags:
+      - tag_key: tracktype
+        support_level: user_defined_only
+        effect_types: []
+        value_rules: []
+        special_handling:
+          - No quest exists. Issue #4997 is open requesting one. Tracktype requires subjective assessment (firmness, surface binding) that does not translate easily to a photo-based quest.
+        unknown_value_behavior: user_defined
+        missing_tag_behavior: none
+        hard_exclusions: []
+        value_coverage: none
+      - tag_key: sac_scale
+        support_level: user_defined_only
+        effect_types: []
+        value_rules: []
+        special_handling:
+          - No quest exists. Issue #1241 has been open since 2019. The SAC difficulty scale requires knowledge of technical hiking standards, making it harder to crowdsource than surface or smoothness.
+        unknown_value_behavior: user_defined
+        missing_tag_behavior: none
+        hard_exclusions: []
+        value_coverage: none
+      - tag_key: mtb:scale
+        support_level: user_defined_only
+        effect_types: []
+        value_rules: []
+        special_handling:
+          - No quest exists. MTB difficulty assessment requires specialized knowledge; no open issue requesting one as of 2026-06.
+        unknown_value_behavior: user_defined
+        missing_tag_behavior: none
+        hard_exclusions: []
+        value_coverage: none
+    evidence:
+      - file: https://github.com/streetcomplete/StreetComplete/tree/master/app/src/main/kotlin/de/westnordost/streetcomplete/quests
+        line: 1
+        summary: Full list of quest implementations; absence of AddTracktype, AddSacScale, and AddMtbScale confirms no quest exists for these tags.
+        confidence: high
+    verified_on: 2026-06-08
+
+verified_on: 2026-06-08

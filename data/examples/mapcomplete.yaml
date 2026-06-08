@@ -1,0 +1,399 @@
+engine_id: mapcomplete
+capability_id: preset_ui
+engine_meta:
+  website: https://mapcomplete.org
+  repository: https://github.com/pietervdvn/MapComplete
+  issues: https://github.com/pietervdvn/MapComplete/issues
+spec_status: draft_partial
+coverage_scope: Tag support is theme-dependent. Only themes covering outdoor paths and cycling infrastructure are documented here.
+notes:
+  - MapComplete is a thematic web editor. Each theme (called a "layer" at the technical level) defines exactly which tags are editable and with what UI widget.
+  - Tag questions can be text, dropdown, radio, image-select, or mapped/derived types. The specific widget is defined per tag per theme.
+  - Mappers only see the tags relevant to the active theme. Tags outside a theme's question set must be edited via the raw tag editor (accessible by clicking the pencil icon).
+  - Theme files live in assets/layers/<name>/ as JSON. A theme can include multiple layers.
+  - MapComplete supports crowdsourced review (TagRendering answers from multiple mappers), which affects how confidently a tag is displayed vs. prompted.
+related_issues:
+  - id: 1821
+    title: "Add smoothness question to cyclostreets and bicycle_infrastructure layers"
+    state: open
+    url: https://github.com/pietervdvn/MapComplete/issues/1821
+    tags: [smoothness]
+    note: Smoothness is currently absent from the cycling-focused layers that already ask about surface. Adding it would make cycling layers more useful for routing consumers.
+    checked_on: 2026-06-08
+    last_reply_date: 2024-03-19
+
+profiles:
+  - profile_id: cyclostreets
+    mode: cycling
+    tags:
+      - tag_key: surface
+        support_level: direct
+        effect_types: [preset_field, autocomplete]
+        value_rules:
+          - tag_value: asphalt
+            effect_kind: image_option
+            effect_value: shown with photo illustration
+          - tag_value: concrete
+            effect_kind: image_option
+            effect_value: shown with photo illustration
+          - tag_value: paving_stones
+            effect_kind: image_option
+            effect_value: shown with photo illustration
+          - tag_value: sett
+            effect_kind: image_option
+            effect_value: shown with photo illustration
+          - tag_value: cobblestone
+            effect_kind: image_option
+            effect_value: shown with photo illustration
+          - tag_value: compacted
+            effect_kind: image_option
+            effect_value: shown with photo illustration
+          - tag_value: fine_gravel
+            effect_kind: image_option
+            effect_value: shown with photo illustration
+          - tag_value: gravel
+            effect_kind: image_option
+            effect_value: shown with photo illustration
+          - tag_value: pebblestone
+            effect_kind: image_option
+            effect_value: shown with photo illustration
+          - tag_value: grass_paver
+            effect_kind: image_option
+            effect_value: shown with photo illustration
+          - tag_value: ground
+            effect_kind: image_option
+            effect_value: shown with photo illustration
+          - tag_value: grass
+            effect_kind: image_option
+            effect_value: shown with photo illustration
+          - tag_value: sand
+            effect_kind: image_option
+            effect_value: shown with photo illustration
+          - tag_value: dirt
+            effect_kind: image_option
+            effect_value: shown with photo illustration
+          - tag_value: mud
+            effect_kind: image_option
+            effect_value: shown with photo illustration
+          - tag_value: wood
+            effect_kind: image_option
+            effect_value: shown with photo illustration
+          - tag_value: metal
+            effect_kind: image_option
+            effect_value: shown with photo illustration
+        special_handling:
+          - MapComplete uses photo-illustrated answer buttons rather than a text dropdown for surface. The mapper taps the image matching the surface they see.
+          - A text fallback ("I don't know") is always offered.
+        unknown_value_behavior: user_defined
+        missing_tag_behavior: prompt_user
+        hard_exclusions: []
+        value_coverage: partial
+      - tag_key: smoothness
+        support_level: user_defined_only
+        effect_types: []
+        value_rules: []
+        special_handling:
+          - Not currently a question in the cyclostreets layer. Can be added via the raw tag editor.
+        unknown_value_behavior: user_defined
+        missing_tag_behavior: none
+        hard_exclusions: []
+        value_coverage: none
+      - tag_key: tracktype
+        support_level: user_defined_only
+        effect_types: []
+        value_rules: []
+        special_handling:
+          - Not a question in cycling-focused layers. Accessible only via raw tag editor.
+        unknown_value_behavior: user_defined
+        missing_tag_behavior: none
+        hard_exclusions: []
+        value_coverage: none
+    evidence:
+      - file: https://github.com/pietervdvn/MapComplete/blob/develop/assets/layers/cyclostreets/cyclostreets.json
+        line: 1
+        summary: Layer definition for cyclostreets theme; includes a surface TagRendering with image-select answers.
+        confidence: medium
+    verified_on: 2026-06-08
+
+  - profile_id: bicycle_infrastructure
+    mode: cycling
+    tags:
+      - tag_key: surface
+        support_level: direct
+        effect_types: [preset_field, autocomplete]
+        value_rules:
+          - tag_value: asphalt
+            effect_kind: image_option
+            effect_value: shown with photo illustration
+          - tag_value: concrete
+            effect_kind: image_option
+            effect_value: shown with photo illustration
+          - tag_value: paving_stones
+            effect_kind: image_option
+            effect_value: shown with photo illustration
+          - tag_value: sett
+            effect_kind: image_option
+            effect_value: shown with photo illustration
+          - tag_value: compacted
+            effect_kind: image_option
+            effect_value: shown with photo illustration
+          - tag_value: fine_gravel
+            effect_kind: image_option
+            effect_value: shown with photo illustration
+          - tag_value: gravel
+            effect_kind: image_option
+            effect_value: shown with photo illustration
+          - tag_value: ground
+            effect_kind: image_option
+            effect_value: shown with photo illustration
+          - tag_value: grass
+            effect_kind: image_option
+            effect_value: shown with photo illustration
+          - tag_value: sand
+            effect_kind: image_option
+            effect_value: shown with photo illustration
+          - tag_value: dirt
+            effect_kind: image_option
+            effect_value: shown with photo illustration
+          - tag_value: mud
+            effect_kind: image_option
+            effect_value: shown with photo illustration
+        special_handling:
+          - Photo-illustrated answer buttons; same interaction model as cyclostreets.
+        unknown_value_behavior: user_defined
+        missing_tag_behavior: prompt_user
+        hard_exclusions: []
+        value_coverage: partial
+      - tag_key: smoothness
+        support_level: user_defined_only
+        effect_types: []
+        value_rules: []
+        special_handling:
+          - Not a current question in this layer.
+        unknown_value_behavior: user_defined
+        missing_tag_behavior: none
+        hard_exclusions: []
+        value_coverage: none
+    evidence:
+      - file: https://github.com/pietervdvn/MapComplete/blob/develop/assets/layers/bicycle_infrastructure/bicycle_infrastructure.json
+        line: 1
+        summary: Layer definition for cycling infrastructure; includes surface question with image-select widget.
+        confidence: medium
+    verified_on: 2026-06-08
+
+  - profile_id: hiking
+    mode: foot
+    tags:
+      - tag_key: surface
+        support_level: direct
+        effect_types: [preset_field, autocomplete]
+        value_rules:
+          - tag_value: asphalt
+            effect_kind: image_option
+            effect_value: shown with photo illustration
+          - tag_value: paving_stones
+            effect_kind: image_option
+            effect_value: shown with photo illustration
+          - tag_value: compacted
+            effect_kind: image_option
+            effect_value: shown with photo illustration
+          - tag_value: gravel
+            effect_kind: image_option
+            effect_value: shown with photo illustration
+          - tag_value: ground
+            effect_kind: image_option
+            effect_value: shown with photo illustration
+          - tag_value: grass
+            effect_kind: image_option
+            effect_value: shown with photo illustration
+          - tag_value: rock
+            effect_kind: image_option
+            effect_value: shown with photo illustration
+          - tag_value: sand
+            effect_kind: image_option
+            effect_value: shown with photo illustration
+        special_handling:
+          - Value set is narrowed to outdoor-relevant surfaces; paved urban surfaces are de-emphasized.
+        unknown_value_behavior: user_defined
+        missing_tag_behavior: prompt_user
+        hard_exclusions: []
+        value_coverage: partial
+      - tag_key: sac_scale
+        support_level: direct
+        effect_types: [preset_field, autocomplete]
+        value_rules:
+          - tag_value: hiking
+            effect_kind: image_option
+            effect_value: shown with photo illustration and difficulty description
+          - tag_value: mountain_hiking
+            effect_kind: image_option
+            effect_value: shown with photo illustration and difficulty description
+          - tag_value: demanding_mountain_hiking
+            effect_kind: image_option
+            effect_value: shown with photo illustration and difficulty description
+          - tag_value: alpine_hiking
+            effect_kind: image_option
+            effect_value: shown with photo illustration and difficulty description
+          - tag_value: demanding_alpine_hiking
+            effect_kind: image_option
+            effect_value: shown with photo illustration and difficulty description
+          - tag_value: difficult_alpine_hiking
+            effect_kind: image_option
+            effect_value: shown with photo illustration and difficulty description
+        special_handling:
+          - Each answer button includes a short explanation of the difficulty level, making this one of the most mapper-friendly UIs for sac_scale.
+        unknown_value_behavior: user_defined
+        missing_tag_behavior: prompt_user
+        hard_exclusions: []
+        value_coverage: full
+      - tag_key: smoothness
+        support_level: user_defined_only
+        effect_types: []
+        value_rules: []
+        special_handling:
+          - Not a question in the hiking layer. Accessible only via raw tag editor.
+        unknown_value_behavior: user_defined
+        missing_tag_behavior: none
+        hard_exclusions: []
+        value_coverage: none
+      - tag_key: tracktype
+        support_level: user_defined_only
+        effect_types: []
+        value_rules: []
+        special_handling:
+          - Not a question in the hiking layer.
+        unknown_value_behavior: user_defined
+        missing_tag_behavior: none
+        hard_exclusions: []
+        value_coverage: none
+    evidence:
+      - file: https://github.com/pietervdvn/MapComplete/blob/develop/assets/layers/hiking_routes/hiking_routes.json
+        line: 1
+        summary: Layer definition for hiking paths; includes sac_scale question with image-select answers and difficulty descriptions.
+        confidence: medium
+    verified_on: 2026-06-08
+
+  - profile_id: mtb
+    mode: cycling
+    tags:
+      - tag_key: surface
+        support_level: direct
+        effect_types: [preset_field, autocomplete]
+        value_rules:
+          - tag_value: asphalt
+            effect_kind: image_option
+            effect_value: shown with photo illustration
+          - tag_value: compacted
+            effect_kind: image_option
+            effect_value: shown with photo illustration
+          - tag_value: fine_gravel
+            effect_kind: image_option
+            effect_value: shown with photo illustration
+          - tag_value: gravel
+            effect_kind: image_option
+            effect_value: shown with photo illustration
+          - tag_value: ground
+            effect_kind: image_option
+            effect_value: shown with photo illustration
+          - tag_value: grass
+            effect_kind: image_option
+            effect_value: shown with photo illustration
+          - tag_value: rock
+            effect_kind: image_option
+            effect_value: shown with photo illustration
+          - tag_value: sand
+            effect_kind: image_option
+            effect_value: shown with photo illustration
+          - tag_value: dirt
+            effect_kind: image_option
+            effect_value: shown with photo illustration
+          - tag_value: mud
+            effect_kind: image_option
+            effect_value: shown with photo illustration
+        unknown_value_behavior: user_defined
+        missing_tag_behavior: prompt_user
+        hard_exclusions: []
+        value_coverage: partial
+      - tag_key: smoothness
+        support_level: direct
+        effect_types: [preset_field, autocomplete]
+        value_rules:
+          - tag_value: excellent
+            effect_kind: image_option
+            effect_value: shown with photo illustration
+          - tag_value: good
+            effect_kind: image_option
+            effect_value: shown with photo illustration
+          - tag_value: intermediate
+            effect_kind: image_option
+            effect_value: shown with photo illustration
+          - tag_value: bad
+            effect_kind: image_option
+            effect_value: shown with photo illustration
+          - tag_value: very_bad
+            effect_kind: image_option
+            effect_value: shown with photo illustration
+          - tag_value: horrible
+            effect_kind: image_option
+            effect_value: shown with photo illustration
+          - tag_value: very_horrible
+            effect_kind: image_option
+            effect_value: shown with photo illustration
+          - tag_value: impassable
+            effect_kind: image_option
+            effect_value: shown with photo illustration
+        special_handling:
+          - Smoothness question is more prominent in the MTB layer than in general cycling layers.
+        unknown_value_behavior: user_defined
+        missing_tag_behavior: prompt_user
+        hard_exclusions: []
+        value_coverage: partial
+      - tag_key: mtb:scale
+        support_level: direct
+        effect_types: [preset_field, autocomplete]
+        value_rules:
+          - tag_value: "0"
+            effect_kind: image_option
+            effect_value: shown with photo illustration and difficulty description
+          - tag_value: "1"
+            effect_kind: image_option
+            effect_value: shown with photo illustration and difficulty description
+          - tag_value: "2"
+            effect_kind: image_option
+            effect_value: shown with photo illustration and difficulty description
+          - tag_value: "3"
+            effect_kind: image_option
+            effect_value: shown with photo illustration and difficulty description
+          - tag_value: "4"
+            effect_kind: image_option
+            effect_value: shown with photo illustration and difficulty description
+          - tag_value: "5"
+            effect_kind: image_option
+            effect_value: shown with photo illustration and difficulty description
+          - tag_value: "6"
+            effect_kind: image_option
+            effect_value: shown with photo illustration and difficulty description
+        special_handling:
+          - Sub-grade values (0+, 1-, etc.) are not offered in the MTB theme UI. Can be typed in the raw tag editor.
+        unknown_value_behavior: user_defined
+        missing_tag_behavior: prompt_user
+        hard_exclusions: []
+        value_coverage: partial
+      - tag_key: tracktype
+        support_level: user_defined_only
+        effect_types: []
+        value_rules: []
+        special_handling:
+          - Not a question in the MTB layer.
+        unknown_value_behavior: user_defined
+        missing_tag_behavior: none
+        hard_exclusions: []
+        value_coverage: none
+    evidence:
+      - file: https://github.com/pietervdvn/MapComplete/blob/develop/assets/layers/bicycle_library/bicycle_library.json
+        line: 1
+        summary: Representative MTB-adjacent layer; mtb:scale and smoothness questions with image-select answers.
+        confidence: low
+    verified_on: 2026-06-08
+
+verified_on: 2026-06-08

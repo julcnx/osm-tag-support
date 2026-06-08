@@ -1,0 +1,235 @@
+engine_id: openstreetmap-carto
+capability_id: style
+engine_meta:
+  website: https://www.openstreetmap.org
+  repository: https://github.com/gravitystorm/openstreetmap-carto
+  issues: https://github.com/gravitystorm/openstreetmap-carto/issues
+spec_status: draft_partial
+coverage_scope: The standard OSM tile style rendered at openstreetmap.org. Tag effects are global; there is one style with no user-selectable profiles.
+notes:
+  - OSM Carto is a general-purpose reference map, not an outdoor or routing style. Its primary concern is cartographic clarity at a range of zoom levels.
+  - Tag support for surface, tracktype, and sac_scale is limited to what is visible on the rendered tiles; no semantic information is passed to map consumers.
+  - Surface detection uses a hard-coded list of values. Values not in the list silently fall through to default (paved) rendering. laterite is not in the list and renders as paved-looking by default.
+  - Smoothness and mtb:scale have no rendering effect in the current style.
+related_issues:
+  - id: 4692
+    title: "Introduce sac_scale and trail_visibility on highway=path"
+    state: open
+    url: https://github.com/gravitystorm/openstreetmap-carto/pull/4692
+    tags: [sac_scale]
+    note: Open PR proposing rendering for demanding hiking difficulty levels (demanding_mountain_hiking and above). Stalled since January 2023 over reviewer concerns about tag consistency.
+    checked_on: 2026-06-08
+    last_reply_date: 2023-01-18
+  - id: 4322
+    title: "Stop rendering tracktype for highway=track"
+    state: open
+    url: https://github.com/gravitystorm/openstreetmap-carto/issues/4322
+    tags: [tracktype]
+    note: Open discussion proposing to remove the tracktype dash-pattern rendering. Current behavior (grade1-5 patterns) is still active but contested.
+    checked_on: 2026-06-08
+    last_reply_date: 2024-07-29
+  - id: 4337
+    title: "Rendering style for unpaved / ungraded / track roads"
+    state: closed
+    url: https://github.com/gravitystorm/openstreetmap-carto/issues/4337
+    tags: [surface]
+    note: Prior discussion of unpaved rendering improvements. laterite was not explicitly added to the unpaved value list as part of this closure.
+    checked_on: 2026-06-08
+    last_reply_date: 2022-06-03
+    resolution: Partial improvements to unpaved styling merged; surface value list not fully extended to include laterite.
+  - id: 5111
+    title: "Different rendering for highway=track with surface=asphalt"
+    state: closed
+    url: https://github.com/gravitystorm/openstreetmap-carto/issues/5111
+    tags: [surface]
+    note: Request for visual distinction between paved and unpaved tracks; closed as duplicate of existing discussions.
+    checked_on: 2026-06-08
+    last_reply_date: 2026-04-01
+    resolution: Closed as duplicate; no change to surface handling.
+profile_id: default
+mode: general
+tags:
+  - tag_key: surface
+    support_level: direct
+    effect_types: [line_style]
+    value_rules:
+      # explicitly classified as unpaved: dashed road casing applied
+      - tag_value: unpaved
+        effect_kind: line_style
+        effect_value: dashed_casing
+      - tag_value: compacted
+        effect_kind: line_style
+        effect_value: dashed_casing
+      - tag_value: dirt
+        effect_kind: line_style
+        effect_value: dashed_casing
+      - tag_value: earth
+        effect_kind: line_style
+        effect_value: dashed_casing
+      - tag_value: fine_gravel
+        effect_kind: line_style
+        effect_value: dashed_casing
+      - tag_value: grass
+        effect_kind: line_style
+        effect_value: dashed_casing
+      - tag_value: grass_paver
+        effect_kind: line_style
+        effect_value: dashed_casing
+      - tag_value: gravel
+        effect_kind: line_style
+        effect_value: dashed_casing
+      - tag_value: gravel_dirt
+        effect_kind: line_style
+        effect_value: dashed_casing
+      - tag_value: ground
+        effect_kind: line_style
+        effect_value: dashed_casing
+      - tag_value: ice
+        effect_kind: line_style
+        effect_value: dashed_casing
+      - tag_value: mud
+        effect_kind: line_style
+        effect_value: dashed_casing
+      - tag_value: pebblestone
+        effect_kind: line_style
+        effect_value: dashed_casing
+      - tag_value: rock
+        effect_kind: line_style
+        effect_value: dashed_casing
+      - tag_value: salt
+        effect_kind: line_style
+        effect_value: dashed_casing
+      - tag_value: sand
+        effect_kind: line_style
+        effect_value: dashed_casing
+      - tag_value: snow
+        effect_kind: line_style
+        effect_value: dashed_casing
+      - tag_value: woodchips
+        effect_kind: line_style
+        effect_value: dashed_casing
+      # explicitly classified as paved: solid casing (default)
+      - tag_value: asphalt
+        effect_kind: line_style
+        effect_value: solid_casing
+      - tag_value: concrete
+        effect_kind: line_style
+        effect_value: solid_casing
+      - tag_value: concrete:lanes
+        effect_kind: line_style
+        effect_value: solid_casing
+      - tag_value: concrete:plates
+        effect_kind: line_style
+        effect_value: solid_casing
+      - tag_value: paving_stones
+        effect_kind: line_style
+        effect_value: solid_casing
+      - tag_value: sett
+        effect_kind: line_style
+        effect_value: solid_casing
+      - tag_value: cobblestone
+        effect_kind: line_style
+        effect_value: solid_casing
+      - tag_value: cobblestone:flattened
+        effect_kind: line_style
+        effect_value: solid_casing
+      - tag_value: metal
+        effect_kind: line_style
+        effect_value: solid_casing
+      - tag_value: wood
+        effect_kind: line_style
+        effect_value: solid_casing
+      - tag_value: paved
+        effect_kind: line_style
+        effect_value: solid_casing
+      - tag_value: bricks
+        effect_kind: line_style
+        effect_value: solid_casing
+      # NOT in the explicit list: falls through to solid_casing (treated as paved)
+      - tag_value: laterite
+        effect_kind: line_style
+        effect_value: solid_casing (NOT in unpaved list; renders as paved despite being unpaved)
+      - tag_value: clay
+        effect_kind: line_style
+        effect_value: solid_casing (NOT in unpaved list)
+    special_handling:
+      - The unpaved/paved decision is binary. There is no gradient or additional visual cue beyond the dashed casing to indicate surface quality.
+      - The surface list is checked in the CartoCSS selector via a regexp or array match. Any value not matching is treated as paved.
+      - laterite is an unpaved surface common in tropical and West African regions. Its omission from the unpaved list causes it to render with solid casing, indistinguishable from asphalt. See issue #3936.
+      - The dashed casing appears from approximately zoom 12 upward. At lower zooms, surface has no visual effect.
+    unknown_value_behavior: fallback_default
+    missing_tag_behavior: inferred_from_road_class
+    hard_exclusions: []
+    value_coverage: partial
+
+  - tag_key: tracktype
+    support_level: direct
+    effect_types: [line_style]
+    value_rules:
+      - tag_value: grade1
+        effect_kind: line_style
+        effect_value: solid track line
+      - tag_value: grade2
+        effect_kind: line_style
+        effect_value: long dash (e.g. 6px on / 3px off)
+      - tag_value: grade3
+        effect_kind: line_style
+        effect_value: medium dash (e.g. 4px on / 4px off)
+      - tag_value: grade4
+        effect_kind: line_style
+        effect_value: short dash (e.g. 3px on / 4px off)
+      - tag_value: grade5
+        effect_kind: line_style
+        effect_value: very short dash (near-dotted)
+    special_handling:
+      - Applies only to highway=track ways. Other highway types are not affected by tracktype.
+      - tracktype takes precedence over surface for track line styling. If both are present, the tracktype dash pattern is used.
+    unknown_value_behavior: fallback_default
+    missing_tag_behavior: profile_default
+    hard_exclusions: []
+    value_coverage: full
+
+  - tag_key: smoothness
+    support_level: user_defined_only
+    effect_types: []
+    value_rules: []
+    special_handling:
+      - Not used in any CartoCSS selector. No visual differentiation based on smoothness value.
+    unknown_value_behavior: ignore
+    missing_tag_behavior: none
+    hard_exclusions: []
+    value_coverage: none
+
+  - tag_key: sac_scale
+    support_level: user_defined_only
+    effect_types: []
+    value_rules: []
+    special_handling:
+      - Not used in the current openstreetmap-carto style. Paths are rendered uniformly regardless of sac_scale value. Dedicated outdoor map styles (e.g. OpenTopoMap, Waymarked Trails) do use sac_scale for path coloring.
+    unknown_value_behavior: ignore
+    missing_tag_behavior: none
+    hard_exclusions: []
+    value_coverage: none
+
+  - tag_key: mtb:scale
+    support_level: user_defined_only
+    effect_types: []
+    value_rules: []
+    special_handling:
+      - Not used in the current openstreetmap-carto style.
+    unknown_value_behavior: ignore
+    missing_tag_behavior: none
+    hard_exclusions: []
+    value_coverage: none
+
+evidence:
+  - file: https://github.com/gravitystorm/openstreetmap-carto/blob/master/roads.mss
+    line: 1
+    summary: CartoCSS file defining road line styles; includes surface-based unpaved detection and tracktype-based dash patterns for highway=track.
+    confidence: medium
+  - file: https://github.com/gravitystorm/openstreetmap-carto/blob/master/project.mml
+    line: 1
+    summary: Project definition with SQL queries; surface and tracktype are selected from OSM data and filtered into style attributes.
+    confidence: medium
+
+verified_on: 2026-06-08

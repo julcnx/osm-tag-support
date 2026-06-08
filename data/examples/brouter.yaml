@@ -13,42 +13,56 @@ related_issues:
     url: https://github.com/abrensch/brouter/issues/204
     tags: [sac_scale]
     note: Feature request to add sac_scale penalty support to hiking profiles. Currently only hiking-mountain.brf handles it.
+    checked_on: 2026-06-07
+    last_reply_date: 2023-07-22
   - id: 241
     title: "Tag cycleway:smoothness"
     state: open
     url: https://github.com/abrensch/brouter/issues/241
     tags: [smoothness]
     note: cycleway:smoothness is not handled; only smoothness= is read. Relevant for cycling profiles.
+    checked_on: 2026-06-07
+    last_reply_date: 2021-09-10
   - id: 259
     title: "Consider surfaces wood and metal as ispaved"
     state: open
     url: https://github.com/abrensch/brouter/issues/259
     tags: [surface]
     note: surface=wood and surface=metal are classified as isunpaved in trekking/gravel profiles; issue requests reclassification.
+    checked_on: 2026-06-07
+    last_reply_date: 2023-07-22
   - id: 198
     title: "Default surface for highway=*"
     state: open
     url: https://github.com/abrensch/brouter/issues/198
     tags: [surface]
     note: Surface inference for untagged highways is inconsistent across profiles. Affects missing_tag_behavior.
+    checked_on: 2026-06-07
+    last_reply_date: 2019-10-05
   - id: 416
     title: "Update for lookups.dat"
     state: open
     url: https://github.com/abrensch/brouter/issues/416
     tags: [surface, smoothness, tracktype]
     note: lookups.dat (the tag value registry) is outdated and missing many surface/smoothness/tracktype values.
+    checked_on: 2026-06-07
+    last_reply_date: 2025-06-02
   - id: 610
     title: "Adding penalties averages ratios between roads, so multiplying should be used"
     state: open
     url: https://github.com/abrensch/brouter/issues/610
     tags: [surface, smoothness, tracktype]
     note: Additive penalty model causes underpenalization on combined surface+smoothness+tracktype. Affects all off-road profiles.
+    checked_on: 2026-06-07
+    last_reply_date: 2023-08-14
   - id: 840
     title: "Consider smoothness for bicycle profiles"
     state: closed
     url: https://github.com/abrensch/brouter/pull/840
     tags: [smoothness]
     note: PR that added smoothness penalty tables to gravel and other profiles. Reference for how smoothness was introduced.
+    checked_on: 2026-06-07
+    last_reply_date: 2025-11-11
 notes:
   - Profile behavior differs strongly between trekking, gravel, mtb, and car profiles.
 profiles:
@@ -170,10 +184,12 @@ profiles:
         line: 100
         summary: ispaved and isunpaved derived from surface and smoothness.
         confidence: high
+        source_ref: a2e2f16f4bb3318a8b017fd76d08fbf67d895849
       - file: sources/brouter/misc/profiles2/trekking.brf
         line: 329
         summary: tracktype-based penalties for track-like ways.
         confidence: high
+        source_ref: a2e2f16f4bb3318a8b017fd76d08fbf67d895849
     verified_on: 2026-06-07
 
   - profile_id: gravel
@@ -294,14 +310,17 @@ profiles:
         line: 85
         summary: smoothness penalty table and wet-condition branches.
         confidence: high
+        source_ref: a2e2f16f4bb3318a8b017fd76d08fbf67d895849
       - file: sources/brouter/misc/profiles2/gravel.brf
         line: 114
         summary: smoothness estimation from tracktype.
         confidence: high
+        source_ref: a2e2f16f4bb3318a8b017fd76d08fbf67d895849
       - file: sources/brouter/misc/profiles2/gravel.brf
         line: 162
         summary: explicit tracktypepenalty values by grade.
         confidence: high
+        source_ref: a2e2f16f4bb3318a8b017fd76d08fbf67d895849
     verified_on: 2026-06-07
 
   - profile_id: mtb
@@ -477,18 +496,22 @@ profiles:
         line: 285
         summary: Smoothness penalty table controlled by consider_smoothness flag.
         confidence: high
+        source_ref: a2e2f16f4bb3318a8b017fd76d08fbf67d895849
       - file: sources/brouter/misc/profiles2/mtb.brf
         line: 363
         summary: Tracktype penalty table grade1-5.
         confidence: high
+        source_ref: a2e2f16f4bb3318a8b017fd76d08fbf67d895849
       - file: sources/brouter/misc/profiles2/mtb.brf
         line: 368
         summary: Surface penalty table.
         confidence: high
+        source_ref: a2e2f16f4bb3318a8b017fd76d08fbf67d895849
       - file: sources/brouter/misc/profiles2/mtb.brf
         line: 299
         summary: mtb:scale penalty table; values 4+ use near-infinite block penalty.
         confidence: high
+        source_ref: a2e2f16f4bb3318a8b017fd76d08fbf67d895849
     verified_on: 2026-06-07
 
   - profile_id: hiking-mountain
@@ -667,18 +690,22 @@ profiles:
         line: 188
         summary: SAC variable computed from sac_scale with mtb:scale fallback mapping.
         confidence: high
+        source_ref: a2e2f16f4bb3318a8b017fd76d08fbf67d895849
       - file: sources/brouter/misc/profiles2/hiking-mountain.brf
         line: 213
         summary: SAC penalty computation using K1/K2 coefficients and configurable limit.
         confidence: high
+        source_ref: a2e2f16f4bb3318a8b017fd76d08fbf67d895849
       - file: sources/brouter/misc/profiles2/hiking-mountain.brf
         line: 232
         summary: Tracktype penalty for track ways.
         confidence: high
+        source_ref: a2e2f16f4bb3318a8b017fd76d08fbf67d895849
       - file: sources/brouter/misc/profiles2/hiking-mountain.brf
         line: 238
         summary: Surface penalty for track ways.
         confidence: high
+        source_ref: a2e2f16f4bb3318a8b017fd76d08fbf67d895849
     verified_on: 2026-06-07
 
 verified_on: 2026-06-07

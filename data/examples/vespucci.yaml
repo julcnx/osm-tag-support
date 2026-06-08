@@ -1,0 +1,249 @@
+engine_id: vespucci
+capability_id: preset_ui
+engine_meta:
+  website: https://vespucci.io
+  repository: https://github.com/MarcusWolschon/osmeditor4android
+  issues: https://github.com/MarcusWolschon/osmeditor4android/issues
+spec_status: draft_partial
+coverage_scope: Android OSM editor. Preset support mirrors JOSM-compatible preset format; field coverage is equivalent to JOSM for the tags tracked here.
+notes:
+  - Vespucci loads presets from XML files compatible with the JOSM preset format. The bundled presets ship with the app; additional presets can be added from the Preset Manager.
+  - Preset fields render as spinner dropdowns or auto-complete text fields depending on the field type declaration.
+  - Tags without a preset field can be added or edited via the "Properties" (tag list) view, which accepts any key/value pair.
+  - Vespucci also includes a built-in validator similar to JOSM's, which flags unknown or deprecated values. Validation rules are configured separately from presets.
+  - The default bundled preset is maintained at https://github.com/simonpoole/preset-utils and is updated independently of the app release cycle.
+related_issues:
+  - id: 2615
+    title: "MTB:scale 0- missing from the path details"
+    state: closed
+    url: https://github.com/MarcusWolschon/osmeditor4android/issues/2615
+    tags: [mtb:scale]
+    note: Sub-grade 0- was missing from the mtb:scale combo list. Verify whether all other sub-grades (0+, 1-, 1+, 2-, 2+, 3+) are present after the fix.
+    checked_on: 2026-06-08
+    last_reply_date: 2024-07-10
+    resolution: 0- sub-grade added to the mtb:scale field definition.
+profile_id: general
+mode: general
+tags:
+  - tag_key: surface
+    support_level: direct
+    effect_types: [preset_field, autocomplete, validation]
+    value_rules:
+      - tag_value: paved
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: unpaved
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: asphalt
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: concrete
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: paving_stones
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: sett
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: cobblestone
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: cobblestone:flattened
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: compacted
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: fine_gravel
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: gravel
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: pebblestone
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: grass_paver
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: ground
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: dirt
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: earth
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: grass
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: mud
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: sand
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: wood
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: metal
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+    special_handling:
+      - Vespucci renders combo fields as a spinner (fixed-choice) or as an editable autocomplete depending on whether the preset declares it as a strict list.
+      - Value list mirrors JOSM defaultpresets.xml since Vespucci uses the same preset XML format and the bundled preset is derived from the JOSM preset.
+    unknown_value_behavior: user_defined
+    missing_tag_behavior: none
+    hard_exclusions: []
+    value_coverage: partial
+
+  - tag_key: smoothness
+    support_level: direct
+    effect_types: [preset_field, autocomplete, validation]
+    value_rules:
+      - tag_value: excellent
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: very_good
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: good
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: intermediate
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: bad
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: very_bad
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: horrible
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: very_horrible
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: impassable
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+    unknown_value_behavior: user_defined
+    missing_tag_behavior: none
+    hard_exclusions: []
+    value_coverage: full
+
+  - tag_key: tracktype
+    support_level: direct
+    effect_types: [preset_field, autocomplete, validation]
+    value_rules:
+      - tag_value: grade1
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: grade2
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: grade3
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: grade4
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: grade5
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+    special_handling:
+      - Shown in the highway=track preset. Not visible by default for other road types.
+    unknown_value_behavior: user_defined
+    missing_tag_behavior: none
+    hard_exclusions: []
+    value_coverage: full
+
+  - tag_key: sac_scale
+    support_level: direct
+    effect_types: [preset_field, autocomplete, validation]
+    value_rules:
+      - tag_value: hiking
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: mountain_hiking
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: demanding_mountain_hiking
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: alpine_hiking
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: demanding_alpine_hiking
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: difficult_alpine_hiking
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+    special_handling:
+      - Present in highway=path presets.
+    unknown_value_behavior: user_defined
+    missing_tag_behavior: none
+    hard_exclusions: []
+    value_coverage: full
+
+  - tag_key: mtb:scale
+    support_level: direct
+    effect_types: [preset_field, autocomplete, validation]
+    value_rules:
+      - tag_value: "0"
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: "0+"
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: "1-"
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: "1"
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: "1+"
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: "2-"
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: "2"
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: "2+"
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: "3"
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: "4"
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: "5"
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: "6"
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+    unknown_value_behavior: user_defined
+    missing_tag_behavior: none
+    hard_exclusions: []
+    value_coverage: partial
+
+evidence:
+  - file: https://github.com/simonpoole/preset-utils
+    line: 1
+    summary: Source repository for the Vespucci default preset, maintained in JOSM-compatible XML format. Includes combo fields for surface, smoothness, tracktype, sac_scale, and mtb:scale.
+    confidence: medium
+  - file: https://vespucci.io/help/en/Main%20map%20display/
+    line: 1
+    summary: Vespucci documentation explaining the preset-based editing workflow and Properties editor for arbitrary tags.
+    confidence: high
+
+verified_on: 2026-06-08

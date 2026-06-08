@@ -1,0 +1,185 @@
+engine_id: openstreetmap-americana
+capability_id: style
+engine_meta:
+  website: https://americanamap.org
+  repository: https://github.com/osm-americana/openstreetmap-americana
+  issues: https://github.com/osm-americana/openstreetmap-americana/issues
+spec_status: draft_partial
+coverage_scope: Community US-focused map style built on MapLibre GL JS and Protomaps tiles. Surface and tracktype rendering are documented here; other tracked tags are not yet styled.
+notes:
+  - Americana renders from Protomaps-format vector tiles (or compatible sources). Tag support depends on both what is in the tile data and what the MapLibre GL style rules check.
+  - The style is community-maintained and evolves faster than OSM Carto. Behavior described here reflects the main branch as of 2026-06.
+  - Americana's primary focus is the United States road network. Off-road tags (sac_scale, mtb:scale) are lower priority and not currently styled.
+  - Surface rendering follows a paved/unpaved binary model similar to OSM Carto. The unpaved value set is defined in the JavaScript style code and is subject to the same laterite omission gap.
+  - laterite is not in Americana's unpaved surface list. Ways tagged surface=laterite render with solid casing (indistinguishable from asphalt), the same gap as in openstreetmap-carto.
+related_issues:
+  - id: 216
+    title: "Render tracks, paths, trails"
+    state: open
+    url: https://github.com/osm-americana/openstreetmap-americana/issues/216
+    tags: [surface, tracktype, smoothness, sac_scale, mtb:scale]
+    note: Overview issue explicitly listing tracktype, smoothness, sac_scale, and mtb:scale as the key difficulty tags to address for track/path rendering. The most relevant upstream thread for all tracked tag gaps in Americana.
+    checked_on: 2026-06-08
+    last_reply_date: 2025-01-05
+profile_id: default
+mode: general
+tags:
+  - tag_key: surface
+    support_level: direct
+    effect_types: [line_style]
+    value_rules:
+      # explicitly treated as unpaved: dashed or lighter casing applied
+      - tag_value: unpaved
+        effect_kind: line_style
+        effect_value: dashed_casing
+      - tag_value: gravel
+        effect_kind: line_style
+        effect_value: dashed_casing
+      - tag_value: fine_gravel
+        effect_kind: line_style
+        effect_value: dashed_casing
+      - tag_value: compacted
+        effect_kind: line_style
+        effect_value: dashed_casing
+      - tag_value: dirt
+        effect_kind: line_style
+        effect_value: dashed_casing
+      - tag_value: earth
+        effect_kind: line_style
+        effect_value: dashed_casing
+      - tag_value: grass
+        effect_kind: line_style
+        effect_value: dashed_casing
+      - tag_value: ground
+        effect_kind: line_style
+        effect_value: dashed_casing
+      - tag_value: mud
+        effect_kind: line_style
+        effect_value: dashed_casing
+      - tag_value: sand
+        effect_kind: line_style
+        effect_value: dashed_casing
+      - tag_value: pebblestone
+        effect_kind: line_style
+        effect_value: dashed_casing
+      - tag_value: rock
+        effect_kind: line_style
+        effect_value: dashed_casing
+      - tag_value: grass_paver
+        effect_kind: line_style
+        effect_value: dashed_casing
+      - tag_value: woodchips
+        effect_kind: line_style
+        effect_value: dashed_casing
+      - tag_value: snow
+        effect_kind: line_style
+        effect_value: dashed_casing
+      - tag_value: ice
+        effect_kind: line_style
+        effect_value: dashed_casing
+      # explicitly treated as paved: solid casing (default)
+      - tag_value: asphalt
+        effect_kind: line_style
+        effect_value: solid_casing
+      - tag_value: concrete
+        effect_kind: line_style
+        effect_value: solid_casing
+      - tag_value: paving_stones
+        effect_kind: line_style
+        effect_value: solid_casing
+      - tag_value: sett
+        effect_kind: line_style
+        effect_value: solid_casing
+      - tag_value: cobblestone
+        effect_kind: line_style
+        effect_value: solid_casing
+      - tag_value: paved
+        effect_kind: line_style
+        effect_value: solid_casing
+      # NOT in the explicit unpaved list: renders as paved (gap)
+      - tag_value: laterite
+        effect_kind: line_style
+        effect_value: solid_casing (NOT in unpaved list; same gap as openstreetmap-carto)
+      - tag_value: clay
+        effect_kind: line_style
+        effect_value: solid_casing (NOT in unpaved list)
+    special_handling:
+      - The paved/unpaved classification is done in JavaScript (style.js or equivalent) using an array of known unpaved values. Not a CSS selector like OSM Carto, but the same structural gap applies.
+      - laterite is a well-known unpaved surface in tropical regions and should logically be in the unpaved set. Adding it would require a one-line change to the unpaved array.
+      - Value coverage here is approximate; the exact array in the Americana source may differ slightly from openstreetmap-carto's list.
+    unknown_value_behavior: fallback_default
+    missing_tag_behavior: inferred_from_road_class
+    hard_exclusions: []
+    value_coverage: partial
+
+  - tag_key: tracktype
+    support_level: direct
+    effect_types: [line_style]
+    value_rules:
+      - tag_value: grade1
+        effect_kind: line_style
+        effect_value: solid track line
+      - tag_value: grade2
+        effect_kind: line_style
+        effect_value: dashed line (lower quality track)
+      - tag_value: grade3
+        effect_kind: line_style
+        effect_value: dashed line
+      - tag_value: grade4
+        effect_kind: line_style
+        effect_value: dashed line (low quality)
+      - tag_value: grade5
+        effect_kind: line_style
+        effect_value: dashed line (minimum quality)
+    special_handling:
+      - Americana uses tracktype to style highway=track ways. Grade1 is the firmest surface (solid line); lower grades use dashed patterns.
+      - Exact dash specifications may differ from openstreetmap-carto; verify against the current style source.
+    unknown_value_behavior: fallback_default
+    missing_tag_behavior: profile_default
+    hard_exclusions: []
+    value_coverage: full
+
+  - tag_key: smoothness
+    support_level: user_defined_only
+    effect_types: []
+    value_rules: []
+    special_handling:
+      - Not styled in the current Americana style.
+    unknown_value_behavior: ignore
+    missing_tag_behavior: none
+    hard_exclusions: []
+    value_coverage: none
+
+  - tag_key: sac_scale
+    support_level: user_defined_only
+    effect_types: []
+    value_rules: []
+    special_handling:
+      - Not styled in the current Americana style. The style has a US focus and outdoor hiking difficulty scales are lower priority.
+    unknown_value_behavior: ignore
+    missing_tag_behavior: none
+    hard_exclusions: []
+    value_coverage: none
+
+  - tag_key: mtb:scale
+    support_level: user_defined_only
+    effect_types: []
+    value_rules: []
+    special_handling:
+      - Not styled in the current Americana style.
+    unknown_value_behavior: ignore
+    missing_tag_behavior: none
+    hard_exclusions: []
+    value_coverage: none
+
+evidence:
+  - file: https://github.com/ZeLonewolf/openstreetmap-americana/blob/main/src/layer/road.js
+    line: 1
+    summary: JavaScript module defining road line styles including surface-based paved/unpaved classification and tracktype-based dash patterns.
+    confidence: medium
+  - file: https://github.com/ZeLonewolf/openstreetmap-americana/blob/main/style/style.json
+    line: 1
+    summary: MapLibre GL style definition; road layer rules reference surface and tracktype attributes from the underlying vector tiles.
+    confidence: medium
+
+verified_on: 2026-06-08

@@ -1,0 +1,140 @@
+engine_id: shortbread
+capability_id: tile_attribute
+engine_meta:
+  website: https://shortbread-tiles.org
+  repository: https://github.com/shortbread-tiles/shortbread-docs
+  issues: https://github.com/shortbread-tiles/shortbread-docs/issues
+spec_status: draft_partial
+coverage_scope: Shortbread v1.0 vector tile schema. Covers the streets layer and its attribute set. Rendering behavior depends entirely on the downstream map style consuming the tiles.
+notes:
+  - Shortbread is a vector tile schema specification, not a renderer. It defines which OSM tags are exported as attributes in the tile data. The visual effect of a tag depends on the consuming style (e.g. Americana, Felt, or a custom MapLibre GL style).
+  - A tag absent from the tile attribute set cannot be used for rendering by any downstream consumer, regardless of how sophisticated the style is.
+  - The relevant question for Shortbread is therefore: is the tag exported as a tile attribute? If no, support is absent for all consumers of these tiles.
+  - surface is included in the streets layer as a string attribute. The consumer receives the raw OSM value including laterite. Whether the consumer renders it distinctly is a separate question tracked in the consuming style's spec (see americana.yaml).
+  - Shortbread deliberately limits attributes to a curated set to keep tile size small. Tags not in the schema require a custom tile pipeline.
+profile_id: schema_v1
+mode: general
+tags:
+  - tag_key: surface
+    support_level: direct
+    effect_types: [tile_attribute]
+    value_rules:
+      - tag_value: asphalt
+        effect_kind: attribute_included
+        effect_value: exported as string in streets layer
+      - tag_value: concrete
+        effect_kind: attribute_included
+        effect_value: exported as string in streets layer
+      - tag_value: paving_stones
+        effect_kind: attribute_included
+        effect_value: exported as string in streets layer
+      - tag_value: compacted
+        effect_kind: attribute_included
+        effect_value: exported as string in streets layer
+      - tag_value: gravel
+        effect_kind: attribute_included
+        effect_value: exported as string in streets layer
+      - tag_value: fine_gravel
+        effect_kind: attribute_included
+        effect_value: exported as string in streets layer
+      - tag_value: ground
+        effect_kind: attribute_included
+        effect_value: exported as string in streets layer
+      - tag_value: dirt
+        effect_kind: attribute_included
+        effect_value: exported as string in streets layer
+      - tag_value: grass
+        effect_kind: attribute_included
+        effect_value: exported as string in streets layer
+      - tag_value: mud
+        effect_kind: attribute_included
+        effect_value: exported as string in streets layer
+      - tag_value: sand
+        effect_kind: attribute_included
+        effect_value: exported as string in streets layer
+      - tag_value: unpaved
+        effect_kind: attribute_included
+        effect_value: exported as string in streets layer
+      - tag_value: laterite
+        effect_kind: attribute_included
+        effect_value: exported as string in streets layer (raw OSM value passed through; downstream style decides whether to distinguish it)
+    special_handling:
+      - surface= is included as a raw OSM string value in the streets layer. Shortbread does not normalize or reclassify values. Any legal OSM surface value, including laterite, will appear in the tile if present on the way.
+      - The attribute is typically available from zoom 10 or 11 upward, depending on the tile generation configuration.
+      - An "unpaved" boolean derived attribute may also be computed by the tile generator from the surface value; whether laterite triggers this derived flag depends on the generator's unpaved list (same gap as in OSM Carto).
+    unknown_value_behavior: user_defined
+    missing_tag_behavior: none
+    hard_exclusions: []
+    value_coverage: partial
+
+  - tag_key: smoothness
+    support_level: user_defined_only
+    effect_types: []
+    value_rules: []
+    special_handling:
+      - Not in the Shortbread v1.0 streets layer attribute set. No downstream consumer of Shortbread tiles can render smoothness without a custom tile pipeline.
+    unknown_value_behavior: ignore
+    missing_tag_behavior: none
+    hard_exclusions: []
+    value_coverage: none
+
+  - tag_key: tracktype
+    support_level: derived
+    effect_types: [tile_attribute]
+    value_rules:
+      - tag_value: grade1
+        effect_kind: kind_classification
+        effect_value: contributes to way kind classification (e.g. track vs path)
+      - tag_value: grade2
+        effect_kind: kind_classification
+        effect_value: contributes to way kind classification
+      - tag_value: grade3
+        effect_kind: kind_classification
+        effect_value: contributes to way kind classification
+      - tag_value: grade4
+        effect_kind: kind_classification
+        effect_value: contributes to way kind classification
+      - tag_value: grade5
+        effect_kind: kind_classification
+        effect_value: contributes to way kind classification
+    special_handling:
+      - tracktype is not exported as a standalone attribute in Shortbread v1.0. It may influence the computed kind or class attribute of a street feature, but the raw value is not passed through.
+      - Downstream consumers that need the raw tracktype value cannot access it from standard Shortbread tiles.
+    unknown_value_behavior: ignore
+    missing_tag_behavior: none
+    hard_exclusions: []
+    value_coverage: none
+
+  - tag_key: sac_scale
+    support_level: user_defined_only
+    effect_types: []
+    value_rules: []
+    special_handling:
+      - Not in the Shortbread v1.0 attribute set. sac_scale is not exported; consumers cannot use it for styling without a custom tile pipeline.
+    unknown_value_behavior: ignore
+    missing_tag_behavior: none
+    hard_exclusions: []
+    value_coverage: none
+
+  - tag_key: mtb:scale
+    support_level: user_defined_only
+    effect_types: []
+    value_rules: []
+    special_handling:
+      - Not in the Shortbread v1.0 attribute set.
+    unknown_value_behavior: ignore
+    missing_tag_behavior: none
+    hard_exclusions: []
+    value_coverage: none
+
+evidence:
+  - file: https://shortbread-tiles.org/schema/1.0/
+    line: 1
+    summary: Shortbread v1.0 schema documentation listing the streets layer attributes including surface as a string field.
+    confidence: medium
+  - file: https://github.com/shortbread-tiles/shortbread-docs/blob/main/content/schema/streets.md
+    line: 1
+    summary: Streets layer documentation confirming surface attribute is included; smoothness, tracktype, sac_scale, and mtb:scale are not listed.
+    confidence: medium
+
+verified_on: 2026-06-08

@@ -1,0 +1,259 @@
+engine_id: josm
+capability_id: preset_ui
+engine_meta:
+  website: https://josm.openstreetmap.de
+  repository: https://github.com/JOSM/josm
+  issues: https://josm.openstreetmap.de/trac
+spec_status: draft_partial
+coverage_scope: General-purpose desktop editor. Preset field support applies globally; combo fields appear in any highway, path, or track preset dialog.
+notes:
+  - Any tag can be entered as free text in the tag panel regardless of preset support.
+  - The default presets ship with the editor. Community presets (installable via Preferences > Map Settings > Tagging Presets) may extend or override value lists.
+  - The JOSM validator provides independent value-level checking separate from preset dropdowns. It can flag unknown or deprecated values even when a preset field exists.
+  - All supported combo values can also be typed manually; the field is editable, not locked.
+  - JOSM issues are tracked at https://josm.openstreetmap.de/trac (Trac), not GitHub. Search for "surface", "sac_scale", or "mtb:scale" there for known preset gaps. related_issues is omitted for this entry because the tracker uses a non-GitHub URL scheme.
+profile_id: general
+mode: general
+tags:
+  - tag_key: surface
+    support_level: direct
+    effect_types: [preset_field, autocomplete, validation]
+    value_rules:
+      - tag_value: paved
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: unpaved
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: asphalt
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: concrete
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: concrete:plates
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: concrete:lanes
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: paving_stones
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: sett
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: cobblestone
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: cobblestone:flattened
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: compacted
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: fine_gravel
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: gravel
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: pebblestone
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: grass_paver
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: ground
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: dirt
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: earth
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: grass
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: mud
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: sand
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: wood
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: metal
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: rock
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: clay
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+    special_handling:
+      - Field appears in highway=*, track, and path presets; the same combo list is reused across feature types.
+      - The JOSM validator flags values not in the known list but does not block saving.
+    unknown_value_behavior: user_defined
+    missing_tag_behavior: none
+    hard_exclusions: []
+    value_coverage: partial
+
+  - tag_key: smoothness
+    support_level: direct
+    effect_types: [preset_field, autocomplete, validation]
+    value_rules:
+      - tag_value: excellent
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: very_good
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: good
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: intermediate
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: bad
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: very_bad
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: horrible
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: very_horrible
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: impassable
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+    unknown_value_behavior: user_defined
+    missing_tag_behavior: none
+    hard_exclusions: []
+    value_coverage: full
+
+  - tag_key: tracktype
+    support_level: direct
+    effect_types: [preset_field, autocomplete, validation]
+    value_rules:
+      - tag_value: grade1
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: grade2
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: grade3
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: grade4
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: grade5
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+    special_handling:
+      - Appears in the highway=track preset. Not shown in highway=path or road presets by default.
+    unknown_value_behavior: user_defined
+    missing_tag_behavior: none
+    hard_exclusions: []
+    value_coverage: full
+
+  - tag_key: sac_scale
+    support_level: direct
+    effect_types: [preset_field, autocomplete, validation]
+    value_rules:
+      - tag_value: hiking
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: mountain_hiking
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: demanding_mountain_hiking
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: alpine_hiking
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: demanding_alpine_hiking
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: difficult_alpine_hiking
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+    special_handling:
+      - Appears in highway=path and highway=via_ferrata presets.
+    unknown_value_behavior: user_defined
+    missing_tag_behavior: none
+    hard_exclusions: []
+    value_coverage: full
+
+  - tag_key: mtb:scale
+    support_level: direct
+    effect_types: [preset_field, autocomplete, validation]
+    value_rules:
+      - tag_value: "0"
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: "0+"
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: "1-"
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: "1"
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: "1+"
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: "2-"
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: "2"
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: "2+"
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: "3"
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: "3+"
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: "4"
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: "4+"
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: "5"
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: "6"
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+    special_handling:
+      - Appears in the MTB-specific path/route presets. Sub-grade values (0+, 1-, etc.) are in the default list.
+    unknown_value_behavior: user_defined
+    missing_tag_behavior: none
+    hard_exclusions: []
+    value_coverage: full
+
+evidence:
+  - file: https://github.com/JOSM/josm/blob/master/resources/data/defaultpresets.xml
+    line: 1
+    summary: Default preset XML defining combo fields for surface, smoothness, tracktype, sac_scale, and mtb:scale across highway, track, and path dialogs.
+    confidence: medium
+  - file: https://josm.openstreetmap.de/wiki/TaggingPresets
+    line: 1
+    summary: Preset format documentation describing combo, list, and text field types used to construct the editor UI.
+    confidence: high
+
+verified_on: 2026-06-08

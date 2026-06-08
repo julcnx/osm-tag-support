@@ -13,36 +13,48 @@ related_issues:
     url: https://github.com/graphhopper/graphhopper/pull/3099
     tags: [surface, smoothness]
     note: Open PR to cap speed on bad surfaces regardless of highway type. Would strengthen off-road surface penalization.
+    checked_on: 2026-06-07
+    last_reply_date: 2025-12-17
   - id: 3196
     title: "De-prioritize highway=track missing further details for bicycle profile"
     state: open
     url: https://github.com/graphhopper/graphhopper/pull/3196
     tags: [surface, tracktype]
     note: Open PR to penalize tracks with no surface or tracktype tag. Directly relevant for off-road routing quality.
+    checked_on: 2026-06-07
+    last_reply_date: 2025-08-30
   - id: 3276
     title: "Add support for sac_scale=strolling in hike_rating path details"
     state: open
     url: https://github.com/graphhopper/graphhopper/issues/3276
     tags: [sac_scale]
     note: sac_scale=strolling is a valid OSM value but missing from the hike_rating encoded value.
+    checked_on: 2026-06-07
+    last_reply_date: 2026-03-09
   - id: 2122
     title: "Add support for the mtb:scale tag"
     state: closed
     url: https://github.com/graphhopper/graphhopper/pull/2122
     tags: [mtb:scale]
     note: PR that introduced OSMMtbRatingParser. Reference implementation for mtb:scale encoded value.
+    checked_on: 2026-06-07
+    last_reply_date: 2020-09-08
   - id: 3049
     title: "Routing of ordinary bicycle over ways tagged mtb:scale really wanted?"
     state: closed
     url: https://github.com/graphhopper/graphhopper/issues/3049
     tags: [mtb:scale]
     note: Design discussion on whether mtb:scale should restrict access vs just adjust priority for regular bikes.
+    checked_on: 2026-06-07
+    last_reply_date: 2024-10-25
   - id: 1701
     title: "Tracktype parser"
     state: closed
     url: https://github.com/graphhopper/graphhopper/pull/1701
     tags: [tracktype]
     note: PR that introduced the dedicated tracktype encoded value. Reference for how tracktype was integrated.
+    checked_on: 2026-06-07
+    last_reply_date: 2019-08-30
 notes:
   - Main logic is in Java tag parsers, not a single profile file.
 profiles:
@@ -138,10 +150,12 @@ profiles:
         line: 110
         summary: Tracktype speed mapping for tracks.
         confidence: high
+        source_ref: c8bfa90531748c53d4d2054dad1d3c04f69ce7b6
       - file: sources/graphhopper/core/src/main/java/com/graphhopper/routing/util/parsers/CarAverageSpeedParser.java
         line: 152
         summary: Bad surface speed capping logic.
         confidence: high
+        source_ref: c8bfa90531748c53d4d2054dad1d3c04f69ce7b6
     verified_on: 2026-06-07
 
   - profile_id: bike
@@ -275,14 +289,17 @@ profiles:
         line: 127
         summary: Reads surface and tracktype, merges by min speed and applies smoothness factor.
         confidence: high
+        source_ref: c8bfa90531748c53d4d2054dad1d3c04f69ce7b6
       - file: sources/graphhopper/core/src/main/java/com/graphhopper/routing/util/parsers/BikeCommonAverageSpeedParser.java
         line: 137
         summary: Unknown tagged surface can force pushing speed.
         confidence: high
+        source_ref: c8bfa90531748c53d4d2054dad1d3c04f69ce7b6
       - file: sources/graphhopper/core/src/main/java/com/graphhopper/routing/util/parsers/OSMSurfaceParser.java
         line: 38
         summary: Dedicated parser for surface encoded value.
         confidence: high
+        source_ref: c8bfa90531748c53d4d2054dad1d3c04f69ce7b6
     verified_on: 2026-06-07
 
   - profile_id: mtb
@@ -447,14 +464,17 @@ profiles:
         line: 17
         summary: MTB tracktype speed overrides (grade2=16, grade4=8).
         confidence: high
+        source_ref: c8bfa90531748c53d4d2054dad1d3c04f69ce7b6
       - file: sources/graphhopper/core/src/main/java/com/graphhopper/routing/util/parsers/MountainBikeAverageSpeedParser.java
         line: 23
         summary: MTB surface speed overrides for soft surfaces (dirt/earth/ground=14, gravel/compacted=16, grass=12).
         confidence: high
+        source_ref: c8bfa90531748c53d4d2054dad1d3c04f69ce7b6
       - file: sources/graphhopper/core/src/main/java/com/graphhopper/routing/util/parsers/BikeCommonAverageSpeedParser.java
         line: 95
         summary: Smoothness factor table shared across all bike profiles.
         confidence: high
+        source_ref: c8bfa90531748c53d4d2054dad1d3c04f69ce7b6
     verified_on: 2026-06-07
 
   - profile_id: hike
@@ -495,10 +515,12 @@ profiles:
         line: 39
         summary: sac_scale speed cap, hiking=MEAN_SPEED(5 km/h), all others=SLOW_SPEED(2 km/h).
         confidence: high
+        source_ref: c8bfa90531748c53d4d2054dad1d3c04f69ce7b6
       - file: sources/graphhopper/core/src/main/java/com/graphhopper/routing/util/parsers/OSMHikeRatingParser.java
         line: 40
         summary: sac_scale encoded as metadata rating 1-6 for custom model use.
         confidence: high
+        source_ref: c8bfa90531748c53d4d2054dad1d3c04f69ce7b6
     verified_on: 2026-06-07
 
 verified_on: 2026-06-07

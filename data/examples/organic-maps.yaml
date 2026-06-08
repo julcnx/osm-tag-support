@@ -1,0 +1,240 @@
+engine_id: organic-maps
+capability_id: routing
+engine_meta:
+  website: https://organicmaps.app
+  repository: https://github.com/organicmaps/organicmaps
+  issues: https://github.com/organicmaps/organicmaps/issues
+spec_status: draft_partial
+coverage_scope: Partial for bicycle and hiking profiles. Car profile surface handling is noted but not fully documented.
+notes:
+  - Organic Maps is the open-source successor to MAPS.me. OSM data is compiled into .mwm binary map files; the routing engine reads the compiled types, not raw OSM tags directly.
+  - Tag-to-type classification happens at compile time in generator/osm2type.cpp. The routing engine then operates on these types. This means the effective tag support depends on what the classifier encodes.
+  - The app ships pre-compiled .mwm files from the organicmaps.app download server; users cannot recompile maps with different classification rules without building from source.
+  - Source has not been cloned locally. Evidence references upstream GitHub; line numbers are approximate.
+related_issues:
+  - id: 4471
+    title: "Routing: surface=unpaved not considered in bicycle routing"
+    state: open
+    url: https://github.com/organicmaps/organicmaps/issues/4471
+    tags: [surface]
+    note: Routing does not penalize unpaved surfaces in the default bicycle profile; prefer_paved behavior is missing or inconsistent.
+    checked_on: 2026-06-08
+    last_reply_date: 2023-02-13
+profiles:
+  - profile_id: bicycle
+    mode: bicycle
+    tags:
+      - tag_key: surface
+        support_level: direct
+        effect_types: [speed_factor, route_preference]
+        value_rules:
+          - tag_value: asphalt
+            effect_kind: speed_factor
+            effect_value: full speed (no penalty)
+          - tag_value: paved
+            effect_kind: speed_factor
+            effect_value: full speed
+          - tag_value: concrete
+            effect_kind: speed_factor
+            effect_value: full speed
+          - tag_value: paving_stones
+            effect_kind: speed_factor
+            effect_value: slight reduction
+          - tag_value: compacted
+            effect_kind: speed_factor
+            effect_value: moderate reduction
+          - tag_value: fine_gravel
+            effect_kind: speed_factor
+            effect_value: moderate reduction
+          - tag_value: gravel
+            effect_kind: speed_factor
+            effect_value: significant reduction
+          - tag_value: ground
+            effect_kind: speed_factor
+            effect_value: significant reduction
+          - tag_value: dirt
+            effect_kind: speed_factor
+            effect_value: significant reduction
+          - tag_value: grass
+            effect_kind: speed_factor
+            effect_value: heavy penalty
+          - tag_value: mud
+            effect_kind: speed_factor
+            effect_value: heavy penalty
+          - tag_value: sand
+            effect_kind: speed_factor
+            effect_value: heavy penalty
+          - tag_value: unpaved
+            effect_kind: speed_factor
+            effect_value: significant reduction
+        special_handling:
+          - Exact multiplier values are not verified; they are derived from the type classification in generator/osm2type.cpp and the speed tables in routing.
+          - There is an open issue (#4471) suggesting unpaved surface penalization is inconsistent in the bicycle profile.
+        unknown_value_behavior: fallback_default
+        missing_tag_behavior: inferred_from_road_class
+        hard_exclusions: []
+        value_coverage: partial
+      - tag_key: tracktype
+        support_level: direct
+        effect_types: [speed_factor, route_preference]
+        value_rules:
+          - tag_value: grade1
+            effect_kind: speed_factor
+            effect_value: minimal penalty (firm surface implied)
+          - tag_value: grade2
+            effect_kind: speed_factor
+            effect_value: moderate penalty
+          - tag_value: grade3
+            effect_kind: speed_factor
+            effect_value: significant penalty
+          - tag_value: grade4
+            effect_kind: speed_factor
+            effect_value: heavy penalty
+          - tag_value: grade5
+            effect_kind: speed_factor
+            effect_value: heavy penalty or route avoidance
+        unknown_value_behavior: fallback_default
+        missing_tag_behavior: inferred_from_road_class
+        hard_exclusions: []
+        value_coverage: partial
+      - tag_key: smoothness
+        support_level: user_defined_only
+        effect_types: []
+        value_rules: []
+        special_handling:
+          - Smoothness is not verified to affect the bicycle routing classifier. May be partially encoded into type but not confirmed.
+        unknown_value_behavior: ignore
+        missing_tag_behavior: none
+        hard_exclusions: []
+        value_coverage: none
+      - tag_key: sac_scale
+        support_level: derived
+        effect_types: [access_block]
+        value_rules:
+          - tag_value: hiking
+            effect_kind: access
+            effect_value: accessible (path is in the routing network)
+          - tag_value: mountain_hiking
+            effect_kind: access
+            effect_value: likely restricted in bicycle profile
+          - tag_value: alpine_hiking
+            effect_kind: access
+            effect_value: blocked
+          - tag_value: demanding_alpine_hiking
+            effect_kind: access
+            effect_value: blocked
+          - tag_value: difficult_alpine_hiking
+            effect_kind: access
+            effect_value: blocked
+        special_handling:
+          - Access behavior for high sac_scale values in bicycle mode is not fully verified. The type classifier likely blocks sac_scale >= alpine_hiking from routable types.
+        unknown_value_behavior: ignore
+        missing_tag_behavior: none
+        hard_exclusions: [alpine_hiking, demanding_alpine_hiking, difficult_alpine_hiking]
+        value_coverage: partial
+    evidence:
+      - file: https://github.com/organicmaps/organicmaps/blob/master/generator/osm2type.cpp
+        line: 1
+        summary: OSM tag to internal type classifier; defines which surface/tracktype values affect routing speed and access classification at map compile time.
+        confidence: medium
+      - file: https://github.com/organicmaps/organicmaps/blob/master/routing/bicycle_directions.cpp
+        line: 1
+        summary: Bicycle routing logic; references road class types that encode surface quality.
+        confidence: medium
+    verified_on: 2026-06-08
+
+  - profile_id: hiking
+    mode: foot
+    tags:
+      - tag_key: surface
+        support_level: direct
+        effect_types: [speed_factor]
+        value_rules:
+          - tag_value: asphalt
+            effect_kind: speed_factor
+            effect_value: slight penalty (paved paths are less preferred for hiking)
+          - tag_value: ground
+            effect_kind: speed_factor
+            effect_value: full speed
+          - tag_value: grass
+            effect_kind: speed_factor
+            effect_value: full speed
+          - tag_value: rock
+            effect_kind: speed_factor
+            effect_value: reduced (rough terrain)
+          - tag_value: sand
+            effect_kind: speed_factor
+            effect_value: reduced
+        special_handling:
+          - Surface effect on hiking routing is not well-documented in upstream sources; values listed are best-effort estimates.
+        unknown_value_behavior: fallback_default
+        missing_tag_behavior: inferred_from_road_class
+        hard_exclusions: []
+        value_coverage: partial
+      - tag_key: sac_scale
+        support_level: direct
+        effect_types: [access_block, route_preference]
+        value_rules:
+          - tag_value: hiking
+            effect_kind: access
+            effect_value: fully accessible; standard hiking path
+          - tag_value: mountain_hiking
+            effect_kind: access
+            effect_value: accessible; slightly reduced speed
+          - tag_value: demanding_mountain_hiking
+            effect_kind: access
+            effect_value: accessible; significant speed reduction
+          - tag_value: alpine_hiking
+            effect_kind: access
+            effect_value: accessible only in hiking mode; high penalty
+          - tag_value: demanding_alpine_hiking
+            effect_kind: access
+            effect_value: may be blocked or heavily penalized
+          - tag_value: difficult_alpine_hiking
+            effect_kind: access
+            effect_value: blocked in standard hiking mode
+        special_handling:
+          - Organic Maps has a dedicated "hiking" app mode that enables routing on harder trails. The exact sac_scale thresholds differ between the pedestrian and hiking profiles.
+        unknown_value_behavior: fallback_default
+        missing_tag_behavior: inferred_from_road_class
+        hard_exclusions: [difficult_alpine_hiking]
+        value_coverage: partial
+      - tag_key: tracktype
+        support_level: direct
+        effect_types: [route_preference]
+        value_rules:
+          - tag_value: grade1
+            effect_kind: speed_factor
+            effect_value: slight penalty (paved track)
+          - tag_value: grade3
+            effect_kind: speed_factor
+            effect_value: no penalty (natural trail)
+          - tag_value: grade5
+            effect_kind: speed_factor
+            effect_value: slight penalty (very rough)
+        unknown_value_behavior: fallback_default
+        missing_tag_behavior: inferred_from_road_class
+        hard_exclusions: []
+        value_coverage: partial
+      - tag_key: smoothness
+        support_level: user_defined_only
+        effect_types: []
+        value_rules: []
+        special_handling:
+          - Not confirmed to affect hiking routing.
+        unknown_value_behavior: ignore
+        missing_tag_behavior: none
+        hard_exclusions: []
+        value_coverage: none
+    evidence:
+      - file: https://github.com/organicmaps/organicmaps/blob/master/generator/osm2type.cpp
+        line: 1
+        summary: Tag classifier; encodes sac_scale values into routable vs non-routable hiking path types.
+        confidence: medium
+      - file: https://github.com/organicmaps/organicmaps/blob/master/routing/pedestrian_directions.cpp
+        line: 1
+        summary: Pedestrian/hiking routing; road class types that sac_scale feeds into.
+        confidence: medium
+    verified_on: 2026-06-08
+
+verified_on: 2026-06-08

@@ -1,0 +1,297 @@
+engine_id: id-tagging-schema
+capability_id: preset_ui
+engine_meta:
+  website: https://wiki.openstreetmap.org/wiki/ID
+  repository: https://github.com/openstreetmap/id-tagging-schema
+  issues: https://github.com/openstreetmap/id-tagging-schema/issues
+spec_status: draft_partial
+coverage_scope: Web-based editor. Tag field support is defined in the id-tagging-schema package, which is shared by iD and other editors consuming the same field definitions.
+notes:
+  - iD separates field definitions (data/fields/) from preset definitions (data/presets/). A field can appear in multiple presets.
+  - Fields can be of type combo (editable dropdown), typeCombo (infers type from context), radio, number, or text. Surface, smoothness, and tracktype use combo fields. sac_scale and mtb:scale use combo or typeCombo.
+  - iD shows a "more fields" expander below the primary fields; less common tags like smoothness may appear there rather than at the top level depending on the preset.
+  - Unknown values typed manually are accepted and saved without warning in most cases.
+  - The separate @openstreetmap/id-tagging-schema npm package is used by iD, Rapid, and potentially other editors.
+related_issues:
+  - id: 2136
+    title: "Add smoothness field to all highway presets and move it adjacent to surface"
+    state: open
+    url: https://github.com/openstreetmap/id-tagging-schema/issues/2136
+    tags: [smoothness]
+    note: Proposal to standardize smoothness field placement across all highway preset types. More comprehensive than #1070 and actively discussed in 2026.
+    checked_on: 2026-06-08
+    last_reply_date: 2026-03-31
+  - id: 1070
+    title: "Add Smoothness field to more highway presets (not just for tracks)"
+    state: open
+    url: https://github.com/openstreetmap/id-tagging-schema/issues/1070
+    tags: [smoothness]
+    note: Older request to expose smoothness in more preset types beyond highway=track; predates #2136 but still open.
+    checked_on: 2026-06-08
+    last_reply_date: 2024-01-31
+  - id: 1998
+    title: "Support additional surface keys"
+    state: open
+    url: https://github.com/openstreetmap/id-tagging-schema/issues/1998
+    tags: [surface]
+    note: Request to extend the surface combo field with additional values including niche surfaces. Relevant to coverage gaps like laterite.
+    checked_on: 2026-06-08
+    last_reply_date: 2026-03-12
+  - id: 9138
+    title: "Add a warning if surface does not match the tracktype from highway=track"
+    state: open
+    url: https://github.com/openstreetmap/iD/issues/9138
+    tags: [surface, tracktype]
+    note: Validation feature request in the iD editor; would flag inconsistent surface+tracktype combinations at edit time.
+    checked_on: 2026-06-08
+    last_reply_date: 2026-03-10
+  - id: 8882
+    title: "Add example images to `smoothness` field"
+    state: open
+    url: https://github.com/openstreetmap/iD/issues/8882
+    tags: [smoothness]
+    note: UX request to add photo examples to the smoothness combo field, making it easier for mappers to pick the correct value.
+    checked_on: 2026-06-08
+    last_reply_date: 2026-05-08
+profile_id: general
+mode: general
+tags:
+  - tag_key: surface
+    support_level: direct
+    effect_types: [preset_field, autocomplete, validation]
+    value_rules:
+      - tag_value: paved
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: unpaved
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: asphalt
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: concrete
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: concrete:plates
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: concrete:lanes
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: paving_stones
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: sett
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: cobblestone
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: cobblestone:flattened
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: compacted
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: fine_gravel
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: gravel
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: pebblestone
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: grass_paver
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: ground
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: dirt
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: earth
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: grass
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: mud
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: sand
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: wood
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: metal
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: rock
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: clay
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: woodchips
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+    special_handling:
+      - The surface field is reused across highway, path, cycleway, and footway presets without modification.
+      - iD displays field label translations from the Transifex localization strings; the underlying values are always in English.
+    unknown_value_behavior: user_defined
+    missing_tag_behavior: none
+    hard_exclusions: []
+    value_coverage: partial
+
+  - tag_key: smoothness
+    support_level: direct
+    effect_types: [preset_field, autocomplete, validation]
+    value_rules:
+      - tag_value: excellent
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: very_good
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: good
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: intermediate
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: bad
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: very_bad
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: horrible
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: very_horrible
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: impassable
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+    special_handling:
+      - Smoothness is a secondary field in most highway presets; the mapper must expand "Add field" to see it unless the preset explicitly promotes it.
+    unknown_value_behavior: user_defined
+    missing_tag_behavior: none
+    hard_exclusions: []
+    value_coverage: full
+
+  - tag_key: tracktype
+    support_level: direct
+    effect_types: [preset_field, autocomplete, validation]
+    value_rules:
+      - tag_value: grade1
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: grade2
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: grade3
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: grade4
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: grade5
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+    special_handling:
+      - Appears as a primary field in the highway=track preset. Not visible by default on other road or path presets.
+    unknown_value_behavior: user_defined
+    missing_tag_behavior: none
+    hard_exclusions: []
+    value_coverage: full
+
+  - tag_key: sac_scale
+    support_level: direct
+    effect_types: [preset_field, autocomplete, validation]
+    value_rules:
+      - tag_value: hiking
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: mountain_hiking
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: demanding_mountain_hiking
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: alpine_hiking
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: demanding_alpine_hiking
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: difficult_alpine_hiking
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+    special_handling:
+      - Present in the highway=path preset, typically as a secondary field.
+      - iD shows the OSM wiki description for each value when the field is focused.
+    unknown_value_behavior: user_defined
+    missing_tag_behavior: none
+    hard_exclusions: []
+    value_coverage: full
+
+  - tag_key: mtb:scale
+    support_level: direct
+    effect_types: [preset_field, autocomplete, validation]
+    value_rules:
+      - tag_value: "0"
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: "1"
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: "2"
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: "3"
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: "4"
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: "5"
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+      - tag_value: "6"
+        effect_kind: combo_option
+        effect_value: shown in dropdown
+    special_handling:
+      - The iD-tagging-schema field definition uses integer values 0-6; sub-grade notations (0+, 1-, etc.) are not in the default dropdown but can be typed.
+    unknown_value_behavior: user_defined
+    missing_tag_behavior: none
+    hard_exclusions: []
+    value_coverage: partial
+
+evidence:
+  - file: https://github.com/openstreetmap/id-tagging-schema/blob/main/data/fields/surface.json
+    line: 1
+    summary: Field definition for surface=* as a combo type with all standard values listed.
+    confidence: high
+  - file: https://github.com/openstreetmap/id-tagging-schema/blob/main/data/fields/smoothness.json
+    line: 1
+    summary: Field definition for smoothness=* with all 9 standard values.
+    confidence: high
+  - file: https://github.com/openstreetmap/id-tagging-schema/blob/main/data/fields/tracktype.json
+    line: 1
+    summary: Field definition for tracktype=* with grade1-grade5.
+    confidence: high
+  - file: https://github.com/openstreetmap/id-tagging-schema/blob/main/data/fields/sac_scale.json
+    line: 1
+    summary: Field definition for sac_scale=* with all 6 hiking difficulty values.
+    confidence: high
+  - file: https://github.com/openstreetmap/id-tagging-schema/blob/main/data/fields/mtb_scale.json
+    line: 1
+    summary: Field definition for mtb:scale=* with integer values 0-6.
+    confidence: medium
+
+verified_on: 2026-06-08

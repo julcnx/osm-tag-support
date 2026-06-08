@@ -13,42 +13,56 @@ related_issues:
     url: https://github.com/valhalla/valhalla/pull/6026
     tags: [surface]
     note: Open PR directly improving Surface enum penalty weights for off-road surfaces. Can reference or build on this.
+    checked_on: 2026-06-07
+    last_reply_date: 2026-05-13
   - id: 4882
     title: "Cycling on sac_scale tagged ways"
     state: open
     url: https://github.com/valhalla/valhalla/issues/4882
     tags: [sac_scale]
     note: Bicycle access logic on sac_scale ways is still incorrect after the #4781 fix. Design gap for off-road cycling.
+    checked_on: 2026-06-07
+    last_reply_date: 2025-07-20
   - id: 4888
     title: "Use of key mtb:scale (mtb:scale:imba perhaps too)"
     state: open
     url: https://github.com/valhalla/valhalla/issues/4888
     tags: [mtb:scale]
     note: Feature request to use mtb:scale for routing decisions. No implementation exists yet in Valhalla.
+    checked_on: 2026-06-07
+    last_reply_date: 2025-07-20
   - id: 4808
     title: "Fine-tuning penalties for surface=mud and surface=sand"
     state: open
     url: https://github.com/valhalla/valhalla/issues/4808
     tags: [surface]
     note: surface=mud and surface=sand are currently underpenalized; both map to kDirt/kGravel with insufficient cost.
+    checked_on: 2026-06-07
+    last_reply_date: 2025-07-20
   - id: 5506
     title: "Route over access=private + tracktype=grade5 instead of accessible road"
     state: open
     url: https://github.com/valhalla/valhalla/issues/5506
     tags: [tracktype]
     note: tracktype=grade5 not sufficiently penalized, causing routing over impassable tracks.
+    checked_on: 2026-06-07
+    last_reply_date: 2025-09-11
   - id: 4502
     title: "Can costing penalize by surface instead of modifying max_speed"
     state: open
     url: https://github.com/valhalla/valhalla/issues/4502
     tags: [surface]
     note: Design request for surface-based cost penalty separate from speed cap. Relevant for off-road costing model.
+    checked_on: 2026-06-07
+    last_reply_date: 2024-01-10
   - id: 4949
     title: "Consider smoothness in all profiles that use surface"
     state: closed
     url: https://github.com/valhalla/valhalla/pull/4949
     tags: [smoothness]
     note: PR that added smoothness tag handling to Valhalla (2023). Reference for how smoothness feeds into the Surface enum.
+    checked_on: 2026-06-07
+    last_reply_date: 2024-10-29
 notes:
   - Costing model applies mode-specific penalties through the derived surface enum.
 profiles:
@@ -205,18 +219,22 @@ profiles:
         line: 1530
         summary: Explicit precedence, surface and tracktype win over smoothness.
         confidence: high
+        source_ref: 14e2c93a88353789eb0c9f036e5f8a11a5f1b39e
       - file: sources/valhalla/src/mjolnir/pbfgraphparser.cc
         line: 1554
         summary: tracktype mapped to surface enum when no surface tag.
         confidence: high
+        source_ref: 14e2c93a88353789eb0c9f036e5f8a11a5f1b39e
       - file: sources/valhalla/src/mjolnir/pbfgraphparser.cc
         line: 3007
         summary: Fallback surface inference from road class/use.
         confidence: high
+        source_ref: 14e2c93a88353789eb0c9f036e5f8a11a5f1b39e
       - file: sources/valhalla/src/sif/bicyclecost.cc
         line: 701
         summary: Surface-based cost penalties and speed factors in bicycle costing.
         confidence: high
+        source_ref: 14e2c93a88353789eb0c9f036e5f8a11a5f1b39e
     verified_on: 2026-06-07
 
 verified_on: 2026-06-07

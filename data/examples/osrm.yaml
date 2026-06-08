@@ -13,30 +13,40 @@ related_issues:
     url: https://github.com/Project-OSRM/osrm-backend/issues/3060
     tags: [surface]
     note: Long-standing request (2016) for a surface speed factor instead of hard caps. Directly relevant to improving off-road surface handling.
+    checked_on: 2026-06-07
+    last_reply_date: 2017-03-20
   - id: 6552
     title: "Incorrect weights for highway=path"
     state: open
     url: https://github.com/Project-OSRM/osrm-backend/issues/6552
     tags: [surface, smoothness, tracktype]
     note: Path weighting inconsistencies likely tied to missing smoothness/tracktype values in bicycle profile.
+    checked_on: 2026-06-07
+    last_reply_date: 2023-05-11
   - id: 3680
     title: "Set speeds for smoothness and tracktype in the bicycle profile"
     state: closed
     url: https://github.com/Project-OSRM/osrm-backend/issues/3680
     tags: [smoothness, tracktype]
     note: Closed without action; speed tables for smoothness/tracktype remain empty in bicycle.lua.
+    checked_on: 2026-06-07
+    last_reply_date: 2024-08-08
   - id: 3618
     title: "foot profile: fix missing tracktype/smoothness settings"
     state: closed
     url: https://github.com/Project-OSRM/osrm-backend/pull/3618
     tags: [tracktype, smoothness]
     note: PR that confirmed foot profile tracktype/smoothness tables are intentionally empty.
+    checked_on: 2026-06-07
+    last_reply_date: 2017-01-27
   - id: 6619
     title: "Path with mountain_hiking creates weird snapping on foot profile"
     state: closed
     url: https://github.com/Project-OSRM/osrm-backend/issues/6619
     tags: [sac_scale]
     note: sac_scale=mountain_hiking caused routing anomalies; no dedicated sac_scale support exists in OSRM.
+    checked_on: 2026-06-07
+    last_reply_date: 2024-08-07
 notes:
   - Uses shared WayHandlers.surface logic across all profiles.
 profiles:
@@ -232,18 +242,22 @@ profiles:
         line: 376
         summary: Reads surface, tracktype, smoothness and applies math.min speed caps.
         confidence: high
+        source_ref: 3f31696808909070ed081d51d7f01bfa56240da7
       - file: sources/osrm-backend/profiles/car.lua
         line: 243
         summary: surface_speeds table for car profile.
         confidence: high
+        source_ref: 3f31696808909070ed081d51d7f01bfa56240da7
       - file: sources/osrm-backend/profiles/car.lua
         line: 285
         summary: tracktype_speeds table for car profile.
         confidence: high
+        source_ref: 3f31696808909070ed081d51d7f01bfa56240da7
       - file: sources/osrm-backend/profiles/car.lua
         line: 294
         summary: smoothness_speeds table for car profile.
         confidence: high
+        source_ref: 3f31696808909070ed081d51d7f01bfa56240da7
     verified_on: 2026-06-07
 
   - profile_id: bicycle
@@ -377,14 +391,17 @@ profiles:
         line: 376
         summary: Shared surface handler applies all three tags when profile tables exist.
         confidence: high
+        source_ref: 3f31696808909070ed081d51d7f01bfa56240da7
       - file: sources/osrm-backend/profiles/bicycle.lua
         line: 183
         summary: bicycle surface_speeds table.
         confidence: high
+        source_ref: 3f31696808909070ed081d51d7f01bfa56240da7
       - file: sources/osrm-backend/profiles/bicycle.lua
         line: 219
         summary: bicycle tracktype_speeds is empty; smoothness_speeds is empty.
         confidence: high
+        source_ref: 3f31696808909070ed081d51d7f01bfa56240da7
     verified_on: 2026-06-07
 
   - profile_id: foot
@@ -446,14 +463,17 @@ profiles:
         line: 376
         summary: Shared surface handler applies all three tags when profile tables exist.
         confidence: high
+        source_ref: 3f31696808909070ed081d51d7f01bfa56240da7
       - file: sources/osrm-backend/profiles/foot.lua
         line: 126
         summary: foot surface_speeds table.
         confidence: high
+        source_ref: 3f31696808909070ed081d51d7f01bfa56240da7
       - file: sources/osrm-backend/profiles/foot.lua
         line: 134
         summary: foot tracktype_speeds and smoothness_speeds are empty.
         confidence: high
+        source_ref: 3f31696808909070ed081d51d7f01bfa56240da7
     verified_on: 2026-06-07
 
 verified_on: 2026-06-07
