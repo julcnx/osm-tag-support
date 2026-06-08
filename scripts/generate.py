@@ -135,12 +135,15 @@ def cell_support(spec, tag_key, tag_value):
             else:  # partial — value not listed
                 ub = entry.get("unknown_value_behavior", "")
                 if ub in ("fallback_default", "ignore"):
-                    # tag is silently ignored; road class or next fallback drives costing
                     if better("fallback", best):
                         best = "fallback"
-                else:
+                elif ub == "absent":
                     if better("absent", best):
                         best = "absent"
+                else:
+                    # unknown_value_behavior not declared: we haven't verified this
+                    if better("unknown", best):
+                        best = "unknown"
 
     return best or "unknown"
 
