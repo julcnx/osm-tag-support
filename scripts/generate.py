@@ -266,6 +266,11 @@ td.c.ge{border-right:2px solid #bbb}
 .user_defined_only{background:#bdbdbd}
 .absent{background:#ef5350;color:#fff}
 .unknown{background:#f0f0f0;color:#ccc}
+.tag-sum td{background:#f5f5f5;border-top:2px solid #ddd}
+.sum-lbl{font-size:9px;color:#999;font-style:italic}
+.c-sum{text-align:center;padding:2px 1px;white-space:nowrap;font-size:9px;font-weight:600}
+.cnt-a{color:#c62828}
+.cnt-u{color:#bbb;margin-left:2px}
 /* panel */
 #panel{position:fixed;right:0;top:0;width:360px;height:100vh;background:#fff;
        box-shadow:-3px 0 16px rgba(0,0,0,.15);overflow-y:auto;
@@ -390,6 +395,23 @@ function renderGrid(d) {
 
       html += '</tr>';
     }
+
+    // summary row: absent + unknown counts per app
+    html += '<tr class="tag-sum"><td class="vl sum-lbl">gaps / unknown</td>';
+    for (let ai = 0; ai < apps.length; ai++) {
+      const a = apps[ai];
+      let absent = 0, unknown = 0;
+      for (const vd of tagData.values) {
+        const sup = tagData.matrix[vd.value]?.[a.id]?.support ?? 'unknown';
+        if (sup === 'absent') absent++;
+        else if (sup === 'unknown') unknown++;
+      }
+      const ge = groupEnds.has(ai) && ai < apps.length - 1;
+      const ca = absent  ? `<span class="cnt-a">${absent}✗</span>`  : '';
+      const cu = unknown ? `<span class="cnt-u">${unknown}·</span>` : '';
+      html += `<td class="c-sum${ge ? ' ge' : ''}">${ca}${cu}</td>`;
+    }
+    html += '</tr>';
   }
 
   html += '</tbody></table>';

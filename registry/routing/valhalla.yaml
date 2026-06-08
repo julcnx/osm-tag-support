@@ -103,7 +103,13 @@ profiles:
           - tag_value: metal
             effect_kind: classify
             effect_value: Surface::kPavedSmooth
+          - tag_value: metal_grid
+            effect_kind: classify
+            effect_value: Surface::kPavedSmooth
           - tag_value: paving_stones
+            effect_kind: classify
+            effect_value: Surface::kPaved
+          - tag_value: paving_stones:lanes
             effect_kind: classify
             effect_value: Surface::kPaved
           - tag_value: sett
@@ -127,6 +133,9 @@ profiles:
           - tag_value: brick
             effect_kind: classify
             effect_value: Surface::kPavedRough
+          - tag_value: bricks
+            effect_kind: classify
+            effect_value: Surface::kPavedRough
           - tag_value: compacted
             effect_kind: classify
             effect_value: Surface::kCompacted
@@ -137,6 +146,9 @@ profiles:
             effect_kind: classify
             effect_value: Surface::kCompacted
           - tag_value: dirt
+            effect_kind: classify
+            effect_value: Surface::kDirt
+          - tag_value: gravel_dirt
             effect_kind: classify
             effect_value: Surface::kDirt
           - tag_value: earth
@@ -167,15 +179,15 @@ profiles:
             effect_kind: classify
             effect_value: Surface::kPath
         special_handling:
-          - Matching is substring-based; "unpaved" is checked before "paved" to prevent false match.
-          - concrete:lanes and concrete:plates match via substring "concrete" to kPavedSmooth.
-          - Canonical surface enum drives costing and access checks in bicyclecost.cc.
+          - Matching is substring-based (boost::to_lower then value.find()); "unpaved" is checked before "paved" to prevent false match.
+          - concrete:lanes, concrete:plates match via substring "concrete"; metal_grid via "metal"; bricks via "brick"; paving_stones:lanes via "paving_stones".
+          - Values not matching any substring (rock, snow, ice, salt, shells, woodchips, clay, tiles, etc.) set has_surface_=false, falling back to road-class inference.
+          - Canonical surface enum drives speed factors and penalty arrays in bicyclecost.cc (kSurfaceFactors[], surface_speed_factor_[]).
           - If none of the three tags (surface, tracktype, smoothness) exist, surface is inferred from road class/use.
-          - Unknown values set has_surface_=false, triggering road-class fallback.
         unknown_value_behavior: fallback_default
         missing_tag_behavior: inferred_from_road_class
         hard_exclusions: []
-        value_coverage: full
+        value_coverage: partial
       - tag_key: smoothness
         support_level: derived
         effect_types: [speed_factor, access_block]
@@ -184,14 +196,29 @@ profiles:
           - tag_value: excellent
             effect_kind: classify
             effect_value: Surface::kPavedSmooth
+          - tag_value: good
+            effect_kind: classify
+            effect_value: Surface::kPavedSmooth
+          - tag_value: intermediate
+            effect_kind: classify
+            effect_value: Surface::kPavedRough
           - tag_value: bad
             effect_kind: classify
             effect_value: Surface::kCompacted
+          - tag_value: very_bad
+            effect_kind: classify
+            effect_value: Surface::kDirt
+          - tag_value: horrible
+            effect_kind: classify
+            effect_value: Surface::kGravel
+          - tag_value: very_horrible
+            effect_kind: classify
+            effect_value: Surface::kPath
           - tag_value: impassable
             effect_kind: classify
             effect_value: Surface::kImpassable
         special_handling:
-          - Used only when surface and tracktype are absent.
+          - Used only when surface and tracktype are absent; surface and tracktype tags win.
         unknown_value_behavior: ignore
         missing_tag_behavior: none
         hard_exclusions: [impassable]
@@ -203,9 +230,15 @@ profiles:
           - tag_value: grade1
             effect_kind: classify
             effect_value: Surface::kPavedRough
+          - tag_value: grade2
+            effect_kind: classify
+            effect_value: Surface::kCompacted
           - tag_value: grade3
             effect_kind: classify
             effect_value: Surface::kDirt
+          - tag_value: grade4
+            effect_kind: classify
+            effect_value: Surface::kGravel
           - tag_value: grade5
             effect_kind: classify
             effect_value: Surface::kPath
