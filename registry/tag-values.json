@@ -1,0 +1,1176 @@
+{
+  "meta": {
+    "description": "Canonical tag value lists for OSM tag support tracking. Values sourced from OSM wiki key pages and explicit consumer usage. sources[] lists wiki and/or engine_ids that explicitly handle the value. Edit this file to adjust categories, add notes, or remove spurious entries.",
+    "wiki_fetched_on": "2026-06-08"
+  },
+  "surface": [
+    {
+      "value": "paved",
+      "category": "paved",
+      "sources": [
+        "wiki",
+        "osmand",
+        "id-tagging-schema",
+        "josm",
+        "streetcomplete",
+        "vespucci",
+        "openstreetmap-americana",
+        "openstreetmap-carto",
+        "brouter",
+        "graphhopper",
+        "organic-maps",
+        "osrm",
+        "valhalla"
+      ]
+    },
+    {
+      "value": "asphalt",
+      "category": "paved",
+      "sources": [
+        "wiki",
+        "organic-maps",
+        "osmand",
+        "id-tagging-schema",
+        "josm",
+        "mapcomplete",
+        "streetcomplete",
+        "vespucci",
+        "openstreetmap-americana",
+        "openstreetmap-carto",
+        "shortbread",
+        "brouter",
+        "graphhopper",
+        "osrm",
+        "valhalla"
+      ]
+    },
+    {
+      "value": "chipseal",
+      "category": "paved",
+      "sources": [
+        "wiki",
+        "osmand",
+        "osrm",
+        "valhalla"
+      ]
+    },
+    {
+      "value": "concrete",
+      "category": "paved",
+      "sources": [
+        "wiki",
+        "organic-maps",
+        "osmand",
+        "id-tagging-schema",
+        "josm",
+        "mapcomplete",
+        "streetcomplete",
+        "vespucci",
+        "openstreetmap-americana",
+        "openstreetmap-carto",
+        "shortbread",
+        "brouter",
+        "graphhopper",
+        "osrm",
+        "valhalla"
+      ]
+    },
+    {
+      "value": "concrete:lanes",
+      "category": "paved",
+      "sources": [
+        "wiki",
+        "id-tagging-schema",
+        "josm",
+        "openstreetmap-carto",
+        "graphhopper",
+        "osrm",
+        "valhalla"
+      ]
+    },
+    {
+      "value": "concrete:plates",
+      "category": "paved",
+      "sources": [
+        "wiki",
+        "id-tagging-schema",
+        "josm",
+        "openstreetmap-carto",
+        "graphhopper",
+        "osrm",
+        "valhalla"
+      ]
+    },
+    {
+      "value": "paving_stones",
+      "category": "paved",
+      "sources": [
+        "wiki",
+        "organic-maps",
+        "osmand",
+        "id-tagging-schema",
+        "josm",
+        "mapcomplete",
+        "streetcomplete",
+        "vespucci",
+        "openstreetmap-americana",
+        "openstreetmap-carto",
+        "shortbread",
+        "brouter",
+        "graphhopper",
+        "osrm",
+        "valhalla"
+      ]
+    },
+    {
+      "value": "paving_stones:lanes",
+      "category": "paved",
+      "sources": [
+        "wiki"
+      ]
+    },
+    {
+      "value": "grass_paver",
+      "category": "paved",
+      "sources": [
+        "wiki",
+        "osmand",
+        "id-tagging-schema",
+        "josm",
+        "mapcomplete",
+        "streetcomplete",
+        "vespucci",
+        "openstreetmap-americana",
+        "openstreetmap-carto",
+        "brouter",
+        "graphhopper",
+        "osrm",
+        "valhalla"
+      ]
+    },
+    {
+      "value": "sett",
+      "category": "paved",
+      "sources": [
+        "wiki",
+        "osmand",
+        "id-tagging-schema",
+        "josm",
+        "mapcomplete",
+        "streetcomplete",
+        "vespucci",
+        "openstreetmap-americana",
+        "openstreetmap-carto",
+        "brouter",
+        "graphhopper",
+        "osrm",
+        "valhalla"
+      ]
+    },
+    {
+      "value": "unhewn_cobblestone",
+      "category": "paved",
+      "sources": [
+        "wiki",
+        "graphhopper",
+        "osmand",
+        "valhalla"
+      ]
+    },
+    {
+      "value": "cobblestone",
+      "category": "paved",
+      "sources": [
+        "wiki",
+        "osmand",
+        "id-tagging-schema",
+        "josm",
+        "mapcomplete",
+        "streetcomplete",
+        "vespucci",
+        "openstreetmap-americana",
+        "openstreetmap-carto",
+        "brouter",
+        "graphhopper",
+        "osrm",
+        "valhalla"
+      ]
+    },
+    {
+      "value": "cobblestone:flattened",
+      "category": "paved",
+      "sources": [
+        "wiki",
+        "id-tagging-schema",
+        "josm",
+        "vespucci",
+        "openstreetmap-carto",
+        "graphhopper",
+        "osrm",
+        "valhalla"
+      ]
+    },
+    {
+      "value": "bricks",
+      "category": "paved",
+      "sources": [
+        "wiki",
+        "openstreetmap-carto",
+        "osrm"
+      ]
+    },
+    {
+      "value": "metal",
+      "category": "paved",
+      "sources": [
+        "wiki",
+        "osmand",
+        "id-tagging-schema",
+        "josm",
+        "mapcomplete",
+        "streetcomplete",
+        "vespucci",
+        "openstreetmap-carto",
+        "brouter",
+        "graphhopper",
+        "osrm",
+        "valhalla"
+      ]
+    },
+    {
+      "value": "metal_grid",
+      "category": "paved",
+      "sources": [
+        "wiki"
+      ]
+    },
+    {
+      "value": "wood",
+      "category": "paved",
+      "sources": [
+        "wiki",
+        "osmand",
+        "id-tagging-schema",
+        "josm",
+        "mapcomplete",
+        "streetcomplete",
+        "vespucci",
+        "openstreetmap-carto",
+        "brouter",
+        "graphhopper",
+        "osrm",
+        "valhalla"
+      ]
+    },
+    {
+      "value": "stepping_stones",
+      "category": "paved",
+      "sources": [
+        "wiki",
+        "valhalla"
+      ]
+    },
+    {
+      "value": "tiles",
+      "category": "paved",
+      "sources": [
+        "wiki"
+      ]
+    },
+    {
+      "value": "fibre_reinforced_polymer_grate",
+      "category": "paved",
+      "sources": [
+        "wiki"
+      ]
+    },
+    {
+      "value": "unpaved",
+      "category": "unpaved",
+      "sources": [
+        "wiki",
+        "organic-maps",
+        "osmand",
+        "id-tagging-schema",
+        "josm",
+        "streetcomplete",
+        "vespucci",
+        "openstreetmap-americana",
+        "openstreetmap-carto",
+        "shortbread",
+        "brouter",
+        "graphhopper",
+        "osrm",
+        "valhalla"
+      ]
+    },
+    {
+      "value": "compacted",
+      "category": "unpaved",
+      "sources": [
+        "wiki",
+        "organic-maps",
+        "osmand",
+        "id-tagging-schema",
+        "josm",
+        "mapcomplete",
+        "streetcomplete",
+        "vespucci",
+        "openstreetmap-americana",
+        "openstreetmap-carto",
+        "shortbread",
+        "brouter",
+        "graphhopper",
+        "osrm",
+        "valhalla"
+      ]
+    },
+    {
+      "value": "fine_gravel",
+      "category": "unpaved",
+      "sources": [
+        "wiki",
+        "organic-maps",
+        "osmand",
+        "id-tagging-schema",
+        "josm",
+        "mapcomplete",
+        "streetcomplete",
+        "vespucci",
+        "openstreetmap-americana",
+        "openstreetmap-carto",
+        "shortbread",
+        "brouter",
+        "graphhopper",
+        "osrm",
+        "valhalla"
+      ]
+    },
+    {
+      "value": "gravel",
+      "category": "unpaved",
+      "sources": [
+        "wiki",
+        "organic-maps",
+        "osmand",
+        "id-tagging-schema",
+        "josm",
+        "mapcomplete",
+        "streetcomplete",
+        "vespucci",
+        "openstreetmap-americana",
+        "openstreetmap-carto",
+        "shortbread",
+        "brouter",
+        "graphhopper",
+        "osrm",
+        "valhalla"
+      ]
+    },
+    {
+      "value": "shells",
+      "category": "unpaved",
+      "sources": [
+        "wiki"
+      ]
+    },
+    {
+      "value": "rock",
+      "category": "unpaved",
+      "sources": [
+        "wiki",
+        "id-tagging-schema",
+        "josm",
+        "mapcomplete",
+        "streetcomplete",
+        "openstreetmap-americana",
+        "openstreetmap-carto",
+        "organic-maps"
+      ]
+    },
+    {
+      "value": "pebblestone",
+      "category": "unpaved",
+      "sources": [
+        "wiki",
+        "osmand",
+        "id-tagging-schema",
+        "josm",
+        "mapcomplete",
+        "streetcomplete",
+        "vespucci",
+        "openstreetmap-americana",
+        "openstreetmap-carto",
+        "brouter",
+        "graphhopper",
+        "osrm",
+        "valhalla"
+      ]
+    },
+    {
+      "value": "ground",
+      "category": "unpaved",
+      "sources": [
+        "wiki",
+        "organic-maps",
+        "osmand",
+        "id-tagging-schema",
+        "josm",
+        "mapcomplete",
+        "streetcomplete",
+        "vespucci",
+        "openstreetmap-americana",
+        "openstreetmap-carto",
+        "shortbread",
+        "brouter",
+        "graphhopper",
+        "osrm",
+        "valhalla"
+      ]
+    },
+    {
+      "value": "dirt",
+      "category": "unpaved",
+      "sources": [
+        "wiki",
+        "organic-maps",
+        "osmand",
+        "id-tagging-schema",
+        "josm",
+        "mapcomplete",
+        "streetcomplete",
+        "vespucci",
+        "openstreetmap-americana",
+        "openstreetmap-carto",
+        "shortbread",
+        "brouter",
+        "graphhopper",
+        "osrm",
+        "valhalla"
+      ]
+    },
+    {
+      "value": "earth",
+      "category": "unpaved",
+      "sources": [
+        "wiki",
+        "id-tagging-schema",
+        "josm",
+        "vespucci",
+        "openstreetmap-americana",
+        "openstreetmap-carto",
+        "brouter",
+        "graphhopper",
+        "osmand",
+        "osrm",
+        "valhalla"
+      ]
+    },
+    {
+      "value": "grass",
+      "category": "unpaved",
+      "sources": [
+        "wiki",
+        "organic-maps",
+        "osmand",
+        "id-tagging-schema",
+        "josm",
+        "mapcomplete",
+        "streetcomplete",
+        "vespucci",
+        "openstreetmap-americana",
+        "openstreetmap-carto",
+        "shortbread",
+        "brouter",
+        "graphhopper",
+        "osrm",
+        "valhalla"
+      ]
+    },
+    {
+      "value": "mud",
+      "category": "unpaved",
+      "sources": [
+        "wiki",
+        "organic-maps",
+        "osmand",
+        "id-tagging-schema",
+        "josm",
+        "mapcomplete",
+        "streetcomplete",
+        "vespucci",
+        "openstreetmap-americana",
+        "openstreetmap-carto",
+        "shortbread",
+        "brouter",
+        "graphhopper",
+        "osrm",
+        "valhalla"
+      ]
+    },
+    {
+      "value": "sand",
+      "category": "unpaved",
+      "sources": [
+        "wiki",
+        "organic-maps",
+        "osmand",
+        "id-tagging-schema",
+        "josm",
+        "mapcomplete",
+        "streetcomplete",
+        "vespucci",
+        "openstreetmap-americana",
+        "openstreetmap-carto",
+        "shortbread",
+        "brouter",
+        "graphhopper",
+        "osrm",
+        "valhalla"
+      ]
+    },
+    {
+      "value": "woodchips",
+      "category": "unpaved",
+      "sources": [
+        "wiki",
+        "id-tagging-schema",
+        "openstreetmap-americana",
+        "openstreetmap-carto",
+        "osrm"
+      ]
+    },
+    {
+      "value": "snow",
+      "category": "unpaved",
+      "sources": [
+        "wiki",
+        "osmand",
+        "openstreetmap-americana",
+        "openstreetmap-carto",
+        "osrm"
+      ]
+    },
+    {
+      "value": "ice",
+      "category": "unpaved",
+      "sources": [
+        "wiki",
+        "osmand",
+        "openstreetmap-americana",
+        "openstreetmap-carto",
+        "graphhopper",
+        "osrm"
+      ]
+    },
+    {
+      "value": "salt",
+      "category": "unpaved",
+      "sources": [
+        "wiki",
+        "osmand",
+        "openstreetmap-carto",
+        "graphhopper"
+      ]
+    },
+    {
+      "value": "clay",
+      "category": "sports",
+      "sources": [
+        "wiki",
+        "id-tagging-schema",
+        "josm",
+        "openstreetmap-americana",
+        "openstreetmap-carto",
+        "brouter",
+        "osrm"
+      ]
+    },
+    {
+      "value": "tartan",
+      "category": "sports",
+      "sources": [
+        "wiki",
+        "osrm",
+        "valhalla"
+      ]
+    },
+    {
+      "value": "artificial_turf",
+      "category": "sports",
+      "sources": [
+        "wiki"
+      ]
+    },
+    {
+      "value": "acrylic",
+      "category": "sports",
+      "sources": [
+        "wiki"
+      ]
+    },
+    {
+      "value": "carpet",
+      "category": "sports",
+      "sources": [
+        "wiki"
+      ]
+    },
+    {
+      "value": "plastic",
+      "category": "sports",
+      "sources": [
+        "wiki"
+      ]
+    },
+    {
+      "value": "rubber",
+      "category": "sports",
+      "sources": [
+        "wiki"
+      ]
+    },
+    {
+      "value": "boardwalk",
+      "category": "paved",
+      "note": "Treated as wood planks over water; paved equivalent in Valhalla",
+      "sources": [
+        "valhalla"
+      ]
+    },
+    {
+      "value": "brick",
+      "category": "paved",
+      "note": "Alias for bricks used in some routing engines",
+      "sources": [
+        "valhalla"
+      ]
+    },
+    {
+      "value": "cement",
+      "category": "paved",
+      "note": "Treated as paved concrete equivalent in some routing engines",
+      "sources": [
+        "osrm",
+        "valhalla"
+      ]
+    },
+    {
+      "value": "gravel_dirt",
+      "category": "unpaved",
+      "note": "Composite value used in OSM Carto rendering rules",
+      "sources": [
+        "openstreetmap-carto"
+      ]
+    },
+    {
+      "value": "laterite",
+      "category": "unpaved",
+      "note": "Documented gap: absent from most renderer unpaved lists; common in tropical/West Africa",
+      "sources": [
+        "organic-maps",
+        "osmand",
+        "openstreetmap-americana",
+        "openstreetmap-carto",
+        "shortbread"
+      ]
+    },
+    {
+      "value": "rocky",
+      "category": "unpaved",
+      "note": "Variant of rock used in some routing engines",
+      "sources": [
+        "osrm"
+      ]
+    },
+    {
+      "value": "stone",
+      "category": "unpaved",
+      "note": "Generic stone surface; treated as cobblestone-equivalent in some engines",
+      "sources": [
+        "osmand",
+        "osrm"
+      ]
+    }
+  ],
+  "smoothness": [
+    {
+      "value": "excellent",
+      "sources": [
+        "wiki",
+        "osmand",
+        "id-tagging-schema",
+        "josm",
+        "mapcomplete",
+        "streetcomplete",
+        "vespucci",
+        "brouter",
+        "graphhopper",
+        "valhalla"
+      ]
+    },
+    {
+      "value": "good",
+      "sources": [
+        "wiki",
+        "osmand",
+        "id-tagging-schema",
+        "josm",
+        "mapcomplete",
+        "streetcomplete",
+        "vespucci",
+        "brouter",
+        "graphhopper"
+      ]
+    },
+    {
+      "value": "intermediate",
+      "sources": [
+        "wiki",
+        "osmand",
+        "id-tagging-schema",
+        "josm",
+        "mapcomplete",
+        "streetcomplete",
+        "vespucci",
+        "brouter",
+        "graphhopper",
+        "osrm"
+      ]
+    },
+    {
+      "value": "bad",
+      "sources": [
+        "wiki",
+        "osmand",
+        "id-tagging-schema",
+        "josm",
+        "mapcomplete",
+        "streetcomplete",
+        "vespucci",
+        "brouter",
+        "graphhopper",
+        "osrm",
+        "valhalla"
+      ]
+    },
+    {
+      "value": "very_bad",
+      "sources": [
+        "wiki",
+        "osmand",
+        "id-tagging-schema",
+        "josm",
+        "mapcomplete",
+        "streetcomplete",
+        "vespucci",
+        "brouter",
+        "graphhopper",
+        "osrm"
+      ]
+    },
+    {
+      "value": "horrible",
+      "sources": [
+        "wiki",
+        "osmand",
+        "id-tagging-schema",
+        "josm",
+        "mapcomplete",
+        "streetcomplete",
+        "vespucci",
+        "brouter",
+        "graphhopper",
+        "osrm"
+      ]
+    },
+    {
+      "value": "very_horrible",
+      "sources": [
+        "wiki",
+        "osmand",
+        "id-tagging-schema",
+        "josm",
+        "mapcomplete",
+        "streetcomplete",
+        "vespucci",
+        "brouter",
+        "graphhopper",
+        "osrm"
+      ]
+    },
+    {
+      "value": "impassable",
+      "sources": [
+        "wiki",
+        "osmand",
+        "id-tagging-schema",
+        "josm",
+        "mapcomplete",
+        "streetcomplete",
+        "vespucci",
+        "brouter",
+        "graphhopper",
+        "osrm",
+        "valhalla"
+      ]
+    },
+    {
+      "value": "very_good",
+      "note": "Used in OSM data and handled by iD/JOSM/BRouter; not on the main wiki smoothness table",
+      "sources": [
+        "id-tagging-schema",
+        "josm",
+        "vespucci",
+        "brouter"
+      ]
+    }
+  ],
+  "tracktype": [
+    {
+      "value": "grade1",
+      "sources": [
+        "wiki",
+        "organic-maps",
+        "osmand",
+        "id-tagging-schema",
+        "josm",
+        "vespucci",
+        "openstreetmap-americana",
+        "openstreetmap-carto",
+        "shortbread",
+        "brouter",
+        "graphhopper",
+        "osrm",
+        "valhalla"
+      ]
+    },
+    {
+      "value": "grade2",
+      "sources": [
+        "wiki",
+        "organic-maps",
+        "osmand",
+        "id-tagging-schema",
+        "josm",
+        "vespucci",
+        "openstreetmap-americana",
+        "openstreetmap-carto",
+        "shortbread",
+        "brouter",
+        "graphhopper"
+      ]
+    },
+    {
+      "value": "grade3",
+      "sources": [
+        "wiki",
+        "organic-maps",
+        "osmand",
+        "id-tagging-schema",
+        "josm",
+        "vespucci",
+        "openstreetmap-americana",
+        "openstreetmap-carto",
+        "shortbread",
+        "brouter",
+        "graphhopper",
+        "valhalla"
+      ]
+    },
+    {
+      "value": "grade4",
+      "sources": [
+        "wiki",
+        "organic-maps",
+        "osmand",
+        "id-tagging-schema",
+        "josm",
+        "vespucci",
+        "openstreetmap-americana",
+        "openstreetmap-carto",
+        "shortbread",
+        "brouter",
+        "graphhopper"
+      ]
+    },
+    {
+      "value": "grade5",
+      "sources": [
+        "wiki",
+        "organic-maps",
+        "osmand",
+        "id-tagging-schema",
+        "josm",
+        "vespucci",
+        "openstreetmap-americana",
+        "openstreetmap-carto",
+        "shortbread",
+        "brouter",
+        "graphhopper",
+        "osrm",
+        "valhalla"
+      ]
+    }
+  ],
+  "mtb:scale": [
+    {
+      "value": "0",
+      "sources": [
+        "wiki",
+        "id-tagging-schema",
+        "josm",
+        "mapcomplete",
+        "vespucci",
+        "brouter"
+      ]
+    },
+    {
+      "value": "0-",
+      "sources": [
+        "wiki"
+      ]
+    },
+    {
+      "value": "0+",
+      "sources": [
+        "wiki",
+        "josm",
+        "vespucci",
+        "brouter"
+      ]
+    },
+    {
+      "value": "1",
+      "sources": [
+        "wiki",
+        "id-tagging-schema",
+        "josm",
+        "mapcomplete",
+        "vespucci",
+        "brouter"
+      ]
+    },
+    {
+      "value": "1-",
+      "sources": [
+        "wiki",
+        "josm",
+        "vespucci",
+        "brouter"
+      ]
+    },
+    {
+      "value": "1+",
+      "sources": [
+        "wiki",
+        "josm",
+        "vespucci",
+        "brouter"
+      ]
+    },
+    {
+      "value": "2",
+      "sources": [
+        "wiki",
+        "id-tagging-schema",
+        "josm",
+        "mapcomplete",
+        "vespucci",
+        "brouter"
+      ]
+    },
+    {
+      "value": "2-",
+      "sources": [
+        "wiki",
+        "josm",
+        "vespucci",
+        "brouter"
+      ]
+    },
+    {
+      "value": "2+",
+      "sources": [
+        "wiki",
+        "josm",
+        "vespucci",
+        "brouter"
+      ]
+    },
+    {
+      "value": "3",
+      "sources": [
+        "wiki",
+        "id-tagging-schema",
+        "josm",
+        "mapcomplete",
+        "vespucci",
+        "brouter"
+      ]
+    },
+    {
+      "value": "3-",
+      "sources": [
+        "wiki"
+      ]
+    },
+    {
+      "value": "3+",
+      "sources": [
+        "wiki",
+        "josm"
+      ]
+    },
+    {
+      "value": "4",
+      "sources": [
+        "wiki",
+        "id-tagging-schema",
+        "josm",
+        "mapcomplete",
+        "vespucci",
+        "brouter"
+      ]
+    },
+    {
+      "value": "4-",
+      "sources": [
+        "wiki"
+      ]
+    },
+    {
+      "value": "4+",
+      "sources": [
+        "wiki",
+        "josm"
+      ]
+    },
+    {
+      "value": "5",
+      "sources": [
+        "wiki",
+        "id-tagging-schema",
+        "josm",
+        "mapcomplete",
+        "vespucci",
+        "brouter"
+      ]
+    },
+    {
+      "value": "5-",
+      "sources": [
+        "wiki"
+      ]
+    },
+    {
+      "value": "5+",
+      "sources": [
+        "wiki"
+      ]
+    },
+    {
+      "value": "6",
+      "sources": [
+        "wiki",
+        "id-tagging-schema",
+        "josm",
+        "mapcomplete",
+        "vespucci",
+        "brouter"
+      ]
+    }
+  ],
+  "sac_scale": [
+    {
+      "value": "strolling",
+      "sources": [
+        "wiki"
+      ]
+    },
+    {
+      "value": "hiking",
+      "sources": [
+        "wiki",
+        "organic-maps",
+        "osmand",
+        "id-tagging-schema",
+        "josm",
+        "mapcomplete",
+        "vespucci",
+        "brouter",
+        "graphhopper"
+      ]
+    },
+    {
+      "value": "mountain_hiking",
+      "sources": [
+        "wiki",
+        "organic-maps",
+        "osmand",
+        "id-tagging-schema",
+        "josm",
+        "mapcomplete",
+        "vespucci",
+        "brouter",
+        "graphhopper"
+      ]
+    },
+    {
+      "value": "demanding_mountain_hiking",
+      "sources": [
+        "wiki",
+        "organic-maps",
+        "osmand",
+        "id-tagging-schema",
+        "josm",
+        "mapcomplete",
+        "vespucci",
+        "brouter",
+        "graphhopper"
+      ]
+    },
+    {
+      "value": "alpine_hiking",
+      "sources": [
+        "wiki",
+        "organic-maps",
+        "osmand",
+        "id-tagging-schema",
+        "josm",
+        "mapcomplete",
+        "vespucci",
+        "brouter",
+        "graphhopper"
+      ]
+    },
+    {
+      "value": "demanding_alpine_hiking",
+      "sources": [
+        "wiki",
+        "organic-maps",
+        "osmand",
+        "id-tagging-schema",
+        "josm",
+        "mapcomplete",
+        "vespucci",
+        "brouter",
+        "graphhopper"
+      ]
+    },
+    {
+      "value": "difficult_alpine_hiking",
+      "sources": [
+        "wiki",
+        "organic-maps",
+        "osmand",
+        "id-tagging-schema",
+        "josm",
+        "mapcomplete",
+        "vespucci",
+        "brouter",
+        "graphhopper"
+      ]
+    }
+  ]
+}

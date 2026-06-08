@@ -1,17 +1,18 @@
 #!/usr/bin/env python3
 """
-Generate site/index.html — a caniuse-style grid of OSM tag support.
+Generate site/data.json and site/index.html.
 
-Rows: canonical tag values (surface=*, smoothness=*, tracktype=*, mtb:scale=*, sac_scale=*)
-Cols: apps grouped by capability type (Routing | Editors | Renderers | Display)
+  site/data.json   — full support matrix; load it with any tool
+  site/index.html  — self-contained viewer (loads data.json via fetch)
 
 Run: python3 scripts/generate.py
-Output: site/index.html (self-contained, no server needed)
+Serve: cd site && python3 -m http.server
 """
 
 import json
-import re
+from datetime import date
 from pathlib import Path
+
 import yaml
 
 ROOT = Path(__file__).parent.parent
@@ -19,82 +20,61 @@ REGISTRY = ROOT / "registry"
 SITE = ROOT / "site"
 SITE.mkdir(exist_ok=True)
 
-# ── Canonical tag values (master list, OSM wiki order) ───────────────────────
-
-# Source: https://wiki.openstreetmap.org/wiki/Key:surface (fetched 2026-06-08)
-# Source: https://wiki.openstreetmap.org/wiki/Key:smoothness (fetched 2026-06-08)
-# Source: https://wiki.openstreetmap.org/wiki/Key:mtb:scale (fetched 2026-06-08)
-# Source: https://wiki.openstreetmap.org/wiki/Key:sac_scale (fetched 2026-06-08)
-TAGS = {
-    "surface": [
-        # paved
-        "paved", "asphalt", "chipseal", "concrete", "concrete:lanes",
-        "concrete:plates", "paving_stones", "paving_stones:lanes",
-        "grass_paver", "sett", "unhewn_cobblestone", "cobblestone",
-        "cobblestone:flattened", "bricks", "metal", "metal_grid", "wood",
-        "stepping_stones", "tiles", "fibre_reinforced_polymer_grate",
-        # unpaved
-        "unpaved", "compacted", "fine_gravel", "gravel", "shells", "rock",
-        "pebblestone", "ground", "dirt", "earth", "grass", "mud", "sand",
-        "woodchips", "snow", "ice", "salt",
-        # sports / special
-        "clay", "tartan", "artificial_turf", "acrylic", "carpet", "plastic",
-        "rubber",
-        # not in wiki but explicitly tracked as a gap in this project
-        "laterite",
-    ],
-    "smoothness": [
-        "excellent", "good", "intermediate", "bad", "very_bad",
-        "horrible", "very_horrible", "impassable",
-    ],
-    "tracktype": ["grade1", "grade2", "grade3", "grade4", "grade5"],
-    "mtb:scale": [
-        "0", "0-", "0+",
-        "1", "1-", "1+",
-        "2", "2-", "2+",
-        "3", "3-", "3+",
-        "4", "4-", "4+",
-        "5", "5-", "5+",
-        "6",
-    ],
-    "sac_scale": [
-        "strolling", "hiking", "mountain_hiking", "demanding_mountain_hiking",
-        "alpine_hiking", "demanding_alpine_hiking", "difficult_alpine_hiking",
-    ],
-}
-
-# ── App column definitions ────────────────────────────────────────────────────
+# ── App column definitions (order = column order in grid) ─────────────────────
 
 CAPABILITY_GROUPS = [
-    ("Routing",   ["routing/osrm", "routing/brouter", "routing/graphhopper",
-                   "routing/valhalla", "routing/osmand", "routing/organic-maps"]),
-    ("Editors",   ["editors/josm", "editors/id", "editors/vespucci",
-                   "editors/mapcomplete", "editors/streetcomplete"]),
-    ("Renderers", ["renderers/openstreetmap-carto", "renderers/americana",
-                   "renderers/shortbread"]),
-    ("Display",   ["display/osmand", "display/organic-maps"]),
+    ("Routing",   [
+        "routing/osrm", "routing/brouter", "routing/graphhopper",
+        "routing/valhalla", "routing/osmand", "routing/organic-maps",
+    ]),
+    ("Editors",   [
+        "editors/josm", "editors/id", "editors/vespucci",
+        "editors/mapcomplete", "editors/streetcomplete",
+    ]),
+    ("Renderers", [
+        "renderers/openstreetmap-carto", "renderers/americana",
+        "renderers/shortbread",
+    ]),
+    ("Display",   [
+        "display/osmand", "display/organic-maps",
+    ]),
 ]
 
 DISPLAY_NAMES = {
-    "routing/osrm":                     "OSRM",
-    "routing/brouter":                  "BRouter",
-    "routing/graphhopper":              "GraphHopper",
-    "routing/valhalla":                 "Valhalla",
-    "routing/osmand":                   "OsmAnd",
-    "routing/organic-maps":             "Organic Maps",
-    "editors/josm":                     "JOSM",
-    "editors/id":                       "iD",
-    "editors/vespucci":                 "Vespucci",
-    "editors/mapcomplete":              "MapComplete",
-    "editors/streetcomplete":           "StreetComplete",
-    "renderers/openstreetmap-carto":    "OSM Carto",
-    "renderers/americana":              "Americana",
-    "renderers/shortbread":             "Shortbread",
-    "display/osmand":                   "OsmAnd",
-    "display/organic-maps":             "Organic Maps",
+    "routing/osrm":                  "OSRM",
+    "routing/brouter":               "BRouter",
+    "routing/graphhopper":           "GraphHopper",
+    "routing/valhalla":              "Valhalla",
+    "routing/osmand":                "OsmAnd",
+    "routing/organic-maps":          "Organic Maps",
+    "editors/josm":                  "JOSM",
+    "editors/id":                    "iD",
+    "editors/vespucci":              "Vespucci",
+    "editors/mapcomplete":           "MapComplete",
+    "editors/streetcomplete":        "StreetComplete",
+    "renderers/openstreetmap-carto": "OSM Carto",
+    "renderers/americana":           "Americana",
+    "renderers/shortbread":          "Shortbread",
+    "display/osmand":                "OsmAnd",
+    "display/organic-maps":          "Organic Maps",
 }
 
-# ── Load registry ─────────────────────────────────────────────────────────────
+LEVEL_ORDER = [
+    "direct", "derived", "profile_dependent",
+    "user_defined_only", "absent", "unknown",
+]
+
+
+# ── Loaders ───────────────────────────────────────────────────────────────────
+
+def load_tag_values():
+    path = REGISTRY / "tag-values.json"
+    with open(path) as f:
+        tv = json.load(f)
+    # Return ordered dict: tag_key → list of value dicts
+    keys = [k for k in tv if k != "meta"]
+    return tv["meta"], {k: tv[k] for k in keys}
+
 
 def load_specs():
     specs = {}
@@ -105,441 +85,434 @@ def load_specs():
     return specs
 
 
+# ── Per-cell support level ────────────────────────────────────────────────────
+
 def get_tag_entries(spec, tag_key):
-    """Return list of tag_entry dicts for tag_key from a spec (handles both shapes)."""
     entries = []
-    shape = "router_with_profiles" if "profiles" in spec else "single_profile_record"
-    if shape == "single_profile_record":
-        for t in spec.get("tags", []):
-            if t.get("tag_key") == tag_key:
-                entries.append(t)
-    else:
-        for profile in spec.get("profiles", []):
-            for t in profile.get("tags", []):
-                if t.get("tag_key") == tag_key:
-                    entries.append(t)
-        for t in spec.get("tags_default", []):
+    for t in spec.get("tags", []) + spec.get("tags_default", []):
+        if t.get("tag_key") == tag_key:
+            entries.append(t)
+    for p in spec.get("profiles", []):
+        for t in p.get("tags", []):
             if t.get("tag_key") == tag_key:
                 entries.append(t)
     return entries
 
-
-# ── Cell support classification ───────────────────────────────────────────────
-# Returns one of: "direct", "derived", "profile_dependent",
-#                 "user_defined_only", "absent", "unknown"
 
 def cell_support(spec, tag_key, tag_value):
     entries = get_tag_entries(spec, tag_key)
     if not entries:
         return "unknown"
 
-    # Aggregate across profiles: take the best level found
-    LEVEL_ORDER = ["direct", "derived", "profile_dependent", "user_defined_only", "absent", "unknown"]
-
     best = None
-    value_found_in_any = False
+
+    def better(a, b):
+        # lower index = better support
+        return b is None or LEVEL_ORDER.index(a) < LEVEL_ORDER.index(b)
 
     for entry in entries:
         level = entry.get("support_level", "unknown")
         if level == "user_defined_only":
-            if best is None:
+            if better("user_defined_only", best):
                 best = "user_defined_only"
             continue
 
-        # Check if this specific value is handled
-        value_rules = entry.get("value_rules", [])
-        value_keys = [r.get("tag_value", "") for r in value_rules]
-        value_found = tag_value in value_keys
-
-        if value_found:
-            value_found_in_any = True
-            if best is None or LEVEL_ORDER.index(level) < LEVEL_ORDER.index(best):
+        value_keys = [r.get("tag_value", "") for r in entry.get("value_rules", [])]
+        if tag_value in value_keys:
+            if better(level, best):
                 best = level
         else:
-            # Value not in rules; check coverage
             coverage = entry.get("value_coverage", "partial")
-            if coverage == "none":
-                if best is None:
-                    best = "user_defined_only"
-            elif coverage == "full":
-                # All values implied to be handled at this level
-                if best is None or LEVEL_ORDER.index(level) < LEVEL_ORDER.index(best):
+            if coverage == "full":
+                if better(level, best):
                     best = level
-            else:
-                # partial: value not explicitly listed → absent from this profile
-                if best is None:
+            elif coverage == "none":
+                if better("user_defined_only", best):
+                    best = "user_defined_only"
+            else:  # partial — value not listed → absent for this profile
+                if better("absent", best):
                     best = "absent"
 
     return best or "unknown"
 
 
 def cell_detail(spec, tag_key, tag_value):
-    """Return dict with detail info for the tooltip/panel."""
     entries = get_tag_entries(spec, tag_key)
-    effects = []
-    notes = []
+    effects, notes = [], []
     for entry in entries:
         for rule in entry.get("value_rules", []):
             if rule.get("tag_value") == tag_value:
-                effects.append({
-                    "kind": rule.get("effect_kind", ""),
-                    "value": rule.get("effect_value", ""),
-                    "conditions": rule.get("conditions", ""),
-                })
-        for n in entry.get("special_handling", []):
-            notes.append(n)
+                e = {"kind": rule.get("effect_kind", ""),
+                     "value": rule.get("effect_value", "")}
+                if rule.get("conditions"):
+                    e["conditions"] = rule["conditions"]
+                effects.append(e)
+        notes += entry.get("special_handling", [])
 
-    evidence = spec.get("evidence", [])
-    # Also gather profile-level evidence
+    evidence = list(spec.get("evidence", []))
     for p in spec.get("profiles", []):
         evidence += p.get("evidence", [])
 
-    issues = spec.get("related_issues", [])
+    issues = [
+        i for i in spec.get("related_issues", [])
+        if tag_key in i.get("tags", [])
+    ]
 
     return {
-        "effects": effects,
-        "notes": notes[:3],
-        "evidence": evidence[:4],
-        "issues": [i for i in issues if tag_key in i.get("tags", [])],
-        "verified_on": spec.get("verified_on", ""),
+        "effects":     effects,
+        "notes":       notes[:3],
+        "evidence":    [
+            {k: str(v) if not isinstance(v, (str, int, float, bool, type(None))) else v
+             for k, v in e.items()}
+            for e in evidence[:4]
+        ],
+        "issues":      [
+            {k: str(v) if not isinstance(v, (str, int, float, bool, type(None))) else v
+             for k, v in i.items()}
+            for i in issues
+        ],
+        "verified_on": str(spec.get("verified_on", "")),
         "engine_meta": spec.get("engine_meta", {}),
     }
 
 
-# ── Build data matrix ─────────────────────────────────────────────────────────
+# ── Build data.json ───────────────────────────────────────────────────────────
 
-def build_matrix(specs):
-    all_cols = []
-    for group_name, col_keys in CAPABILITY_GROUPS:
+def build_data(tag_values_meta, tag_values, specs):
+    all_cols = [(g, k) for g, keys in CAPABILITY_GROUPS for k in keys]
+
+    apps = []
+    for group, col_keys in CAPABILITY_GROUPS:
         for key in col_keys:
-            all_cols.append((group_name, key))
+            spec = specs.get(key, {})
+            apps.append({
+                "id":    key,
+                "name":  DISPLAY_NAMES.get(key, key.split("/")[-1]),
+                "group": group,
+                "meta":  spec.get("engine_meta", {}),
+            })
 
-    matrix = {}
-    for tag_key, values in TAGS.items():
-        matrix[tag_key] = {}
-        for val in values:
-            matrix[tag_key][val] = {}
-            for group_name, col_key in all_cols:
+    tags_out = {}
+    for tag_key, value_dicts in tag_values.items():
+        matrix = {}
+        for vd in value_dicts:
+            val = vd["value"]
+            row = {}
+            for _, col_key in all_cols:
                 spec = specs.get(col_key)
                 if spec is None:
-                    matrix[tag_key][val][col_key] = {"support": "unknown", "detail": {}}
+                    row[col_key] = {"support": "unknown"}
                 else:
                     support = cell_support(spec, tag_key, val)
-                    detail = cell_detail(spec, tag_key, val)
-                    matrix[tag_key][val][col_key] = {"support": support, "detail": detail}
+                    detail  = cell_detail(spec, tag_key, val)
+                    row[col_key] = {"support": support, **detail}
+            matrix[val] = row
 
-    return matrix, all_cols
+        tags_out[tag_key] = {
+            "values": value_dicts,   # includes category, sources, note
+            "matrix": matrix,
+        }
+
+    return {
+        "meta": {
+            "generated_on":    str(date.today()),
+            "tag_values_meta": tag_values_meta,
+            "apps": apps,
+            "groups": [{"name": g, "app_ids": keys} for g, keys in CAPABILITY_GROUPS],
+        },
+        "tags": tags_out,
+    }
 
 
-# ── HTML generation ───────────────────────────────────────────────────────────
+# ── HTML ──────────────────────────────────────────────────────────────────────
 
-CSS = """
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-       font-size: 13px; background: #f5f5f5; color: #222; }
-h1 { padding: 16px 20px; font-size: 18px; background: #1a1a2e; color: #eee;
-     letter-spacing: .5px; }
-h1 span { font-size: 12px; color: #aaa; font-weight: normal; margin-left: 12px; }
+HTML_TEMPLATE = r"""<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>OSM Tag Support</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:13px;background:#f5f5f5;color:#222}
+#header{padding:12px 20px;background:#1a1a2e;color:#eee;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+#header h1{font-size:17px;font-weight:700}
+#header span{font-size:12px;color:#aaa}
+#legend{display:flex;gap:10px;padding:8px 20px;background:#fff;border-bottom:1px solid #ddd;flex-wrap:wrap;align-items:center}
+.ls{display:flex;align-items:center;gap:4px;font-size:11px;white-space:nowrap}
+.lc{width:14px;height:14px;border-radius:3px;border:1px solid rgba(0,0,0,.1)}
+#loading{padding:40px;text-align:center;color:#888}
+#grid-wrap{overflow-x:auto;padding:12px 20px 80px}
+table{border-collapse:collapse;min-width:max-content}
+thead th{position:sticky;top:0;z-index:2}
+.gh{background:#2d2d44;color:#eee;text-align:center;font-size:10px;font-weight:700;letter-spacing:.5px;padding:4px 6px;text-transform:uppercase}
+.ah{background:#fff;border-bottom:2px solid #555;font-size:10px;font-weight:600;text-align:center;
+    writing-mode:vertical-lr;transform:rotate(180deg);height:76px;vertical-align:bottom;padding:3px 2px;white-space:nowrap}
+.tag-section td{background:#e8eaf6;font-weight:700;font-size:12px;padding:5px 10px;letter-spacing:.2px}
+.vl{padding:3px 10px;white-space:nowrap;font-family:monospace;font-size:11px;
+    position:sticky;left:0;background:#fafafa;border-right:1px solid #ddd;z-index:1;min-width:190px}
+.vl .src{font-size:9px;color:#aaa;margin-left:4px}
+td.c{width:32px;min-width:32px;text-align:center;cursor:pointer;border:1px solid #e8e8e8;font-size:12px}
+td.c:hover{outline:2px solid #333;z-index:1;position:relative}
+td.c.ge{border-right:2px solid #bbb}
+.direct{background:#4caf50;color:#fff}
+.derived{background:#ff9800;color:#fff}
+.profile_dependent{background:#fdd835}
+.user_defined_only{background:#bdbdbd}
+.absent{background:#ef5350;color:#fff}
+.unknown{background:#f0f0f0;color:#ccc}
+/* panel */
+#panel{position:fixed;right:0;top:0;width:360px;height:100vh;background:#fff;
+       box-shadow:-3px 0 16px rgba(0,0,0,.15);overflow-y:auto;
+       transform:translateX(100%);transition:transform .18s ease;z-index:100;padding:18px}
+#panel.open{transform:translateX(0)}
+#pcls{float:right;font-size:20px;cursor:pointer;border:none;background:none;color:#888;line-height:1}
+#panel h2{font-size:14px;margin-bottom:3px}
+.psub{color:#888;font-size:11px;margin-bottom:14px}
+#panel section{margin-bottom:14px}
+#panel h3{font-size:10px;text-transform:uppercase;letter-spacing:.5px;color:#999;
+          margin-bottom:5px;border-bottom:1px solid #eee;padding-bottom:3px}
+.ef{font-family:monospace;font-size:11px;padding:2px 0;border-bottom:1px solid #f5f5f5}
+.ef span{color:#999}
+.ni{font-size:11px;color:#444;margin-bottom:5px;line-height:1.4}
+.ev{font-size:10px;margin-bottom:7px}
+.ev a{color:#1565c0;text-decoration:none;word-break:break-all}
+.ev .cf{font-size:9px;padding:1px 4px;border-radius:8px;background:#e3f2fd;color:#1565c0;margin-left:3px}
+.ev .es{color:#666;margin-top:1px}
+.iss{font-size:11px;padding:5px 7px;border-radius:4px;border:1px solid #eee;margin-bottom:5px}
+.iss a{color:#1a237e;text-decoration:none;font-weight:600}
+.badge{font-size:9px;padding:1px 5px;border-radius:8px;font-weight:700;margin-left:3px}
+.badge.open{background:#e8f5e9;color:#2e7d32}
+.badge.closed{background:#fce4ec;color:#c62828}
+.im{color:#888;font-size:9px;margin-top:2px}
+.btn{display:block;margin-top:7px;padding:6px 10px;border-radius:4px;text-align:center;
+     font-size:11px;font-weight:600;text-decoration:none;cursor:pointer;border:none;width:100%}
+.btn-p{background:#1565c0;color:#fff}
+.btn-s{background:#f5f5f5;color:#333;border:1px solid #ccc;margin-top:4px}
+.vdate{font-size:9px;color:#bbb;margin-top:10px}
+</style>
+</head>
+<body>
+<div id="header">
+  <h1>OSM Tag Support</h1>
+  <span>surface · smoothness · tracktype · mtb:scale · sac_scale</span>
+  <span id="gen-date" style="margin-left:auto"></span>
+</div>
+<div id="legend">
+  <div class="ls"><div class="lc direct"></div>direct</div>
+  <div class="ls"><div class="lc derived"></div>derived</div>
+  <div class="ls"><div class="lc profile_dependent"></div>profile-dependent</div>
+  <div class="ls"><div class="lc user_defined_only"></div>user-defined only</div>
+  <div class="ls"><div class="lc absent"></div>absent / gap</div>
+  <div class="ls"><div class="lc unknown"></div>not documented</div>
+</div>
+<div id="loading">Loading data…</div>
+<div id="grid-wrap" style="display:none"></div>
+<div id="panel"><button id="pcls">✕</button></div>
+<script>
+const ICONS = {direct:'✓',derived:'~',profile_dependent:'◑',user_defined_only:'—',absent:'✗',unknown:'·'};
 
-.legend { display: flex; gap: 12px; padding: 10px 20px; background: #fff;
-          border-bottom: 1px solid #ddd; flex-wrap: wrap; align-items: center; }
-.legend-item { display: flex; align-items: center; gap: 5px; font-size: 12px; }
-.legend-swatch { width: 16px; height: 16px; border-radius: 3px; border: 1px solid #ccc; }
-
-.grid-wrap { overflow-x: auto; padding: 16px 20px 60px; }
-table { border-collapse: collapse; min-width: max-content; }
-
-th { position: sticky; top: 0; background: #fff; z-index: 2; }
-.col-group-header { background: #2d2d44; color: #eee; text-align: center;
-                    font-size: 11px; font-weight: 600; letter-spacing: .5px;
-                    padding: 4px 6px; text-transform: uppercase; }
-.col-app-header { background: #fff; border-bottom: 2px solid #555;
-                  font-size: 11px; font-weight: 600; text-align: center;
-                  padding: 4px 3px; white-space: nowrap;
-                  writing-mode: vertical-lr; transform: rotate(180deg);
-                  height: 80px; vertical-align: bottom; }
-
-.tag-key-row td { background: #e8eaf6; font-weight: 700; font-size: 12px;
-                  padding: 6px 10px; letter-spacing: .3px; color: #333; }
-.val-label { padding: 4px 10px; white-space: nowrap; font-family: monospace;
-             font-size: 12px; position: sticky; left: 0; background: #fafafa;
-             border-right: 1px solid #ddd; z-index: 1; min-width: 180px; }
-
-td.cell { width: 36px; min-width: 36px; text-align: center; cursor: pointer;
-          border: 1px solid #e0e0e0; font-size: 14px; transition: opacity .1s; }
-td.cell:hover { opacity: .75; outline: 2px solid #555; }
-td.cell.group-end { border-right: 2px solid #999; }
-
-/* Support levels */
-.direct          { background: #4caf50; }
-.derived         { background: #ff9800; }
-.profile_dependent { background: #ffd54f; }
-.user_defined_only { background: #b0b0b0; }
-.absent          { background: #ef5350; }
-.unknown         { background: #f0f0f0; color: #bbb; }
-
-/* Panel */
-#panel { position: fixed; right: 0; top: 0; width: 380px; height: 100vh;
-         background: #fff; box-shadow: -4px 0 20px rgba(0,0,0,.15);
-         overflow-y: auto; transform: translateX(100%);
-         transition: transform .2s ease; z-index: 100; padding: 20px; }
-#panel.open { transform: translateX(0); }
-#panel-close { float: right; font-size: 20px; cursor: pointer; color: #888;
-               line-height: 1; border: none; background: none; }
-#panel h2 { font-size: 15px; margin-bottom: 4px; }
-#panel .subtitle { color: #888; font-size: 12px; margin-bottom: 16px; }
-#panel section { margin-bottom: 16px; }
-#panel h3 { font-size: 11px; text-transform: uppercase; letter-spacing: .5px;
-            color: #888; margin-bottom: 6px; border-bottom: 1px solid #eee;
-            padding-bottom: 4px; }
-.effect-row { font-family: monospace; font-size: 12px; padding: 3px 0;
-              border-bottom: 1px solid #f5f5f5; }
-.effect-row span { color: #888; }
-.note-item { font-size: 12px; color: #444; margin-bottom: 6px; line-height: 1.4; }
-.evidence-item { font-size: 11px; margin-bottom: 8px; }
-.evidence-item a { color: #1565c0; text-decoration: none; word-break: break-all; }
-.evidence-item .conf { font-size: 10px; padding: 1px 5px; border-radius: 9px;
-                       background: #e3f2fd; color: #1565c0; margin-left: 4px; }
-.issue-item { font-size: 12px; padding: 6px 8px; border-radius: 4px;
-              border: 1px solid #eee; margin-bottom: 6px; }
-.issue-item a { color: #1a237e; text-decoration: none; font-weight: 600; }
-.issue-item .badge { font-size: 10px; padding: 1px 6px; border-radius: 9px;
-                     font-weight: 600; margin-left: 4px; }
-.badge.open   { background: #e8f5e9; color: #2e7d32; }
-.badge.closed { background: #fce4ec; color: #c62828; }
-.issue-meta { color: #888; font-size: 10px; margin-top: 2px; }
-.action-btn { display: block; margin-top: 8px; padding: 7px 12px;
-              border-radius: 5px; text-align: center; font-size: 12px;
-              font-weight: 600; text-decoration: none; cursor: pointer;
-              border: none; width: 100%; }
-.btn-new-issue { background: #1565c0; color: #fff; }
-.btn-report    { background: #f5f5f5; color: #333; border: 1px solid #ccc; }
-.verified { font-size: 10px; color: #aaa; margin-top: 12px; }
-"""
-
-JS = """
-const panel = document.getElementById('panel');
-const cells = document.querySelectorAll('td.cell');
-
-cells.forEach(cell => {
-  cell.addEventListener('click', () => {
-    const d = JSON.parse(cell.dataset.detail);
-    const tag_key = cell.dataset.tagKey;
-    const tag_val = cell.dataset.tagVal;
-    const app = cell.dataset.app;
-    const support = cell.dataset.support;
-    renderPanel(app, tag_key, tag_val, support, d);
-    panel.classList.add('open');
-  });
-});
-
-document.getElementById('panel-close').addEventListener('click', () => {
-  panel.classList.remove('open');
-});
-
-function esc(s) {
-  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
-                  .replace(/"/g,'&quot;');
+async function init() {
+  let d;
+  try {
+    const r = await fetch('data.json');
+    d = await r.json();
+  } catch(e) {
+    document.getElementById('loading').textContent = 'Error loading data.json — serve this directory with: python3 -m http.server';
+    return;
+  }
+  document.getElementById('loading').style.display = 'none';
+  document.getElementById('grid-wrap').style.display = '';
+  document.getElementById('gen-date').textContent = 'generated ' + d.meta.generated_on;
+  renderGrid(d);
 }
 
-function renderPanel(app, tag_key, tag_val, support, d) {
-  const statusLabel = {
-    direct: 'Direct support', derived: 'Derived support',
-    profile_dependent: 'Profile-dependent', user_defined_only: 'User-defined only',
-    absent: 'Absent / documented gap', unknown: 'Not documented'
-  }[support] || support;
+function esc(s){
+  return String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
 
-  let html = `<button id="panel-close">✕</button>
-    <h2>${esc(app)}</h2>
-    <div class="subtitle"><code>${esc(tag_key)}=${esc(tag_val)}</code> &nbsp;·&nbsp; ${esc(statusLabel)}</div>`;
+function renderGrid(d) {
+  const groups = d.meta.groups;
+  const apps   = d.meta.apps;
+  const appIds = apps.map(a => a.id);
 
-  if (d.effects && d.effects.length) {
+  // group-end set
+  const groupEnds = new Set();
+  let pos = 0;
+  for (const g of groups) {
+    pos += g.app_ids.length;
+    groupEnds.add(pos - 1);
+  }
+
+  let html = '<table><thead>';
+
+  // group header row
+  html += '<tr><th class="vl" rowspan="2" style="background:#fff;z-index:3"></th>';
+  for (let gi = 0; gi < groups.length; gi++) {
+    const g = groups[gi];
+    const last = gi === groups.length - 1;
+    html += `<th class="gh" colspan="${g.app_ids.length}"${last?'':' style="border-right:2px solid #777"'}>${esc(g.name)}</th>`;
+  }
+  html += '</tr>';
+
+  // app name row
+  html += '<tr>';
+  for (let ai = 0; ai < apps.length; ai++) {
+    const a = apps[ai];
+    const ge = groupEnds.has(ai) && ai < apps.length - 1;
+    html += `<th class="ah${ge?' ge':''}">${esc(a.name)}</th>`;
+  }
+  html += '</tr></thead><tbody>';
+
+  for (const [tagKey, tagData] of Object.entries(d.tags)) {
+    const totalCols = apps.length;
+    html += `<tr class="tag-section"><td colspan="${totalCols + 1}">${esc(tagKey)}</td></tr>`;
+
+    for (const vd of tagData.values) {
+      const val = vd.value;
+      const srcLabel = vd.sources && !vd.sources.includes('wiki')
+        ? `<span class="src">app-only</span>` : '';
+      html += `<tr><td class="vl">${esc(val)}${srcLabel}</td>`;
+
+      for (let ai = 0; ai < apps.length; ai++) {
+        const a = apps[ai];
+        const cell = tagData.matrix[val]?.[a.id] ?? {support:'unknown'};
+        const sup = cell.support;
+        const icon = ICONS[sup] || '·';
+        const ge = groupEnds.has(ai) && ai < apps.length - 1;
+        html += `<td class="c ${esc(sup)}${ge?' ge':''}" `
+             + `data-tag="${esc(tagKey)}" data-val="${esc(val)}" data-app="${esc(a.id)}" `
+             + `title="${esc(a.name)}: ${esc(sup)}">${icon}</td>`;
+      }
+      html += '</tr>';
+    }
+  }
+
+  html += '</tbody></table>';
+  document.getElementById('grid-wrap').innerHTML = html;
+
+  // click → panel
+  document.querySelectorAll('td.c').forEach(td => {
+    td.addEventListener('click', () => {
+      const tagKey = td.dataset.tag;
+      const val    = td.dataset.val;
+      const appId  = td.dataset.app;
+      const app    = d.meta.apps.find(a => a.id === appId);
+      const cell   = d.tags[tagKey].matrix[val][appId];
+      const vd     = d.tags[tagKey].values.find(v => v.value === val);
+      openPanel(app, tagKey, val, cell, vd);
+    });
+  });
+}
+
+function openPanel(app, tagKey, val, cell, vd) {
+  const sup = cell.support;
+  const statusLabels = {
+    direct:'Direct support', derived:'Derived support',
+    profile_dependent:'Profile-dependent', user_defined_only:'User-defined only',
+    absent:'Absent — documented gap', unknown:'Not documented'
+  };
+  let html = `<button id="pcls">✕</button>
+    <h2>${esc(app.name)}</h2>
+    <div class="psub"><code>${esc(tagKey)}=${esc(val)}</code> &nbsp;·&nbsp; ${esc(statusLabels[sup]||sup)}</div>`;
+
+  if (vd?.note) {
+    html += `<section><h3>Value note</h3><div class="ni">${esc(vd.note)}</div></section>`;
+  }
+
+  if (cell.effects?.length) {
     html += '<section><h3>Effect</h3>';
-    d.effects.forEach(e => {
-      html += `<div class="effect-row">${esc(e.kind)}: <strong>${esc(e.value)}</strong>`;
+    cell.effects.forEach(e => {
+      html += `<div class="ef">${esc(e.kind)}: <strong>${esc(e.value)}</strong>`;
       if (e.conditions) html += ` <span>(${esc(e.conditions)})</span>`;
       html += '</div>';
     });
     html += '</section>';
   }
 
-  if (d.notes && d.notes.length) {
+  if (cell.notes?.length) {
     html += '<section><h3>Notes</h3>';
-    d.notes.forEach(n => html += `<div class="note-item">${esc(n)}</div>`);
+    cell.notes.forEach(n => html += `<div class="ni">${esc(n)}</div>`);
     html += '</section>';
   }
 
-  if (d.issues && d.issues.length) {
+  if (cell.issues?.length) {
     html += '<section><h3>Known Issues</h3>';
-    d.issues.forEach(i => {
-      const badge = `<span class="badge ${esc(i.state)}">${esc(i.state)}</span>`;
-      const lastReply = i.last_reply_date ? ` · last reply ${esc(i.last_reply_date)}` : '';
-      html += `<div class="issue-item">
-        <a href="${esc(i.url)}" target="_blank">#${i.id} ${esc(i.title)}</a>${badge}
-        <div class="issue-meta">${esc(i.note || '')}${lastReply}</div>
+    cell.issues.forEach(i => {
+      const lr = i.last_reply_date ? ` · last reply ${esc(i.last_reply_date)}` : '';
+      html += `<div class="iss">
+        <a href="${esc(i.url)}" target="_blank">#${i.id} ${esc(i.title)}</a>
+        <span class="badge ${esc(i.state)}">${esc(i.state)}</span>
+        <div class="im">${esc(i.note||'')}${lr}</div>
       </div>`;
     });
     html += '</section>';
   }
 
-  if (d.evidence && d.evidence.length) {
+  if (cell.evidence?.length) {
     html += '<section><h3>Evidence</h3>';
-    d.evidence.forEach(e => {
+    cell.evidence.forEach(e => {
       const isUrl = String(e.file).startsWith('http');
-      const fileLink = isUrl
+      const fl = isUrl
         ? `<a href="${esc(e.file)}" target="_blank">${esc(e.file)}</a>`
-        : `<code>${esc(e.file)}</code>` + (e.line ? `:${e.line}` : '');
-      html += `<div class="evidence-item">${fileLink}
-        <span class="conf">${esc(e.confidence)}</span>
-        <div style="color:#555;margin-top:2px">${esc(e.summary || '')}</div>
-      </div>`;
+        : `<code>${esc(e.file)}</code>${e.line ? ':'+e.line : ''}`;
+      html += `<div class="ev">${fl}<span class="cf">${esc(e.confidence)}</span>
+        <div class="es">${esc(e.summary||'')}</div></div>`;
     });
     html += '</section>';
   }
 
-  // Actions
-  const repoUrl = (d.engine_meta && d.engine_meta.issues) || '#';
-  const newIssueUrl = repoUrl !== '#'
-    ? `${repoUrl}/new?title=${encodeURIComponent('[tag-support] ' + tag_key + '=' + tag_val + ' in ' + app)}&body=${encodeURIComponent('**Tag:** `' + tag_key + '=' + tag_val + '`\\n**App:** ' + app + '\\n\\n**Issue:**\\n<!-- Describe what is wrong or missing -->')}`
+  // action buttons
+  const issuesUrl = app.meta?.issues || '#';
+  const newUrl = issuesUrl !== '#'
+    ? `${issuesUrl}/new?title=${encodeURIComponent('[tag-support] '+tagKey+'='+val+' in '+app.name)}`
+      + `&body=${encodeURIComponent('**Tag:** \`'+tagKey+'='+val+'\`\n**App:** '+app.name+'\n\n**Issue:**\n<!-- describe the gap or inaccuracy -->')}`
     : '#';
-  const reportUrl = 'https://github.com/osm-tag-support/tracker/issues/new?template=inaccuracy.md&title=' + encodeURIComponent('[report] ' + app + ' · ' + tag_key + '=' + tag_val);
-
+  const reportUrl = 'https://github.com/YOUR_ORG/osm-tag-support/issues/new'
+    + `?template=report.md&title=${encodeURIComponent('[report] '+app.name+' · '+tagKey+'='+val)}`;
   html += `<section>
-    <a class="action-btn btn-new-issue" href="${esc(newIssueUrl)}" target="_blank">Open issue in ${esc(app)} tracker ↗</a>
-    <a class="action-btn btn-report" href="${esc(reportUrl)}" target="_blank">Report inaccurate data</a>
+    <a class="btn btn-p" href="${esc(newUrl)}" target="_blank">Open issue in ${esc(app.name)} tracker ↗</a>
+    <a class="btn btn-s" href="${esc(reportUrl)}" target="_blank">Report inaccurate data</a>
   </section>`;
 
-  if (d.verified_on) {
-    html += `<div class="verified">Spec verified: ${esc(d.verified_on)}</div>`;
+  if (cell.verified_on) {
+    html += `<div class="vdate">Spec verified: ${esc(cell.verified_on)}</div>`;
   }
 
+  const panel = document.getElementById('panel');
   panel.innerHTML = html;
-  document.getElementById('panel-close').addEventListener('click', () => {
-    panel.classList.remove('open');
-  });
-}
-"""
-
-SUPPORT_ICONS = {
-    "direct":            "✓",
-    "derived":           "~",
-    "profile_dependent": "◑",
-    "user_defined_only": "—",
-    "absent":            "✗",
-    "unknown":           "·",
+  document.getElementById('pcls').addEventListener('click', () => panel.classList.remove('open'));
+  panel.classList.add('open');
 }
 
-LEGEND = [
-    ("direct",            "#4caf50", "Direct — value explicitly handled"),
-    ("derived",           "#ff9800", "Derived — inferred or indirect"),
-    ("profile_dependent", "#ffd54f", "Profile-dependent — depends on active profile"),
-    ("user_defined_only", "#b0b0b0", "User-defined only — value not in schema"),
-    ("absent",            "#ef5350", "Absent — known gap, falls through to default"),
-    ("unknown",           "#f0f0f0", "Not documented in this spec"),
-]
+document.getElementById('pcls').addEventListener('click', () => {
+  document.getElementById('panel').classList.remove('open');
+});
 
-
-def render_html(matrix, all_cols, specs):
-    # Group-end column indices for border styling
-    group_end_cols = set()
-    pos = 0
-    for group_name, col_keys in CAPABILITY_GROUPS:
-        pos += len(col_keys)
-        group_end_cols.add(pos - 1)
-
-    def th_group():
-        parts = ['<tr><th class="val-label" rowspan="2"></th>']
-        for group_name, col_keys in CAPABILITY_GROUPS:
-            border = ' style="border-right:2px solid #999"' if group_name != CAPABILITY_GROUPS[-1][0] else ''
-            parts.append(f'<th class="col-group-header" colspan="{len(col_keys)}"{border}>{group_name}</th>')
-        parts.append('</tr>')
-        return "".join(parts)
-
-    def th_apps():
-        parts = ['<tr>']
-        idx = 0
-        for group_name, col_keys in CAPABILITY_GROUPS:
-            for i, key in enumerate(col_keys):
-                is_last_in_group = (i == len(col_keys) - 1)
-                border = ' style="border-right:2px solid #999"' if is_last_in_group and group_name != CAPABILITY_GROUPS[-1][0] else ''
-                name = DISPLAY_NAMES.get(key, key.split("/")[-1])
-                parts.append(f'<th class="col-app-header"{border}>{name}</th>')
-            idx += len(col_keys)
-        parts.append('</tr>')
-        return "".join(parts)
-
-    rows = []
-    for tag_key, values in TAGS.items():
-        col_count = sum(len(ck) for _, ck in CAPABILITY_GROUPS)
-        rows.append(f'<tr class="tag-key-row"><td colspan="{col_count + 1}">{tag_key}</td></tr>')
-        for val in values:
-            row = [f'<td class="val-label">{val}</td>']
-            idx = 0
-            for group_name, col_keys in CAPABILITY_GROUPS:
-                for i, col_key in enumerate(col_keys):
-                    cell_data = matrix[tag_key][val][col_key]
-                    support = cell_data["support"]
-                    detail = cell_data["detail"]
-                    icon = SUPPORT_ICONS.get(support, "·")
-                    is_last_in_group = (i == len(col_keys) - 1)
-                    group_end_cls = " group-end" if is_last_in_group and group_name != CAPABILITY_GROUPS[-1][0] else ""
-                    app_name = DISPLAY_NAMES.get(col_key, col_key)
-                    detail_json = json.dumps(detail, ensure_ascii=False, default=str)
-                    row.append(
-                        f'<td class="cell {support}{group_end_cls}" '
-                        f'data-support="{support}" '
-                        f'data-tag-key="{tag_key}" '
-                        f'data-tag-val="{val}" '
-                        f'data-app="{app_name}" '
-                        f'data-detail=\'{detail_json.replace(chr(39), "&apos;")}\' '
-                        f'title="{app_name}: {support}">{icon}</td>'
-                    )
-                idx += len(col_keys)
-            rows.append(f'<tr>{"".join(row)}</tr>')
-
-    legend_html = "".join(
-        f'<div class="legend-item"><div class="legend-swatch" style="background:{color}"></div>{label}</div>'
-        for _, color, label in LEGEND
-    )
-
-    return f"""<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>OSM Tag Support — caniuse for mappers</title>
-<style>{CSS}</style>
-</head>
-<body>
-<h1>OSM Tag Support <span>surface · smoothness · tracktype · mtb:scale · sac_scale</span></h1>
-<div class="legend">{legend_html}</div>
-<div class="grid-wrap">
-<table>
-<thead>
-{th_group()}
-{th_apps()}
-</thead>
-<tbody>
-{"".join(rows)}
-</tbody>
-</table>
-</div>
-<div id="panel"><button id="panel-close">✕</button></div>
-<script>{JS}</script>
+init();
+</script>
 </body>
-</html>"""
+</html>
+"""
 
 
 # ── Entry point ───────────────────────────────────────────────────────────────
 
 def main():
+    tv_meta, tag_values = load_tag_values()
     specs = load_specs()
-    print(f"Loaded {len(specs)} specs: {sorted(specs)}")
-    matrix, all_cols = build_matrix(specs)
-    html = render_html(matrix, all_cols, specs)
-    out = SITE / "index.html"
-    out.write_text(html, encoding="utf-8")
-    print(f"Written: {out}  ({len(html):,} bytes)")
+    print(f"Loaded {len(specs)} specs, {sum(len(v) for v in tag_values.values())} tag values")
+
+    data = build_data(tv_meta, tag_values, specs)
+
+    data_path = SITE / "data.json"
+    with open(data_path, "w") as f:
+        json.dump(data, f, ensure_ascii=False, separators=(",", ":"))
+    print(f"Written: {data_path}  ({data_path.stat().st_size:,} bytes)")
+
+    html_path = SITE / "index.html"
+    html_path.write_text(HTML_TEMPLATE, encoding="utf-8")
+    print(f"Written: {html_path}  ({html_path.stat().st_size:,} bytes)")
 
 
 if __name__ == "__main__":
