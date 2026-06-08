@@ -271,7 +271,7 @@ td.c:hover{outline:2px solid #333;z-index:1;position:relative}
 td.c.ge{border-right:2px solid #bbb}
 .direct{background:#4caf50;color:#fff}
 .derived{background:#4caf50;color:#fff}
-.profile_dependent{background:#fdd835}
+.profile_dependent{background:#4caf50;color:#fff}
 .user_defined_only{background:#ef5350;color:#fff}
 .fallback{background:#ffa726;color:#fff}
 .absent{background:#ef5350;color:#fff}
@@ -320,7 +320,6 @@ td.c.ge{border-right:2px solid #bbb}
 </div>
 <div id="legend">
   <div class="ls"><div class="lc direct"></div>supported</div>
-  <div class="ls"><div class="lc profile_dependent"></div>profile-dependent</div>
   <div class="ls"><div class="lc fallback"></div>ignored (fallback)</div>
   <div class="ls"><div class="lc absent"></div>absent</div>
 </div>
@@ -328,7 +327,7 @@ td.c.ge{border-right:2px solid #bbb}
 <div id="grid-wrap" style="display:none"></div>
 <div id="panel"><button id="pcls">✕</button></div>
 <script>
-const ICONS = {direct:'✓',derived:'✓',profile_dependent:'P',user_defined_only:'✗',fallback:'~',absent:'✗',unknown:'✗'};
+const ICONS = {direct:'✓',derived:'✓',profile_dependent:'✓',user_defined_only:'✗',fallback:'~',absent:'✗',unknown:'✗'};
 
 async function init() {
   let d;
