@@ -18,12 +18,31 @@ import yaml
 ROOT = Path(__file__).parent.parent
 REGISTRY = ROOT / "registry"
 SITE = ROOT / "site"
+DATA = ROOT / "data"
 SITE.mkdir(exist_ok=True)
+
+
+def load_ohsome_counts():
+    """Return {tag_key: {value: count}} from cached ohsome raw JSON files in data/."""
+    counts = {}
+    for path in DATA.glob("*_counts_raw.json"):
+        tag_key = path.stem.replace("_counts_raw", "")
+        with open(path) as f:
+            raw = json.load(f)
+        counts[tag_key] = {}
+        for group in raw.get("groupByResult", []):
+            tag = group.get("groupByObject", "")
+            if tag in ("remainder", "total"):
+                continue
+            prefix = f"{tag_key}="
+            value = tag.removeprefix(prefix) if tag.startswith(prefix) else tag
+            result = group.get("result", [])
+            counts[tag_key][value] = int(result[-1]["value"]) if result else 0
+    return counts
 
 # ── App column definitions (order = column order in grid) ─────────────────────
 
-# Tag key display order in the grid (sac_scale before mtb:scale)
-TAG_ORDER = ["surface", "smoothness", "tracktype", "sac_scale"]
+TAG_ORDER = ["surface", "smoothness", "tracktype"]
 
 CAPABILITY_GROUPS = [
     ("Routing",   [
@@ -193,7 +212,17 @@ def cell_detail(spec, tag_key, tag_value):
 
 # ── Build data.json ───────────────────────────────────────────────────────────
 
+def load_deprecated():
+    path = DATA / "wiki_status.json"
+    if not path.exists():
+        return {}
+    with open(path) as f:
+        return json.load(f)
+
+
 def build_data(tag_values_meta, tag_values, specs):
+    ohsome = load_ohsome_counts()
+    deprecated = load_deprecated()
     all_cols = [(g, k) for g, keys in CAPABILITY_GROUPS for k in keys]
 
     apps = []
@@ -211,6 +240,17 @@ def build_data(tag_values_meta, tag_values, specs):
     ordered_keys = [k for k in TAG_ORDER if k in tag_values]
     for tag_key in ordered_keys:
         value_dicts = tag_values[tag_key]
+        tag_counts = ohsome.get(tag_key, {})
+        tag_deprecated = deprecated.get(tag_key, {})
+        for vd in value_dicts:
+            c = tag_counts.get(vd["value"])
+            if c is not None:
+                vd["count"] = c
+            dep = tag_deprecated.get(vd["value"])
+            if dep and dep.get("deprecated"):
+                vd["deprecated"] = True
+                if dep.get("replacement"):
+                    vd["deprecated_replacement"] = dep["replacement"]
         matrix = {}
         for vd in value_dicts:
             val = vd["value"]
@@ -282,6 +322,10 @@ thead th{position:sticky;top:0;z-index:2}
 .vl{padding:3px 10px;white-space:nowrap;font-family:monospace;font-size:11px;
     position:sticky;left:0;background:#fafafa;border-right:1px solid #ddd;z-index:1;min-width:190px}
 .vl .src{font-size:9px;color:#aaa;margin-left:4px}
+.cnt-h{position:sticky;top:0;background:#fff;border-bottom:2px solid #555;font-size:10px;font-weight:600;
+       color:#888;text-align:right;padding:0 6px 4px;white-space:nowrap;z-index:2;vertical-align:bottom}
+.cnt{text-align:right;padding:3px 6px;font-size:10px;color:#999;white-space:nowrap;
+     border-right:1px solid #ddd;background:#fafafa}
 td.c{width:40px;min-width:40px;text-align:center;cursor:pointer;border:1px solid #e8e8e8;font-size:12px}
 td.c:hover{outline:2px solid #333;z-index:1;position:relative}
 td.c.ge{border-right:2px solid #bbb}
@@ -323,12 +367,14 @@ td.c.ge{border-right:2px solid #bbb}
 .btn-p{background:#1565c0;color:#fff}
 .btn-s{background:#f5f5f5;color:#333;border:1px solid #ccc;margin-top:4px}
 .vdate{font-size:9px;color:#bbb;margin-top:10px}
+.dep-badge{font-size:8px;padding:1px 4px;border-radius:3px;background:#fce4ec;color:#c62828;
+           font-weight:700;margin-left:4px;vertical-align:middle;white-space:nowrap}
 </style>
 </head>
 <body>
 <div id="header">
   <h1>OSM Tag Support</h1>
-  <span>surface · smoothness · tracktype · mtb:scale · sac_scale</span>
+  <span>surface · smoothness · tracktype</span>
   <span id="gen-date" style="margin-left:auto"></span>
 </div>
 <div id="legend">
@@ -378,6 +424,7 @@ function renderGrid(d) {
 
   // group header row
   html += '<tr><th class="vl" rowspan="2" style="background:#fff;z-index:3"></th>';
+  html += '<th class="cnt-h" rowspan="2">uses</th>';
   for (let gi = 0; gi < groups.length; gi++) {
     const g = groups[gi];
     const last = gi === groups.length - 1;
@@ -395,13 +442,24 @@ function renderGrid(d) {
   html += '</tr></thead><tbody>';
 
   for (const [tagKey, tagData] of Object.entries(d.tags)) {
-    html += `<tr class="tag-section"><td colspan="${apps.length + 1}">${esc(tagKey)}</td></tr>`;
+    html += `<tr class="tag-section"><td colspan="${apps.length + 2}">${esc(tagKey)}</td></tr>`;
+
+    function fmtCount(n) {
+      if (n == null) return '';
+      if (n >= 1e6) return (n/1e6).toFixed(1).replace(/\.0$/,'') + 'M';
+      if (n >= 1e3) return (n/1e3).toFixed(1).replace(/\.0$/,'') + 'k';
+      return String(n);
+    }
 
     for (const vd of tagData.values) {
       const val = vd.value;
       const appOnly = vd.sources && !vd.sources.includes('wiki')
         ? ' <span class="src">consumer-only</span>' : '';
-      html += `<tr><td class="vl">${esc(val)}${appOnly}</td>`;
+      const depBadge = vd.deprecated
+        ? ` <span class="dep-badge" title="${vd.deprecated_replacement ? 'use '+esc(vd.deprecated_replacement)+' instead' : 'deprecated'}">deprecated</span>`
+        : '';
+      const countCell = `<td class="cnt" title="${vd.count != null ? vd.count.toLocaleString()+' uses on highway=* ways' : 'no data'}">${fmtCount(vd.count)}</td>`;
+      html += `<tr><td class="vl">${esc(val)}${appOnly}${depBadge}</td>${countCell}`;
 
       for (let ai = 0; ai < apps.length; ai++) {
         const a = apps[ai];
@@ -429,14 +487,14 @@ function renderGrid(d) {
       return `<td class="c ${cls}${ge ? ' ge' : ''}" title="${esc(title)}">${icon}</td>`;
     }
 
-    html += '<tr class="tag-sum"><td class="vl sum-lbl">tag missing</td>';
+    html += '<tr class="tag-sum"><td class="vl sum-lbl">tag missing</td><td class="cnt"></td>';
     for (let ai = 0; ai < apps.length; ai++) {
       const b = tagData.behaviors?.[apps[ai].id] ?? {};
       html += behaviorCell(b.missing, groupEnds.has(ai) && ai < apps.length - 1);
     }
     html += '</tr>';
 
-    html += '<tr class="tag-sum"><td class="vl sum-lbl">unknown value</td>';
+    html += '<tr class="tag-sum"><td class="vl sum-lbl">unknown value</td><td class="cnt"></td>';
     for (let ai = 0; ai < apps.length; ai++) {
       const b = tagData.behaviors?.[apps[ai].id] ?? {};
       html += behaviorCell(b.unknown, groupEnds.has(ai) && ai < apps.length - 1);
@@ -479,6 +537,11 @@ function openPanel(app, tagKey, val, cell, vd) {
     html += `<section><h3>Status</h3><div class="ni">Documented gap: ${esc(app.name)} does not handle <code>${esc(tagKey)}=${esc(val)}</code>.</div></section>`;
   } else if (sup === 'unknown') {
     html += `<section><h3>Status</h3><div class="ni">No documentation for this combination. ${esc(app.name)} may or may not handle this value — the spec has not been verified.</div></section>`;
+  }
+
+  if (vd?.deprecated) {
+    const repl = vd.deprecated_replacement ? ` Use <code>${esc(vd.deprecated_replacement)}</code> instead.` : '';
+    html += `<section><h3>Deprecation</h3><div class="ni" style="color:#c62828"><strong>This value is deprecated.</strong>${repl}</div></section>`;
   }
 
   if (vd?.note) {

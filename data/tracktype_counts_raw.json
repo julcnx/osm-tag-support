@@ -1,0 +1,1071 @@
+{
+  "attribution": {
+    "url": "https://ohsome.org/copyrights",
+    "text": "\u00a9 OpenStreetMap contributors"
+  },
+  "apiVersion": "1.10.4",
+  "groupByResult": [
+    {
+      "groupByObject": "tracktype=grade3",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 2644794.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=grade2",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 2148107.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=grade4",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 2021474.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=grade1",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1474372.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=grade5",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1702686.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=3",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 35.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=grade3-5",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 2969.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=unknown",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 667.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=2",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 44.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=1",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 9.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=4",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 27.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=5",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 38.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=grade 3",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=grade6",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 229.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=grade",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 24.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=grade2; grade3",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 9.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=path",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 5.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=*",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 3.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=fixme",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 63.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=grade3; grade2",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 16.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=grade3;grade2",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 79.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=track",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 3.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=grade2;grade3",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 30.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=grade7",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 69.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=grade0",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 3.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=grade1;grade2",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=grade3;grade4",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 15.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=grade3; grade4",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 13.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=grade4; grade3",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 13.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=grade2; grade4",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 10.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=grade4;grade3",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 16.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=grad5",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 2.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=\u041c\u044f\u0433\u043a\u0430\u044f:_\u043d\u0435\u0443\u043a\u0430\u0442\u0430\u043d\u043d\u044b\u0439_\u0433\u0440\u0443\u043d\u0442,_\u043f\u0435\u0441\u043e\u043a,_\u0442\u0440\u0430\u0432\u0430",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 39.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=good",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=\u0421\u043a\u043e\u0440\u0435\u0435_\u043c\u044f\u0433\u043a\u0430\u044f:_\u0443\u043a\u0430\u0442\u0430\u043d\u043d\u044b\u0439_\u0433\u0440\u0443\u043d\u0442_\u0441_\u043f\u0440\u0438\u043c\u0435\u0441\u044f\u043c\u0438_\u0442\u0432\u0451\u0440\u0434\u044b\u0445_\u043c\u0430\u0442\u0435\u0440\u0438\u0430\u043b\u043e\u0432",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 47.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=grade5; grade4",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 6.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=route",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 65.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=grade5;grade3",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 17.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=grade5; grade2",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 9.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=grade3; grade5",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=s",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 2.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=g",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=gravel",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=grade2;grade4",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 7.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=unpaved",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 2.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=grade3;grade5",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 4.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=grade2; grade5",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 10.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=grade5;grade4",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 7.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=road",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=grade3-4",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 16.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=grade$",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=grass",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=grade\u00a7",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=grade\"",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=+",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=piste",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 2.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=indeterminate",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 13.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=grade4-5",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 3.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=grade12",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=grade2-3",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 11.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=grade32",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 3.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=]",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 2.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=Tierra",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 7.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=,",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=grade8",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 4.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=grade42",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=0",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 2.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=grade34",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=grde2",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=grade5w",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=gravel3",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 2.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=geade5",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=Terre",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=\u0631\u062f\u0645\u064a\u0629",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 6.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=Route de r\u00e9sidence",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 3.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=grade53",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=grade3c",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=grade35",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 2.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=\u0637\u0631\u064a\u0642",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 4.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=earth",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=compacted",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=very_bad",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 3.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=fine_gravel",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=g5",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=grade1w",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 3.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=<different>grade2",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 3.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=Canaia",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 3.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=\u0634\u0627\u0631\u0639 \u062f\u0627\u062e\u0644 \u0627\u0644\u062d\u064a",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=grade4en",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 2.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=Rue de residence",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 2.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=field track",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=gradef",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=ground4",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=grsdr5",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=Mostly Soft: soil/sand/grass with some hard material mixed in",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=Route interm\u00e9diaire",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=Rue de r\u00e9sidence",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=rue residenciel",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=grade,",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=fiels track",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=\u0631\u062f\u0645\u064a\u0629 \u0645\u0646\u0627\u062e \u0627\u0644\u0642\u064a\u0635\u0648\u0645\u0629",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=amphibious",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=De tierra",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=vc road",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=Mostly solid",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=grade2C",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=Strada Lacul Popii",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=Overgrown Track",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=single lane",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=\u0637\u0631\u064a\u0642 \u063a\u064a\u0631 \u0645\u0639\u0628\u062f",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=Monte Montagna",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=four",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=v2",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=AT:52.2",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=YES",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=emergency_access",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=1.48",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "tracktype=l",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    }
+  ]
+}

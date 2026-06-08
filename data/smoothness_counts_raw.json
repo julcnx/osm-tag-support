@@ -1,0 +1,1863 @@
+{
+  "attribution": {
+    "url": "https://ohsome.org/copyrights",
+    "text": "\u00a9 OpenStreetMap contributors"
+  },
+  "apiVersion": "1.10.4",
+  "groupByResult": [
+    {
+      "groupByObject": "smoothness=good",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 2026536.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=excellent",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1348062.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=intermediate",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 826563.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=bad",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 648376.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=very_bad",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 378660.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=horrible",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 173703.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=very_horrible",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 82782.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=impassable",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 34866.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=very_good",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 5921.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=0",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 2.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=robust_wheels",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 835.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=high_clearance",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 687.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=medium",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 493.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=p",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 515.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=very bad",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=excelent",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=poor",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 263.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=1",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 2.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=off_road_wheels",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 383.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=rough",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 321.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=wheels",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 167.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=exellent",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 2.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=uneven",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 65.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=thin_rollers",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 37.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=good or excellent",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 64.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=yes",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 28.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=Fair",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=excellent;good",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 20.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=12",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 54.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=3",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=terrible",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 6.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=2",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 24.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=thin_wheels",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 42.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=average",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 54.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=specialized_off_road_wheels",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 4.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=bad_drainage",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 25.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=bad;intermediate",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 32.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=intermediate;good",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 35.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=good;intermediate",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 15.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=reasonable",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 17.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=ok",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 29.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=intermadiate",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=?",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 22.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=fine",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 24.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=fair",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 22.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=P",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 36.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=g",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 14.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=<different>",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 3.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=good;excellent",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 4.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=bad;good",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 12.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=smooth",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 16.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=mediocre",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 12.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=r",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 7.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=G",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 8.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=intermediate; good",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=ground",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 10.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=very_bad;bad",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 17.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=good; excellent",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 2.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=grade4",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 12.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=grade2",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 9.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=f",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 9.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=s",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 8.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=normal",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 8.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=catastrophic",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 3.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=no",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 8.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=nearly  impassable",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 4.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=good - Thin Wheels: racing bike",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 3.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=d",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 3.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=dirt",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 10.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=smoothness",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 6.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=gnt>",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 11.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=razoavel",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 9.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=5",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 6.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=excellent;intermediate",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=compacted",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 2.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=in",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 4.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=horrible;very_horrible",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 3.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=w",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 3.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=very_bad;horrible",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 7.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=underintermediate",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 2.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=bad;very_bad",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 2.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=goodc",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=as",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 5.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=a",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 4.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=hg",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 7.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=gg",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 7.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=50",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=bicycle",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 3.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=nearly impassable",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 6.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=good;bad",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=ins",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 4.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=y",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 4.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=4",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 2.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=not_so_good",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 4.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=bad; intermediate",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=E",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=B",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 6.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=maastorenkaat",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 5.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=not so good",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 2.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=horrible;very_bad",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 2.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=gno",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 3.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=u",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 4.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=i",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 2.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=bed",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 4.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=slippery",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 5.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=n",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 5.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=gravel",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=bad;horrible",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 3.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=bad; horrible",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 3.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=very_bad;very_horrible",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 2.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=nad",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=re",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 4.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=com",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 3.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=t",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 4.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=car",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 3.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=intermediate;very_horrible",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 3.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=Mulus",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 2.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=intermediate;good;bad",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 2.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=intermediate/bad",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 3.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=intermediate;intermediate;good;intermediate",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 3.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=bad; very_bad",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=hottible",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 2.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=mb",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 3.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=ig",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 2.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=gi",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 3.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=grade5",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=ex",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=low",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 3.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=H",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 3.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=impassable;horrible",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 2.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=horr",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=a roulettes",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=intermediate;excellent",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 2.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=awful",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=intermediate:bad",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 2.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=2020FEB_",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=rxc",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=very",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=baik",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=sans",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 2.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=Baik",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=bumpy",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 2.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=gut",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=sm",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=gr",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 2.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=v",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=we",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 2.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=b",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=c",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 2.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=1.5",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=3.5",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=designated",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 2.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=6",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=7",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=off_road_wheels;high_clearance",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=Nyasfalterad mjuk",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=jumpline",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=partial_horrible",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=ver#",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=intermediate or bad",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=impassable;very_horrible",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=excellenet",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=a roulettes fines",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=not_so_smooth",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=futina",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=very_bad;intermediate",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=intermediate;very_bad;bad",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=very_bad;horrible;intermediate;bad",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=excellent-",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=intermediate; very_horrible",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=very_horrible;very_bad",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=\u043b\u0442",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=bad_intermediate",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=very_bad; good",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=in]",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=vanlig asfalt",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=bitmac",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=ref=1",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=g'",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=Bileti\u0107 Polje",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=gn",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=g3",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=vea",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=mauvaise",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=e4",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=ala",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=gs",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=ent",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=Smooth",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=dirty",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=ge",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=passable",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=ut",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=soft",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=ed",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=2g",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=ho",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=es",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=ma",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=om",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=Seasonal",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=gy",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=l",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=b\u00fc",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=seasonal",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "groupByObject": "smoothness=natural",
+      "result": [
+        {
+          "timestamp": "2025-06-01T00:00:00Z",
+          "value": 1.0
+        }
+      ]
+    }
+  ]
+}

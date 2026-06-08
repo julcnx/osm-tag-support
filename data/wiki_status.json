@@ -1,0 +1,428 @@
+{
+  "surface": {
+    "asphalt": {
+      "status": "de facto",
+      "deprecated": false,
+      "replacement": null,
+      "wiki_exists": true
+    },
+    "unpaved": {
+      "status": "de facto",
+      "deprecated": false,
+      "replacement": null,
+      "wiki_exists": true
+    },
+    "paved": {
+      "status": "de facto",
+      "deprecated": false,
+      "replacement": null,
+      "wiki_exists": true
+    },
+    "concrete": {
+      "status": "de facto",
+      "deprecated": false,
+      "replacement": null,
+      "wiki_exists": true
+    },
+    "paving_stones": {
+      "status": "de facto",
+      "deprecated": false,
+      "replacement": null,
+      "wiki_exists": true
+    },
+    "ground": {
+      "status": "de facto",
+      "deprecated": false,
+      "replacement": null,
+      "wiki_exists": true
+    },
+    "gravel": {
+      "status": "de facto",
+      "deprecated": false,
+      "replacement": null,
+      "wiki_exists": true
+    },
+    "dirt": {
+      "status": "de facto",
+      "deprecated": false,
+      "replacement": null,
+      "wiki_exists": true
+    },
+    "grass": {
+      "status": "de facto",
+      "deprecated": false,
+      "replacement": null,
+      "wiki_exists": true
+    },
+    "compacted": {
+      "status": "de facto",
+      "deprecated": false,
+      "replacement": null,
+      "wiki_exists": true
+    },
+    "sand": {
+      "status": "de facto",
+      "deprecated": false,
+      "replacement": null,
+      "wiki_exists": true
+    },
+    "sett": {
+      "status": "de facto",
+      "deprecated": false,
+      "replacement": null,
+      "wiki_exists": true
+    },
+    "fine_gravel": {
+      "status": "de facto",
+      "deprecated": false,
+      "replacement": null,
+      "wiki_exists": true
+    },
+    "wood": {
+      "status": "de facto",
+      "deprecated": false,
+      "replacement": null,
+      "wiki_exists": true
+    },
+    "cobblestone": {
+      "status": "de facto",
+      "deprecated": false,
+      "replacement": null,
+      "wiki_exists": true
+    },
+    "concrete:plates": {
+      "status": "de facto",
+      "deprecated": false,
+      "replacement": null,
+      "wiki_exists": true
+    },
+    "earth": {
+      "status": "in use",
+      "deprecated": false,
+      "replacement": null,
+      "wiki_exists": true
+    },
+    "pebblestone": {
+      "status": "de facto",
+      "deprecated": false,
+      "replacement": null,
+      "wiki_exists": true
+    },
+    "grass_paver": {
+      "status": "de facto",
+      "deprecated": false,
+      "replacement": null,
+      "wiki_exists": true
+    },
+    "metal": {
+      "status": "de facto",
+      "deprecated": false,
+      "replacement": null,
+      "wiki_exists": true
+    },
+    "unhewn_cobblestone": {
+      "status": "de facto",
+      "deprecated": false,
+      "replacement": null,
+      "wiki_exists": true
+    },
+    "tartan": {
+      "status": "de facto",
+      "deprecated": false,
+      "replacement": null,
+      "wiki_exists": true
+    },
+    "clay": {
+      "status": "de facto",
+      "deprecated": false,
+      "replacement": null,
+      "wiki_exists": true
+    },
+    "mud": {
+      "status": "de facto",
+      "deprecated": false,
+      "replacement": null,
+      "wiki_exists": true
+    },
+    "concrete:lanes": {
+      "status": "de facto",
+      "deprecated": false,
+      "replacement": null,
+      "wiki_exists": true
+    },
+    "rock": {
+      "status": "de facto",
+      "deprecated": false,
+      "replacement": null,
+      "wiki_exists": true
+    },
+    "woodchips": {
+      "status": "de facto",
+      "deprecated": false,
+      "replacement": null,
+      "wiki_exists": true
+    },
+    "stone": {
+      "status": "de facto",
+      "deprecated": false,
+      "replacement": null,
+      "wiki_exists": true
+    },
+    "dirt/sand": {
+      "status": null,
+      "deprecated": false,
+      "replacement": null,
+      "wiki_exists": false
+    },
+    "bricks": {
+      "status": "de facto",
+      "deprecated": false,
+      "replacement": null,
+      "wiki_exists": true
+    },
+    "chipseal": {
+      "status": "in use",
+      "deprecated": false,
+      "replacement": null,
+      "wiki_exists": true
+    },
+    "brick": {
+      "status": null,
+      "deprecated": false,
+      "replacement": null,
+      "wiki_exists": true
+    },
+    "soil": {
+      "status": "in use",
+      "deprecated": false,
+      "replacement": null,
+      "wiki_exists": true
+    },
+    "cobblestone:flattened": {
+      "status": null,
+      "deprecated": false,
+      "replacement": null,
+      "wiki_exists": false
+    },
+    "trail": {
+      "status": "deprecated",
+      "deprecated": true,
+      "replacement": null,
+      "wiki_exists": true
+    },
+    "metal_grid": {
+      "status": "de facto",
+      "deprecated": false,
+      "replacement": null,
+      "wiki_exists": true
+    },
+    "stepping_stones": {
+      "status": "de facto",
+      "deprecated": false,
+      "replacement": null,
+      "wiki_exists": true
+    },
+    "tiles": {
+      "status": "in use",
+      "deprecated": false,
+      "replacement": null,
+      "wiki_exists": true
+    },
+    "ice": {
+      "status": null,
+      "deprecated": false,
+      "replacement": null,
+      "wiki_exists": true
+    },
+    "interlock": {
+      "status": null,
+      "deprecated": false,
+      "replacement": null,
+      "wiki_exists": false
+    },
+    "shells": {
+      "status": "in use",
+      "deprecated": false,
+      "replacement": null,
+      "wiki_exists": true
+    },
+    "bitmac": {
+      "status": "in use",
+      "deprecated": false,
+      "replacement": null,
+      "wiki_exists": true
+    },
+    "paving_stones:lanes": {
+      "status": "in use",
+      "deprecated": false,
+      "replacement": null,
+      "wiki_exists": true
+    },
+    "fibre_reinforced_polymer_grate": {
+      "status": "in use",
+      "deprecated": false,
+      "replacement": null,
+      "wiki_exists": true
+    },
+    "snow": {
+      "status": "in use",
+      "deprecated": false,
+      "replacement": null,
+      "wiki_exists": true
+    },
+    "salt": {
+      "status": null,
+      "deprecated": false,
+      "replacement": null,
+      "wiki_exists": false
+    },
+    "artificial_turf": {
+      "status": "de facto",
+      "deprecated": false,
+      "replacement": null,
+      "wiki_exists": true
+    },
+    "acrylic": {
+      "status": "in use",
+      "deprecated": false,
+      "replacement": null,
+      "wiki_exists": true
+    },
+    "carpet": {
+      "status": "in use",
+      "deprecated": false,
+      "replacement": null,
+      "wiki_exists": true
+    },
+    "plastic": {
+      "status": "in use",
+      "deprecated": false,
+      "replacement": null,
+      "wiki_exists": true
+    },
+    "rubber": {
+      "status": "de facto",
+      "deprecated": false,
+      "replacement": null,
+      "wiki_exists": true
+    },
+    "boardwalk": {
+      "status": null,
+      "deprecated": false,
+      "replacement": null,
+      "wiki_exists": false
+    },
+    "cement": {
+      "status": null,
+      "deprecated": true,
+      "replacement": "concrete",
+      "wiki_exists": true
+    },
+    "gravel_dirt": {
+      "status": null,
+      "deprecated": false,
+      "replacement": null,
+      "wiki_exists": false
+    },
+    "rocky": {
+      "status": null,
+      "deprecated": false,
+      "replacement": null,
+      "wiki_exists": false
+    }
+  },
+  "smoothness": {
+    "good": {
+      "status": null,
+      "deprecated": false,
+      "replacement": null,
+      "wiki_exists": true
+    },
+    "excellent": {
+      "status": null,
+      "deprecated": false,
+      "replacement": null,
+      "wiki_exists": true
+    },
+    "intermediate": {
+      "status": null,
+      "deprecated": false,
+      "replacement": null,
+      "wiki_exists": true
+    },
+    "bad": {
+      "status": null,
+      "deprecated": false,
+      "replacement": null,
+      "wiki_exists": true
+    },
+    "very_bad": {
+      "status": null,
+      "deprecated": false,
+      "replacement": null,
+      "wiki_exists": true
+    },
+    "horrible": {
+      "status": null,
+      "deprecated": false,
+      "replacement": null,
+      "wiki_exists": true
+    },
+    "very_horrible": {
+      "status": null,
+      "deprecated": false,
+      "replacement": null,
+      "wiki_exists": true
+    },
+    "impassable": {
+      "status": null,
+      "deprecated": false,
+      "replacement": null,
+      "wiki_exists": true
+    },
+    "very_good": {
+      "status": null,
+      "deprecated": false,
+      "replacement": null,
+      "wiki_exists": false
+    }
+  },
+  "tracktype": {
+    "grade3": {
+      "status": null,
+      "deprecated": false,
+      "replacement": null,
+      "wiki_exists": true
+    },
+    "grade2": {
+      "status": null,
+      "deprecated": false,
+      "replacement": null,
+      "wiki_exists": true
+    },
+    "grade4": {
+      "status": null,
+      "deprecated": false,
+      "replacement": null,
+      "wiki_exists": true
+    },
+    "grade1": {
+      "status": null,
+      "deprecated": false,
+      "replacement": null,
+      "wiki_exists": true
+    },
+    "grade5": {
+      "status": null,
+      "deprecated": false,
+      "replacement": null,
+      "wiki_exists": true
+    },
+    "grade3-5": {
+      "status": null,
+      "deprecated": false,
+      "replacement": null,
+      "wiki_exists": false
+    }
+  }
+}

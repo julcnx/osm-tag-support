@@ -1,0 +1,10 @@
+{
+  "surface": {
+    "cement": {
+      "status": "deprecated",
+      "replacement": "concrete"
+    }
+  },
+  "smoothness": {},
+  "tracktype": {}
+}
