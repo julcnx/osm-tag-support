@@ -23,7 +23,7 @@ SITE.mkdir(exist_ok=True)
 # ── App column definitions (order = column order in grid) ─────────────────────
 
 # Tag key display order in the grid (sac_scale before mtb:scale)
-TAG_ORDER = ["surface", "smoothness", "tracktype", "sac_scale", "mtb:scale"]
+TAG_ORDER = ["surface", "smoothness", "tracktype", "sac_scale"]
 
 CAPABILITY_GROUPS = [
     ("Routing",   [
@@ -222,9 +222,22 @@ def build_data(tag_values_meta, tag_values, specs):
                     row[col_key] = {"support": support, **detail}
             matrix[val] = row
 
+        behaviors = {}
+        for _, col_key in all_cols:
+            spec = specs.get(col_key, {})
+            entries = get_tag_entries(spec, tag_key)
+            if entries:
+                behaviors[col_key] = {
+                    "missing": entries[0].get("missing_tag_behavior", ""),
+                    "unknown": entries[0].get("unknown_value_behavior", ""),
+                }
+            else:
+                behaviors[col_key] = {"missing": "", "unknown": ""}
+
         tags_out[tag_key] = {
-            "values": value_dicts,  # includes category, sources, note
-            "matrix": matrix,
+            "values":    value_dicts,
+            "matrix":    matrix,
+            "behaviors": behaviors,
         }
 
     return {
@@ -276,11 +289,8 @@ td.c.ge{border-right:2px solid #bbb}
 .fallback{background:#ffa726;color:#fff}
 .absent{background:#ef5350;color:#fff}
 .unknown{background:#ef5350;color:#fff}
-.tag-sum td{background:#f5f5f5;border-top:2px solid #ddd}
-.sum-lbl{font-size:9px;color:#999;font-style:italic}
-.c-sum{text-align:center;padding:2px 1px;white-space:nowrap;font-size:9px;font-weight:600}
-.cnt-a{color:#c62828}
-.cnt-u{color:#bbb;margin-left:2px}
+.tag-sum td{border-top:2px solid #ddd}
+.sum-lbl{font-size:9px;color:#999;font-style:italic;background:#f5f5f5}
 /* panel */
 #panel{position:fixed;right:0;top:0;width:360px;height:100vh;background:#fff;
        box-shadow:-3px 0 16px rgba(0,0,0,.15);overflow-y:auto;
@@ -404,16 +414,29 @@ function renderGrid(d) {
       html += '</tr>';
     }
 
-    const ABSENT_STATES = new Set(['absent', 'unknown', 'user_defined_only']);
-    const absentCounts = apps.map(a =>
-      tagData.values.filter(vd => ABSENT_STATES.has(tagData.matrix[vd.value]?.[a.id]?.support ?? 'unknown')).length
-    );
+    function behaviorCell(val, ge) {
+      let cls, icon, title;
+      if (!val) {
+        cls = 'absent'; icon = '✗'; title = 'not documented';
+      } else if (val === 'none' || val === 'ignore') {
+        cls = 'direct'; icon = '✓'; title = 'ignored — no effect';
+      } else {
+        cls = 'fallback'; icon = '~'; title = val;
+      }
+      return `<td class="c ${cls}${ge ? ' ge' : ''}" title="${esc(title)}">${icon}</td>`;
+    }
 
-    html += '<tr class="tag-sum"><td class="vl sum-lbl">absent</td>';
+    html += '<tr class="tag-sum"><td class="vl sum-lbl">tag missing</td>';
     for (let ai = 0; ai < apps.length; ai++) {
-      const ge = groupEnds.has(ai) && ai < apps.length - 1;
-      const n = absentCounts[ai];
-      html += `<td class="c-sum${ge ? ' ge' : ''}">${n ? `<span class="cnt-a">${n}</span>` : ''}</td>`;
+      const b = tagData.behaviors?.[apps[ai].id] ?? {};
+      html += behaviorCell(b.missing, groupEnds.has(ai) && ai < apps.length - 1);
+    }
+    html += '</tr>';
+
+    html += '<tr class="tag-sum"><td class="vl sum-lbl">unknown value</td>';
+    for (let ai = 0; ai < apps.length; ai++) {
+      const b = tagData.behaviors?.[apps[ai].id] ?? {};
+      html += behaviorCell(b.unknown, groupEnds.has(ai) && ai < apps.length - 1);
     }
     html += '</tr>';
   }
