@@ -15,7 +15,9 @@ append new ones; it never removes entries.
 """
 
 import json
+import urllib.request
 from collections import defaultdict
+from datetime import date
 from pathlib import Path
 
 import yaml
@@ -158,6 +160,20 @@ APP_VALUE_CATEGORIES = {
 }
 
 
+# ── Taginfo counts ───────────────────────────────────────────────────────────
+
+def fetch_taginfo_counts(tag_key):
+    """Return dict: value → in_ways count from taginfo.openstreetmap.org.
+    Uses all-ways count (not filtered to highway=*) as a proxy."""
+    url = (
+        f"https://taginfo.openstreetmap.org/api/4/key/values"
+        f"?key={tag_key}&filter=ways&sortname=count&sortorder=desc&page=1&rp=500"
+    )
+    with urllib.request.urlopen(url, timeout=20) as resp:
+        data = json.loads(resp.read())
+    return {row["value"]: row["count"] for row in data.get("data", [])}
+
+
 # ── Scan YAML specs ───────────────────────────────────────────────────────────
 
 def scan_specs():
@@ -187,24 +203,31 @@ def scan_specs():
 
 # ── Build / merge ─────────────────────────────────────────────────────────────
 
-def build(existing=None):
+def build(existing=None, taginfo_counts=None, taginfo_fetched_on=None):
     app_values = scan_specs()
+    if taginfo_counts is None:
+        taginfo_counts = {}
 
+    # Preserve existing meta dates unless we have new ones
+    existing_meta = (existing or {}).get("meta", {})
     result = {
         "meta": {
             "description": (
                 "Canonical tag value lists for OSM tag support tracking. "
                 "Values sourced from OSM wiki key pages and explicit consumer usage. "
                 "sources[] lists wiki and/or engine_ids that explicitly handle the value. "
+                "taginfo_count is the global in_ways count (all way types, proxy for highway use). "
                 "Edit this file to adjust categories, add notes, or remove spurious entries."
             ),
-            "wiki_fetched_on": "2026-06-08",
+            "wiki_fetched_on":    existing_meta.get("wiki_fetched_on", "2026-06-08"),
+            "taginfo_fetched_on": taginfo_fetched_on or existing_meta.get("taginfo_fetched_on", ""),
         }
     }
 
     for tag_key, wiki_entries in WIKI_VALUES.items():
         wiki_vals = {e["value"] for e in wiki_entries}
         app_vals  = set(app_values.get(tag_key, {}).keys())
+        counts    = taginfo_counts.get(tag_key, {})
 
         # Preserve existing entries if re-running
         existing_map = {}
@@ -223,6 +246,11 @@ def build(existing=None):
 
             sources = ["wiki"] + [e for e in app_values.get(tag_key, {}).get(val, [])]
             entry["sources"] = sources
+
+            if val in counts:
+                entry["taginfo_count"] = counts[val]
+            elif "taginfo_count" in entry:
+                pass  # keep existing count if taginfo not re-fetched
 
             note = APP_VALUE_NOTES.get(tag_key, {}).get(val)
             if note:
@@ -246,6 +274,10 @@ def build(existing=None):
                     entry["note"] = note
 
             entry["sources"] = app_values[tag_key][val]
+            if val in counts:
+                entry["taginfo_count"] = counts[val]
+            elif "taginfo_count" in entry:
+                pass
             entries.append(entry)
 
         result[tag_key] = entries
@@ -262,7 +294,15 @@ def main():
     else:
         print(f"Creating {OUT}")
 
-    data = build(existing)
+    print("Fetching taginfo counts…")
+    taginfo_counts = {}
+    for tag_key in WIKI_VALUES:
+        taginfo_counts[tag_key] = fetch_taginfo_counts(tag_key)
+        n = len(taginfo_counts[tag_key])
+        print(f"  {tag_key}: {n} values from taginfo")
+    taginfo_fetched_on = str(date.today())
+
+    data = build(existing, taginfo_counts=taginfo_counts, taginfo_fetched_on=taginfo_fetched_on)
     with open(OUT, "w") as f:
         json.dump(data, f, indent=2, ensure_ascii=False)
     print(f"Written: {OUT}")

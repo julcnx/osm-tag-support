@@ -1,7 +1,8 @@
 {
   "meta": {
-    "description": "Canonical tag value lists for OSM tag support tracking. Values sourced from OSM wiki key pages and explicit consumer usage. sources[] lists wiki and/or engine_ids that explicitly handle the value. Edit this file to adjust categories, add notes, or remove spurious entries.",
-    "wiki_fetched_on": "2026-06-08"
+    "description": "Canonical tag value lists for OSM tag support tracking. Values sourced from OSM wiki key pages and explicit consumer usage. sources[] lists wiki and/or engine_ids that explicitly handle the value. taginfo_count is the global in_ways count (all way types, proxy for highway use). Edit this file to adjust categories, add notes, or remove spurious entries.",
+    "wiki_fetched_on": "2026-06-08",
+    "taginfo_fetched_on": "2026-06-08"
   },
   "surface": [
     {
@@ -21,7 +22,8 @@
         "organic-maps",
         "osrm",
         "valhalla"
-      ]
+      ],
+      "taginfo_count": 4457656
     },
     {
       "value": "asphalt",
@@ -42,7 +44,8 @@
         "graphhopper",
         "osrm",
         "valhalla"
-      ]
+      ],
+      "taginfo_count": 36050847
     },
     {
       "value": "chipseal",
@@ -52,7 +55,8 @@
         "osmand",
         "osrm",
         "valhalla"
-      ]
+      ],
+      "taginfo_count": 9700
     },
     {
       "value": "concrete",
@@ -73,7 +77,8 @@
         "graphhopper",
         "osrm",
         "valhalla"
-      ]
+      ],
+      "taginfo_count": 5252755
     },
     {
       "value": "concrete:lanes",
@@ -86,7 +91,8 @@
         "graphhopper",
         "osrm",
         "valhalla"
-      ]
+      ],
+      "taginfo_count": 35880
     },
     {
       "value": "concrete:plates",
@@ -99,7 +105,8 @@
         "graphhopper",
         "osrm",
         "valhalla"
-      ]
+      ],
+      "taginfo_count": 226508
     },
     {
       "value": "paving_stones",
@@ -120,14 +127,16 @@
         "graphhopper",
         "osrm",
         "valhalla"
-      ]
+      ],
+      "taginfo_count": 4895505
     },
     {
       "value": "paving_stones:lanes",
       "category": "paved",
       "sources": [
         "wiki"
-      ]
+      ],
+      "taginfo_count": 1048
     },
     {
       "value": "grass_paver",
@@ -146,7 +155,8 @@
         "graphhopper",
         "osrm",
         "valhalla"
-      ]
+      ],
+      "taginfo_count": 59579
     },
     {
       "value": "sett",
@@ -165,7 +175,8 @@
         "graphhopper",
         "osrm",
         "valhalla"
-      ]
+      ],
+      "taginfo_count": 620511
     },
     {
       "value": "unhewn_cobblestone",
@@ -175,7 +186,8 @@
         "graphhopper",
         "osmand",
         "valhalla"
-      ]
+      ],
+      "taginfo_count": 54481
     },
     {
       "value": "cobblestone",
@@ -194,7 +206,8 @@
         "graphhopper",
         "osrm",
         "valhalla"
-      ]
+      ],
+      "taginfo_count": 136764
     },
     {
       "value": "cobblestone:flattened",
@@ -208,7 +221,8 @@
         "graphhopper",
         "osrm",
         "valhalla"
-      ]
+      ],
+      "taginfo_count": 4448
     },
     {
       "value": "bricks",
@@ -217,7 +231,8 @@
         "wiki",
         "openstreetmap-carto",
         "osrm"
-      ]
+      ],
+      "taginfo_count": 9313
     },
     {
       "value": "metal",
@@ -235,14 +250,16 @@
         "graphhopper",
         "osrm",
         "valhalla"
-      ]
+      ],
+      "taginfo_count": 56314
     },
     {
       "value": "metal_grid",
       "category": "paved",
       "sources": [
         "wiki"
-      ]
+      ],
+      "taginfo_count": 5040
     },
     {
       "value": "wood",
@@ -260,7 +277,8 @@
         "graphhopper",
         "osrm",
         "valhalla"
-      ]
+      ],
+      "taginfo_count": 279845
     },
     {
       "value": "stepping_stones",
@@ -268,21 +286,24 @@
       "sources": [
         "wiki",
         "valhalla"
-      ]
+      ],
+      "taginfo_count": 3647
     },
     {
       "value": "tiles",
       "category": "paved",
       "sources": [
         "wiki"
-      ]
+      ],
+      "taginfo_count": 3355
     },
     {
       "value": "fibre_reinforced_polymer_grate",
       "category": "paved",
       "sources": [
         "wiki"
-      ]
+      ],
+      "taginfo_count": 266
     },
     {
       "value": "unpaved",
@@ -302,7 +323,8 @@
         "graphhopper",
         "osrm",
         "valhalla"
-      ]
+      ],
+      "taginfo_count": 13018299
     },
     {
       "value": "compacted",
@@ -323,7 +345,8 @@
         "graphhopper",
         "osrm",
         "valhalla"
-      ]
+      ],
+      "taginfo_count": 1449592
     },
     {
       "value": "fine_gravel",
@@ -344,7 +367,8 @@
         "graphhopper",
         "osrm",
         "valhalla"
-      ]
+      ],
+      "taginfo_count": 549124
     },
     {
       "value": "gravel",
@@ -365,14 +389,16 @@
         "graphhopper",
         "osrm",
         "valhalla"
-      ]
+      ],
+      "taginfo_count": 2396384
     },
     {
       "value": "shells",
       "category": "unpaved",
       "sources": [
         "wiki"
-      ]
+      ],
+      "taginfo_count": 1251
     },
     {
       "value": "rock",
@@ -386,7 +412,8 @@
         "openstreetmap-americana",
         "openstreetmap-carto",
         "organic-maps"
-      ]
+      ],
+      "taginfo_count": 33301
     },
     {
       "value": "pebblestone",
@@ -405,7 +432,8 @@
         "graphhopper",
         "osrm",
         "valhalla"
-      ]
+      ],
+      "taginfo_count": 155882
     },
     {
       "value": "ground",
@@ -426,7 +454,8 @@
         "graphhopper",
         "osrm",
         "valhalla"
-      ]
+      ],
+      "taginfo_count": 3755760
     },
     {
       "value": "dirt",
@@ -447,7 +476,8 @@
         "graphhopper",
         "osrm",
         "valhalla"
-      ]
+      ],
+      "taginfo_count": 1962042
     },
     {
       "value": "earth",
@@ -464,7 +494,8 @@
         "osmand",
         "osrm",
         "valhalla"
-      ]
+      ],
+      "taginfo_count": 154694
     },
     {
       "value": "grass",
@@ -485,7 +516,8 @@
         "graphhopper",
         "osrm",
         "valhalla"
-      ]
+      ],
+      "taginfo_count": 1547041
     },
     {
       "value": "mud",
@@ -506,7 +538,8 @@
         "graphhopper",
         "osrm",
         "valhalla"
-      ]
+      ],
+      "taginfo_count": 33285
     },
     {
       "value": "sand",
@@ -527,7 +560,8 @@
         "graphhopper",
         "osrm",
         "valhalla"
-      ]
+      ],
+      "taginfo_count": 652245
     },
     {
       "value": "woodchips",
@@ -538,7 +572,8 @@
         "openstreetmap-americana",
         "openstreetmap-carto",
         "osrm"
-      ]
+      ],
+      "taginfo_count": 16920
     },
     {
       "value": "snow",
@@ -549,7 +584,8 @@
         "openstreetmap-americana",
         "openstreetmap-carto",
         "osrm"
-      ]
+      ],
+      "taginfo_count": 493
     },
     {
       "value": "ice",
@@ -561,7 +597,8 @@
         "openstreetmap-carto",
         "graphhopper",
         "osrm"
-      ]
+      ],
+      "taginfo_count": 2823
     },
     {
       "value": "salt",
@@ -571,7 +608,8 @@
         "osmand",
         "openstreetmap-carto",
         "graphhopper"
-      ]
+      ],
+      "taginfo_count": 482
     },
     {
       "value": "clay",
@@ -584,7 +622,8 @@
         "openstreetmap-carto",
         "brouter",
         "osrm"
-      ]
+      ],
+      "taginfo_count": 41671
     },
     {
       "value": "tartan",
@@ -593,42 +632,48 @@
         "wiki",
         "osrm",
         "valhalla"
-      ]
+      ],
+      "taginfo_count": 41934
     },
     {
       "value": "artificial_turf",
       "category": "sports",
       "sources": [
         "wiki"
-      ]
+      ],
+      "taginfo_count": 53296
     },
     {
       "value": "acrylic",
       "category": "sports",
       "sources": [
         "wiki"
-      ]
+      ],
+      "taginfo_count": 9408
     },
     {
       "value": "carpet",
       "category": "sports",
       "sources": [
         "wiki"
-      ]
+      ],
+      "taginfo_count": 395
     },
     {
       "value": "plastic",
       "category": "sports",
       "sources": [
         "wiki"
-      ]
+      ],
+      "taginfo_count": 1802
     },
     {
       "value": "rubber",
       "category": "sports",
       "sources": [
         "wiki"
-      ]
+      ],
+      "taginfo_count": 7956
     },
     {
       "value": "boardwalk",
@@ -636,7 +681,8 @@
       "note": "Treated as wood planks over water; paved equivalent in Valhalla",
       "sources": [
         "valhalla"
-      ]
+      ],
+      "taginfo_count": 646
     },
     {
       "value": "brick",
@@ -644,7 +690,8 @@
       "note": "Alias for bricks used in some routing engines",
       "sources": [
         "valhalla"
-      ]
+      ],
+      "taginfo_count": 7984
     },
     {
       "value": "cement",
@@ -653,7 +700,8 @@
       "sources": [
         "osrm",
         "valhalla"
-      ]
+      ],
+      "taginfo_count": 2639
     },
     {
       "value": "gravel_dirt",
@@ -669,7 +717,8 @@
       "note": "Variant of rock used in some routing engines",
       "sources": [
         "osrm"
-      ]
+      ],
+      "taginfo_count": 1428
     },
     {
       "value": "stone",
@@ -678,7 +727,8 @@
       "sources": [
         "osmand",
         "osrm"
-      ]
+      ],
+      "taginfo_count": 15808
     }
   ],
   "smoothness": [
@@ -695,7 +745,8 @@
         "brouter",
         "graphhopper",
         "valhalla"
-      ]
+      ],
+      "taginfo_count": 1737544
     },
     {
       "value": "good",
@@ -709,7 +760,8 @@
         "vespucci",
         "brouter",
         "graphhopper"
-      ]
+      ],
+      "taginfo_count": 2436806
     },
     {
       "value": "intermediate",
@@ -724,7 +776,8 @@
         "brouter",
         "graphhopper",
         "osrm"
-      ]
+      ],
+      "taginfo_count": 1017580
     },
     {
       "value": "bad",
@@ -740,7 +793,8 @@
         "graphhopper",
         "osrm",
         "valhalla"
-      ]
+      ],
+      "taginfo_count": 736357
     },
     {
       "value": "very_bad",
@@ -755,7 +809,8 @@
         "brouter",
         "graphhopper",
         "osrm"
-      ]
+      ],
+      "taginfo_count": 454425
     },
     {
       "value": "horrible",
@@ -770,7 +825,8 @@
         "brouter",
         "graphhopper",
         "osrm"
-      ]
+      ],
+      "taginfo_count": 196763
     },
     {
       "value": "very_horrible",
@@ -785,7 +841,8 @@
         "brouter",
         "graphhopper",
         "osrm"
-      ]
+      ],
+      "taginfo_count": 97001
     },
     {
       "value": "impassable",
@@ -801,7 +858,8 @@
         "graphhopper",
         "osrm",
         "valhalla"
-      ]
+      ],
+      "taginfo_count": 43489
     },
     {
       "value": "very_good",
@@ -811,7 +869,8 @@
         "josm",
         "vespucci",
         "brouter"
-      ]
+      ],
+      "taginfo_count": 6675
     }
   ],
   "tracktype": [
@@ -831,7 +890,8 @@
         "graphhopper",
         "osrm",
         "valhalla"
-      ]
+      ],
+      "taginfo_count": 1619511
     },
     {
       "value": "grade2",
@@ -847,7 +907,8 @@
         "shortbread",
         "brouter",
         "graphhopper"
-      ]
+      ],
+      "taginfo_count": 2241979
     },
     {
       "value": "grade3",
@@ -864,7 +925,8 @@
         "brouter",
         "graphhopper",
         "valhalla"
-      ]
+      ],
+      "taginfo_count": 2752865
     },
     {
       "value": "grade4",
@@ -880,7 +942,8 @@
         "shortbread",
         "brouter",
         "graphhopper"
-      ]
+      ],
+      "taginfo_count": 2128477
     },
     {
       "value": "grade5",
@@ -898,7 +961,8 @@
         "graphhopper",
         "osrm",
         "valhalla"
-      ]
+      ],
+      "taginfo_count": 1824996
     }
   ],
   "sac_scale": [
@@ -906,7 +970,8 @@
       "value": "strolling",
       "sources": [
         "wiki"
-      ]
+      ],
+      "taginfo_count": 4428
     },
     {
       "value": "hiking",
@@ -920,7 +985,8 @@
         "vespucci",
         "brouter",
         "graphhopper"
-      ]
+      ],
+      "taginfo_count": 510897
     },
     {
       "value": "mountain_hiking",
@@ -934,7 +1000,8 @@
         "vespucci",
         "brouter",
         "graphhopper"
-      ]
+      ],
+      "taginfo_count": 296111
     },
     {
       "value": "demanding_mountain_hiking",
@@ -948,7 +1015,8 @@
         "vespucci",
         "brouter",
         "graphhopper"
-      ]
+      ],
+      "taginfo_count": 55944
     },
     {
       "value": "alpine_hiking",
@@ -962,7 +1030,8 @@
         "vespucci",
         "brouter",
         "graphhopper"
-      ]
+      ],
+      "taginfo_count": 17169
     },
     {
       "value": "demanding_alpine_hiking",
@@ -976,7 +1045,8 @@
         "vespucci",
         "brouter",
         "graphhopper"
-      ]
+      ],
+      "taginfo_count": 5826
     },
     {
       "value": "difficult_alpine_hiking",
@@ -990,7 +1060,8 @@
         "vespucci",
         "brouter",
         "graphhopper"
-      ]
+      ],
+      "taginfo_count": 2731
     }
   ],
   "mtb:scale": [
@@ -1003,13 +1074,15 @@
         "mapcomplete",
         "vespucci",
         "brouter"
-      ]
+      ],
+      "taginfo_count": 351122
     },
     {
       "value": "0-",
       "sources": [
         "wiki"
-      ]
+      ],
+      "taginfo_count": 10632
     },
     {
       "value": "0+",
@@ -1018,7 +1091,8 @@
         "josm",
         "vespucci",
         "brouter"
-      ]
+      ],
+      "taginfo_count": 13189
     },
     {
       "value": "1",
@@ -1029,7 +1103,8 @@
         "mapcomplete",
         "vespucci",
         "brouter"
-      ]
+      ],
+      "taginfo_count": 356979
     },
     {
       "value": "1-",
@@ -1038,7 +1113,8 @@
         "josm",
         "vespucci",
         "brouter"
-      ]
+      ],
+      "taginfo_count": 2302
     },
     {
       "value": "1+",
@@ -1047,7 +1123,8 @@
         "josm",
         "vespucci",
         "brouter"
-      ]
+      ],
+      "taginfo_count": 4960
     },
     {
       "value": "2",
@@ -1058,7 +1135,8 @@
         "mapcomplete",
         "vespucci",
         "brouter"
-      ]
+      ],
+      "taginfo_count": 153514
     },
     {
       "value": "2-",
@@ -1067,7 +1145,8 @@
         "josm",
         "vespucci",
         "brouter"
-      ]
+      ],
+      "taginfo_count": 1016
     },
     {
       "value": "2+",
@@ -1076,7 +1155,8 @@
         "josm",
         "vespucci",
         "brouter"
-      ]
+      ],
+      "taginfo_count": 1307
     },
     {
       "value": "3",
@@ -1087,20 +1167,23 @@
         "mapcomplete",
         "vespucci",
         "brouter"
-      ]
+      ],
+      "taginfo_count": 51670
     },
     {
       "value": "3-",
       "sources": [
         "wiki"
-      ]
+      ],
+      "taginfo_count": 237
     },
     {
       "value": "3+",
       "sources": [
         "wiki",
         "josm"
-      ]
+      ],
+      "taginfo_count": 271
     },
     {
       "value": "4",
@@ -1111,20 +1194,23 @@
         "mapcomplete",
         "vespucci",
         "brouter"
-      ]
+      ],
+      "taginfo_count": 14344
     },
     {
       "value": "4-",
       "sources": [
         "wiki"
-      ]
+      ],
+      "taginfo_count": 28
     },
     {
       "value": "4+",
       "sources": [
         "wiki",
         "josm"
-      ]
+      ],
+      "taginfo_count": 44
     },
     {
       "value": "5",
@@ -1135,19 +1221,22 @@
         "mapcomplete",
         "vespucci",
         "brouter"
-      ]
+      ],
+      "taginfo_count": 5230
     },
     {
       "value": "5-",
       "sources": [
         "wiki"
-      ]
+      ],
+      "taginfo_count": 11
     },
     {
       "value": "5+",
       "sources": [
         "wiki"
-      ]
+      ],
+      "taginfo_count": 30
     },
     {
       "value": "6",
@@ -1158,7 +1247,8 @@
         "mapcomplete",
         "vespucci",
         "brouter"
-      ]
+      ],
+      "taginfo_count": 3110
     }
   ]
 }
