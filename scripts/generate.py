@@ -64,7 +64,7 @@ DISPLAY_NAMES = {
 
 LEVEL_ORDER = [
     "direct", "derived", "profile_dependent",
-    "user_defined_only", "absent", "unknown",
+    "user_defined_only", "fallback", "absent", "unknown",
 ]
 
 
@@ -132,9 +132,15 @@ def cell_support(spec, tag_key, tag_value):
             elif coverage == "none":
                 if better("user_defined_only", best):
                     best = "user_defined_only"
-            else:  # partial — value not listed → absent for this profile
-                if better("absent", best):
-                    best = "absent"
+            else:  # partial — value not listed
+                ub = entry.get("unknown_value_behavior", "")
+                if ub in ("fallback_default", "ignore"):
+                    # tag is silently ignored; road class or next fallback drives costing
+                    if better("fallback", best):
+                        best = "fallback"
+                else:
+                    if better("absent", best):
+                        best = "absent"
 
     return best or "unknown"
 
@@ -264,6 +270,7 @@ td.c.ge{border-right:2px solid #bbb}
 .derived{background:#4caf50;color:#fff}
 .profile_dependent{background:#fdd835}
 .user_defined_only{background:#bdbdbd}
+.fallback{background:#ffa726;color:#fff}
 .absent{background:#ef5350;color:#fff}
 .unknown{background:#f0f0f0;color:#ccc}
 .tag-sum td{background:#f5f5f5;border-top:2px solid #ddd}
@@ -312,6 +319,7 @@ td.c.ge{border-right:2px solid #bbb}
   <div class="ls"><div class="lc direct"></div>supported</div>
   <div class="ls"><div class="lc profile_dependent"></div>profile-dependent</div>
   <div class="ls"><div class="lc user_defined_only"></div>user-defined only</div>
+  <div class="ls"><div class="lc fallback"></div>ignored (road-class fallback)</div>
   <div class="ls"><div class="lc absent"></div>absent / gap</div>
   <div class="ls"><div class="lc unknown"></div>not documented</div>
 </div>
@@ -319,7 +327,7 @@ td.c.ge{border-right:2px solid #bbb}
 <div id="grid-wrap" style="display:none"></div>
 <div id="panel"><button id="pcls">✕</button></div>
 <script>
-const ICONS = {direct:'✓',derived:'✓',profile_dependent:'P',user_defined_only:'—',absent:'✗',unknown:'·'};
+const ICONS = {direct:'✓',derived:'✓',profile_dependent:'P',user_defined_only:'—',fallback:'~',absent:'✗',unknown:'·'};
 
 async function init() {
   let d;
@@ -439,11 +447,20 @@ function openPanel(app, tagKey, val, cell, vd) {
   const statusLabels = {
     direct:'Supported', derived:'Supported (derived)',
     profile_dependent:'Profile-dependent', user_defined_only:'User-defined only',
-    absent:'Absent — documented gap', unknown:'Not documented'
+    fallback:'Ignored — road-class fallback used', absent:'Absent — documented gap',
+    unknown:'Not documented'
   };
   let html = `<button id="pcls">✕</button>
     <h2>${esc(app.name)}</h2>
     <div class="psub"><code>${esc(tagKey)}=${esc(val)}</code> &nbsp;·&nbsp; ${esc(statusLabels[sup]||sup)}</div>`;
+
+  if (sup === 'fallback') {
+    html += `<section><h3>Status</h3><div class="ni">This value is not recognized by ${esc(app.name)}. The tag is silently discarded and the way's road class drives surface costing instead — routing continues but ignores the actual surface.</div></section>`;
+  } else if (sup === 'absent') {
+    html += `<section><h3>Status</h3><div class="ni">Documented gap: ${esc(app.name)} does not handle <code>${esc(tagKey)}=${esc(val)}</code>.</div></section>`;
+  } else if (sup === 'unknown') {
+    html += `<section><h3>Status</h3><div class="ni">No documentation for this combination. ${esc(app.name)} may or may not handle this value — the spec has not been verified.</div></section>`;
+  }
 
   if (vd?.note) {
     html += `<section><h3>Value note</h3><div class="ni">${esc(vd.note)}</div></section>`;
